@@ -1,0 +1,239 @@
+<style>
+ .sale-box h3 {
+    font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+    font-weight: {{ section.settings.font_weight_text }};
+    font-style :{{ section.settings.font_style_text }};
+    color:{{ section.settings.color_text }};
+
+}
+
+.sale-box p {
+    font-size:{{ section.settings.font_size_text_paragraph | append: 'px !important'}};
+    font-weight: {{ section.settings.font_weight_text_paragraph }};
+    font-style :{{ section.settings.font_style_text_paragraph }};
+    color:{{ section.settings.color_text }};
+}  
+ 
+.sale-box .theme-btn {
+    
+    color:{{section.settings.btn_clr}} !important;
+    background:{{section.settings.bg_clr}} !important;
+}
+
+.sale-box .theme-btn  :hover{
+    color:{{section.settings.btn_clr_hover}} !important;
+     background:{{section.settings.bg_clr_hover}} !important;
+}
+    
+
+
+</style>
+
+<section>
+    <div class="sale-wrapper">  
+        <div class="container">
+            <div class="sale-inner-wrapper">
+                <div class="sale-box">
+                    <h3>{{ section.settings.heading1 }}</h3>
+                    <p>{{ section.settings.paragraph }}</p>
+                    <a href="#" class="theme-btn style-white">{{ section.settings.link1text }}</a>
+                </div>
+                <div class="sale-border"></div>
+                <div class="sale-item">
+                    <img src="assets/images/resources/p-8.png" alt="Product">
+                </div>
+                <div class="sale-item v2">
+                    <img src="assets/images/resources/p-9.png" alt="Product">
+                </div>
+            </div>
+        </div>  
+    </div>
+</section>
+<section>
+
+{% schema %}
+    {
+        "name": "t:sections.sale-wrapper.name",
+        "settings": [
+    
+        {
+            "type":"header",
+            "content":"t:sections.sale-wrapper.Heading-1"
+        },
+            
+        {
+                "type": "text",
+                "id": "heading1",
+                "label": "Heading-1-Text",
+                "default": "Enter Text"
+        },
+        {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+
+        {
+            "type": "header",
+            "content": "t:sections.sale-wrapper.Paragraph"
+        },
+            {
+                "type": "text",
+                "id": "paragraph",
+                "label": "Paragraph",
+                "default": "Enter Text"
+            },
+    
+        {
+            "type": "range",
+            "id": "font_size_text_paragraph",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text_paragraph",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_paragraph",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+           },
+
+           {
+            "type":"header",
+            "content":"t:sections.sale-wrapper.Link-Text"
+        },
+        
+            {
+                "type": "text",
+                "id": "link1text",
+                "label": "Link_text_1",
+                "default": "textlink"
+            },
+            {
+        "type": "color",
+        "id": "bg_clr",
+        "label": "Button Background",
+        "default": "#446084"
+    },
+    {
+        "type": "color",
+        "id": "btn_clr",
+        "label": "Button Title",
+        "default": "#fff"
+    },
+    {
+        "type": "color",
+        "id": "bg_clr_hover",
+        "label": "Hover Button Background",
+        "default": "#364c69"
+    },
+    {
+        "type": "color",
+        "id": "btn_clr_hover",
+        "label": "Hover Button Title",
+        "default": "#fff"
+    },
+
+       
+            {
+                "type": "url",
+                "id": "link1",
+                "label": "Shop Link"    
+            }
+        ],
+        "presets": [
+            {
+                "name": "Sale Wrapper"
+            }
+        ]
+    }  
+    {% endschema %}

@@ -1,0 +1,31 @@
+<div class="bottom-menu">
+  <ul>
+    <li><a href="{{ section.settings.pagelink }}">{{ section.settings.page }}</a></li>
+  </ul>
+</div>
+
+                    {% schema %} 
+                        {
+                            "name": "Menu",
+                            "settings": [
+                                {
+                               "type":"page",
+                               "id":"page",
+                               "label":"page"
+                             },
+                             
+                             {
+                              "type": "url",
+                              "id": "pagelink",
+                              "label": "Page Link"
+                              }
+                              
+                            ],
+                          
+                            "presets": [
+                                {
+                                    "name": "Menu"
+                                }
+                            ]
+                        }
+                    {% endschema %}

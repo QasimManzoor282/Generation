@@ -1,0 +1,209 @@
+<style>
+    .cyber-content span{
+        font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+        font-weight: {{ section.settings.font_weight_text }};
+        font-style :{{ section.settings.font_style_text }};
+        color:{{ section.settings.color_text }};
+
+    }
+
+    .cyber-content h2  {
+        font-size:{{ section.settings.font_size_text_paragraph | append: 'px !important'}};
+        font-weight: {{ section.settings.font_weight_text_paragraph }};
+        font-style :{{ section.settings.font_style_text_paragraph }};
+        color:{{ section.settings.color_text }};
+    }  
+
+    .cyber-content .theme-btn {
+        
+        color:{{section.settings.btn_clr}} !important;
+
+    }
+
+    .cyber-content .theme-btn  :hover{
+        color:{{section.settings.btn_clr_hover}} !important;
+        background:{{section.settings.bg_clr_hover}} !important;
+    }
+        
+
+
+</style>
+
+<section>
+    <div class="cyber-wrapper" style="background-image:url('{{ section.settings.image1 | image_url: width: '1924' }}');">
+        <div class="container">
+            <div class="cyber-content">
+                <span>{{ section.settings.heading1 }}</span>
+                <h2>{{ section.settings.heading2 }}</h2>
+                <a href="{{ section.settings.link1 }}" class="theme-btn style-stroke">
+                    {{- section.settings.link1text -}}
+                </a>
+                <div class="cyber-preview">
+                    {% if section.settings.image2 != blank -%}
+                        {{- section.settings.image2 | image_url: width: '415' | image_tag: class: 'cyberimg-one', loading: 'lazy' -}}
+                    {%- endif %}
+                    {% if section.settings.image3 != blank -%}
+                        {{- section.settings.image3 | image_url: width: '166' | image_tag: class: 'cyberimg-two', loading: 'lazy' -}}
+                    {%- endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% schema %}
+{
+    "name": "Cyber",
+    "settings": [
+       
+        {
+            "type": "image_picker",
+            "id": "image1",
+            "label": "t:sections.cyber.cyber_image.settings.content.label__1"
+        },
+        {
+            "type": "image_picker",
+            "id": "image2",
+            "label": "t:sections.cyber.cyber_image.settings.content.label__2"
+        },
+        {
+            "type": "image_picker",
+            "id": "image3",
+            "label": "t:sections.cyber.cyber_image.settings.content.label__3"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.cyber.Heading-1"
+        },
+        {
+            "type": "text",
+            "id": "heading1",
+            "label": "t:sections.cyber.cyber_image.settings.content.label__4",
+            "default": "60% Off Cyber Deal!"
+        },
+        {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:sections.announcement-bar.blocks.announcement.settings.text.font_size",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+          "type": "header",
+          "content": "t:sections.designer-sec.Heading-2"
+        },
+        {
+            "type": "text",
+            "id": "heading2",
+            "label": "t:sections.cyber.cyber_image.settings.content.label__5",
+            "default": "Cyber Monday"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text_heading_2",
+            "label": "t:sections.designer-sec.blocks.designer-sec.settings.text.font_size_heading_2",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_2",
+            "label": "t:settings_schema.typography.settings.font_weight.label_2",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+        {
+            "type": "url",
+            "id": "link1",
+            "label": "t:sections.cyber.cyber_image.settings.content.label__6"
+        },
+        
+       
+    {
+        "type": "color",
+        "id": "btn_clr",
+        "label": "Button Text Color",
+        "default": "#fff"
+    },
+    {
+        "type": "color",
+        "id": "bg_clr_hover",
+        "label": "Hover Button Background-Color",
+        "default": "#364c69"
+    },
+    {
+        "type": "color",
+        "id": "btn_clr_hover",
+        "label": "Hover Button Title-Color",
+        "default": "#fff"
+    },
+        {
+            "type": "text",
+            "id": "link1text",
+            "label": "t:sections.cyber.cyber_image.settings.content.label__7",
+            "default": "Online Only: Use Code CNYERO"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Cyber"
+        }
+    ]
+}
+{% endschema %}

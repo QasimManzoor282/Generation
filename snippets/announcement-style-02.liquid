@@ -1,0 +1,27 @@
+<style> 
+ 
+  .topbar-wrapper { 
+      padding-top: {{ section.settings.padding_top }}px;  
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      background: {% if section.settings.bg_color_text_gradient != blank %}{{ section.settings.bg_color_text_gradient }}{% else %}{{ section.settings.bg_color_text }}{% endif %};      
+    
+    }
+ 
+  .topbar-item, .topbar-item p{
+      color: {{ section.settings.color_text }};
+      font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+      line-height: {{ section.settings.font_lineheight_text | append: 'px !important' }};
+      font-style: {{ section.settings.font_style_text }};
+      font-weight: {{ section.settings.font_weight_text }};
+  }
+  .topbar-item p span {
+    color: {{ section.settings.color_text2 }};
+    font-weight: {{ section.settings.font_weight_text2 }};
+  }
+/*  
+  .topbar-item span a {
+    color: {{ section.settings.color_text }};
+    font-weight: {{ section.settings.font_weight_text }};
+  } */
+
+</style>

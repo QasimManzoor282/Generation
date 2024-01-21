@@ -1,0 +1,41 @@
+<section>
+    <div class="video-wrapper" style="background-image:url('{{ section.settings.image1 | img_url: ' ' }}');">
+        <div class="container">
+            <div class="video-content">
+                <a href="{{ section.settings.link }}" data-fancybox="video-gallery" data-width="1000" data-height="600" class="video-btn"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-right" width="35" height="35" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+<path d="M10 18l6 -6l-6 -6v12" />
+</svg>
+<span class="has-scale-animation"></span>
+<span class="has-scale-animation has-delay-short"></span>
+</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+    {
+        "name": "video_wrapper",
+        "settings": [
+            
+             
+           {
+               "type": "image_picker",
+                "id": "image1",
+                "label": "Image 1"
+            },
+            {
+               "type": "url",
+                "id": "link",
+                "label": "Video Link"
+            }
+          
+           
+        ],
+        "presets": [
+            {
+                "name": "video_wrapper"
+            }
+        ]
+    }
+    {% endschema %}

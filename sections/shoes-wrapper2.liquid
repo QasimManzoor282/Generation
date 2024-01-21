@@ -1,0 +1,266 @@
+<style>
+.shoes_title-{{section.id}}{
+    font-size:{{ section.settings.font_size_text}}px !important;
+     font-weight:{{ section.settings.font_weight_text }} !important ;
+    font-style:{{ section.settings.font_style_text }} !important ;
+}
+
+.content_title-{{section.id}}{
+           font-size:{{ section.settings.font_size_text_heading_2}}px !important;
+            font-weight:{{ section.settings.font_weight_text_heading_2 }} !important ;
+            font-style:{{ section.settings.font_style_text_heading_2 }} !important ;
+}
+
+
+</style>                          
+                          <section>
+                                <div class="shoes-wrapper">
+                                    <div class="shoes-inner-wrapper">
+                                        {%- for block in section.blocks -%}
+                                        <div class="shoes-box">
+                                            <style>
+                                                .shoes_title-{{block.id}} {
+                                                   color:{{ block.settings.color_text }} !important;
+                                                }
+                                                .content_title-{{block.id}}{
+                                                  color:{{ block.settings.color_text }} !important;
+                                                }
+                                                .shoes_btn-{{block.id}}{
+                                                  color:{{block.settings.btn_clr}} !important;
+                                                  background:{{block.settings.bg_clr}} !important;
+                                                }
+                                                .shoes_btn-{{block.id}}:hover{
+                                                  color:{{block.settings.btn_clr_hover}} !important;
+                                                  background:{{block.settings.bg_clr_hover}} !important;
+                                                }
+                                                </style >
+                                            <div class="shoes-image">
+                                                <figure>
+                                                    {% if block.settings.image1 != blank %}
+                                                        <img src="{{ block.settings.image1 | img_url: 'large' }}" alt="Your Alt Text">
+                                                         {% endif %}
+                                                </figure>
+                                            </div>
+                                            <div class="shoes-content">
+                                                <h4>
+                                                    <a href="#" class="shoes-heading shoes_title-{{block.id}} shoes_title-{{section.id}}" >{{ block.settings.linktext1 }}</a>
+                                                </h4>
+                                                <p class="content-heading content_title-{{block.id}} content_title-{{section.id}}">{{ block.settings.description }}</p>
+                                                <a href="#"  class="shoes-btn shoes_btn-{{block.id}}">{{ block.settings.linktext2 }}</a>
+                                            </div>
+                                        </div>
+                                       {% endfor %}
+                                    </div>
+                                </div>
+                            </section>
+
+                            {% schema %}
+                                {
+                                    "name": "t:sections.shoes-wrapper2.name",
+                                    "max_blocks": 4,
+                                    "settings":[
+    {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+        
+        {
+            "type": "range",
+            "id": "font_size_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",   
+            "id": "font_style_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        }
+    
+  ],
+                                    "blocks": [
+                                        {
+                                            "type": "shoes-wrapper2",
+                                            "name": "t:sections.shoes-wrapper2.name",
+                                            "settings": [
+                                                {
+                                                    "type": "image_picker",
+                                                    "id": "image1",
+                                                    "label": "Image 1"
+                                                },
+                                                {
+                                                   "type": "color",
+                                                   "id": "color_text",
+                                                  "label": "t:settings_schema.colors.settings.colors_text.label__1",
+                                                  "default": "#b05d5d"
+                                                 },  
+                                                {
+                                                    "type": "text",
+                                                    "id": "linktext1",
+                                                    "label": "Shop Link-Text 1",
+                                                    "default": "enter text"
+                                                },
+                                                {
+                                                    "type": "url",
+                                                    "id": "link1",
+                                                    "label": "Shop Link 1"
+                                                    
+                                                }, 
+                                               
+                                                {
+                                                    "type": "text",
+                                                    "id": "description",
+                                                    "label": "Description",
+                                                    "default": "enter text"
+                                                },
+                                                {
+                                                    "type": "text",
+                                                    "id": "linktext2",
+                                                    "label": "Shop Link-Text 2",
+                                                    "default": "enter text"
+                                                },
+                                                {
+        "type": "color",
+        "id": "bg_clr",
+        "label": "Button Background",
+        "default": "#446084"
+    },
+    {
+        "type": "color",
+        "id": "btn_clr",
+        "label": "Button Title",
+        "default": "#fff"
+    },
+    {
+        "type": "color",
+        "id": "bg_clr_hover",
+        "label": "Hover Button Background",
+        "default": "#364c69"
+    },
+    {
+        "type": "color",
+        "id": "btn_clr_hover",
+        "label": "Hover Button Title",
+        "default": "#fff"
+    },
+                                                {
+                                                    "type": "url",
+                                                    "id": "link2",
+                                                    "label": "Shop Link 2"
+                                                    
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "presets": [
+                                        {
+                                            "name": "t:sections.shoes-wrapper2.name"
+                                        }
+                                    ]
+                                }
+                                {% endschema %}  
+                                

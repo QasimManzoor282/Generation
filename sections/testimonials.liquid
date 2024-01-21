@@ -1,0 +1,295 @@
+<style>
+.testimonial-wrapper .sec-tl span {
+    color: {{ section.settings.color_text }};
+   font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+   font-style:{{ section.settings.font_style_text }};
+   font-weight: {{ section.settings.font_weight_text }};
+}
+
+.testimonial-wrapper .sec-tl h2 {
+    color: {{ section.settings.color_text }};
+    font-size: {{ section.settings.font_size_text_heading_2 | append: 'px !important' }};
+    font-style: {{ section.settings.font_style_text_heading_2 }};
+    font-weight: {{ section.settings.font_weight_text_heading_2 }};
+}
+</style>
+<section>
+    <div class="testimonial-wrapper">    
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="sec-tl">
+                        <span>{{ section.settings.heading1 }}</span>  
+                        <h2>{{ section.settings.heading2 }}</h2>
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="testimonial-quotes">
+                            <svg xmlns="http://www.w3.org/2000/svg" id="quotes" height="90" viewBox="0 0 512 512" width="90">
+                                <path d="m271 481h-25c-11.028 0-20-8.972-20-20 0-.282 70.005-410.453 70.005-410.453.242-10.82 9.118-19.547 19.995-19.547h150c11.028 0 20 8.972 20 20 0 .743-195.461 412.099-195.461 412.099-1.404 3.121-8.635 17.901-19.539 17.901zm-34.992-19.618c.201 5.338 4.606 9.618 9.992 9.618h25c2.949 0 7.869-6.351 10.439-12.049.014-.031.03-.068.045-.099l194.464-408.872c-.512-5.037-4.778-8.98-9.948-8.98h-150c-5.514 0-10 4.486-10 10 0 .282-.023.563-.071.841zm-165.008 19.618h-25c-11.028 0-20-8.972-20-20 0-.282 70.005-410.453 70.005-410.453.242-10.82 9.119-19.547 19.995-19.547h150c11.028 0 20 8.972 20 20 0 .743-195.461 412.099-195.461 412.099-1.404 3.121-8.635 17.901-19.539 17.901zm-34.992-19.618c.201 5.338 4.606 9.618 9.992 9.618h25c2.949 0 7.869-6.351 10.439-12.049.014-.031.031-.068.046-.099l194.463-408.872c-.512-5.037-4.778-8.98-9.948-8.98h-150c-5.514 0-10 4.486-10 10 0 .282-.024.563-.071.841z" fill="rgb(0,0,0)" /></svg>
+                        </div>
+                        <div class="testimonial-review">
+                            {% for block in section.blocks %}
+                            <div class="testimonial-item">
+                                <p>{{ block.settings.text1 }}</p>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-rating">
+                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                            <g>
+                                                <path style="fill:#e1760d;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                            </g>
+                                        </svg>
+                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                            <g>
+                                                <path style="fill:#e1760d;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                            </g>
+                                        </svg>
+                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                            <g>
+                                                <path style="fill:#e1760d;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                            </g>
+                                        </svg>
+                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                            <g>
+                                                <path style="fill:#e1760d;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                            </g>
+                                        </svg>
+                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                            <g>
+                                                <path style="fill:#e1760d;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <h5>{{ block.settings.author1 }}</h5>
+                                        <span>{{ block.settings.text2 }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="testimonial-images">        
+                        <div class="testimonial-dots">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+$('.testimonial-review').slick({
+    infinite: true,
+    speed: 800,
+    autoplaySpeed: 3000,
+    autoplay: true,
+    arrows: false,
+    dots: true,
+    slidesToShow: 1,
+    fade: true,
+    onhover: true,
+    appendDots: $('.testimonial-dots')
+});
+
+</script>
+
+{% schema %}
+    {
+        "name": "t:sections.testimonials.name",
+        "max_blocks": 3,
+        "settings": [
+            {
+             "type": "header",
+             "content": "t:sections.testimonials.Heading-1"
+            },
+            {
+                "type": "text",
+                "id": "heading1",
+                "label": "Heading-1-Text", 
+                "default": "Enter Text"
+            },
+            {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+            {
+                "type": "text",
+                "id": "heading2",
+                "label": "heading-2-Text",
+                "default": "Enter Text"
+            },
+       
+        {
+            "type": "range",
+            "id": "font_size_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        }
+
+        ],
+
+        "blocks": [
+            {
+                "type": "testimonial",
+                "name": "Testimonials",
+                "settings": [
+                    {
+                    "type": "image_picker",
+                    "id": "image1",
+                     "label": "Background Image"
+                     },
+
+                    {
+                        "type": "text",
+                        "id": "text1",
+                        "label": "Testimonial1",
+                        "default": "Description "
+                    },
+                    {
+                        "type": "text",
+                        "id": "author1",
+                        "label": "Author Name",
+                        "default": "Author Name"
+                    },
+                   
+                    {
+                        "type": "text",
+                        "id": "text2",
+                        "label": "Author review",
+                        "default": "Google Review"
+                    }
+                    
+
+                ]
+                
+            }
+        ],
+      
+        "presets": [
+            {
+                "name": "Testimonials"
+            }
+        ]
+    }
+{% endschema %}
+

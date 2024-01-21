@@ -1,0 +1,244 @@
+<style>
+
+.designer-box .sec-tl span  {
+      color: {{ section.settings.color_text }};
+      font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+      font-style: {{ section.settings.font_style_text }};
+      font-weight: {{ section.settings.font_weight_text }};
+
+  }
+  .designer-box .sec-tl h2 {
+      color: {{ section.settings.color_text }};
+      font-size: {{ section.settings.font_size_text_heading_2 | append: 'px !important' }};
+      font-weight: {{ section.settings.font_weight_text_heading_2 }};
+
+     
+  }  
+</style>
+
+
+<section>
+  <div class="designer-wrapper" style="background-image:url({{ section.settings.image1 | img_url: '' }});">
+    <div class="designer-box">
+      <div class="container">
+        <div class="row justify-content-end gx-0">
+          <div class="col-lg-8">
+            <div class="designer-content">
+              <div class="sec-tl">
+                <span>{{ section.settings.heading1 }}</span>
+                <h2>{{ section.settings.heading2 }}</h2>
+              </div>   
+              <div class="designer-products">  
+               <div class="row">
+                {%- if section.settings.enable_collection -%} 
+                  {% assign collection = section.settings.collection %}
+                  {% for product in collection.products limit: 3%}
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                      <div class="product-card">
+                        <div class="card-image">
+                          {% assign images = product.media | where: 'media_type', 'image' %}
+
+                          {% for image in images limit: 2 %}
+                            {%- if forloop.first -%}
+                              {{-
+                                image
+                                | image_url: height: 575, width: 500, crop: 'center'
+                                | image_tag: class: 'primary-image'
+                              }}
+                            {% else %}  
+                              {{- 
+                                image
+                                | image_url: height: 575, width: 500, crop: 'center'
+                                | image_tag: class: 'secondary-image'
+                              }}
+                            {%- endif -%}
+                          {% endfor %}
+                        </div>
+                        <div class="card-content">
+                          <div class="card-info">
+                            <span class="product-price">{{ product.price | money_with_currency }}</span>
+                            <div class="product-rating">
+                              <svg viewBox="0 0 24 24" width="18" height="18">
+                                <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                              </svg>
+                              12
+                            </div>
+                          </div>
+                          <div class="product-name">
+                            <a class="product-card-link" href="{{ product.url }}">
+                              <h4>{{ product.title }}</h4>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                {%- endif -%}
+                </div>
+             
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+   {   "name": "t:sections.designer-sec.name",
+  
+       "settings": [
+        {
+          "type": "header",
+          "content": "t:sections.designer-sec.Heading-1"
+        },
+        {
+               "type": "text",
+               "id": "heading1",
+               "label": "Heading-1-Text",
+               "default": "Enter Text"
+           },
+        {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+        {
+          "type": "header",
+          "content": "t:sections.designer-sec.Heading-2"
+        },
+        {
+               "type": "text",
+               "id": "heading2",
+               "label": "Heading-2-Text",   
+               "default": "Enter Text"
+         }
+          ,
+        {
+            "type": "range",
+            "id": "font_size_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_2",
+            "label": "t:settings_schema.typography.settings.font_weight.label_2",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_collection",
+            "label": "t:sections.header.settings.header_layout.enable_collection",
+            "default": true
+        },
+         {
+           "type":"collection",
+           "id":"collection",
+           "label":"Collection"
+         },
+
+            {
+             "type": "image_picker",
+             "id": "image1",
+             "label": "Background Image"
+           }
+        
+       ],
+       "presets": [
+           {
+               "name": "Designer Section"
+           }
+       ]
+   }
+{% endschema %}

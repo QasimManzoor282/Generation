@@ -1,0 +1,541 @@
+{%- liquid
+    assign colors_bg = section.settings.colors_bg
+    assign colors_bg_gradient = section.settings.colors_bg_gradient
+    assign padding_top = section.settings.mg_top_desktop | append: 'px'
+    assign padding_bottom = section.settings.mg_bottom_desktop | append: 'px'
+    assign padding_top_tablet = section.settings.mg_top_tablet | append: 'px'
+    assign padding_bottom_tablet = section.settings.mg_bottom_tablet | append: 'px'
+    assign padding_top_mobile = section.settings.mg_top_mobile | append: 'px'
+    assign padding_bottom_mobile = section.settings.mg_bottom_mobile | append: 'px'
+    assign container = section.settings.container
+    assign has_sidebar = false
+    assign show_sidebar = section.settings.show_sidebar
+    assign show_filter = section.settings.show_filter
+    assign sidebar_type = section.settings.sidebar_type
+    assign sidebar_position = section.settings.sidebar_position
+    assign show_sidebar_collapse = section.settings.show_sidebar_collapse
+    assign sidebar_collapse_default = section.settings.sidebar_collapse_default
+    if show_sidebar
+        if show_filter
+            assign has_sidebar = true
+            assign filter_swatch = section.settings.filter_swatch
+            assign filter_swatch_type = section.settings.filter_swatch_type
+            assign filter_rectangle = section.settings.filter_rectangle
+        elsif section.blocks.size > 0
+            assign has_sidebar = true
+        endif
+        if has_sidebar
+            assign sidebar_heading_font = section.settings.sidebar_heading_font
+            assign sidebar_heading_font_size = section.settings.sidebar_heading_font_size
+            assign sidebar_heading_font_weight = section.settings.sidebar_heading_font_weight
+            assign sidebar_heading_text_transform = section.settings.sidebar_heading_text_transform
+            assign enable_sticky = section.settings.enable_sticky
+            assign sidebar_layout = section.settings.sidebar_layout
+        endif
+    endif
+    assign sort_by = collection.sort_by | default: collection.default_sort_by
+    assign sort_options = collection.sort_options
+    assign layout = section.settings.layout
+    if cart.attributes.pagination != blank and cart.attributes.pagination
+        assign products_per_page = 2
+    else
+        assign products_per_page =  3
+    endif
+    assign show_toolbar = true
+    if show_toolbar
+        assign show_sorting = true
+        assign show_item_per_page = true
+        assign show_view_as = true
+    endif
+    assign show_infinite_scrolling = section.settings.show_infinite_scrolling
+-%}
+
+{% render 'component-product-listing-style' %}
+<script src="{{ 'sticky-add-to-cart.js' | asset_url }}" defer="defer"></script>
+
+ <!-- Breadcrumb area Start -->
+ <div class="breadcrumb-area bg--white-6 pt--60 pb--70 pt-lg--40 pb-lg--50 pt-md--30 pb-md--40">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-12 text-center">
+              <h1 class="page-title">Shop Grid View</h1>
+              <ul class="breadcrumb justify-content-center">
+                  <li><a href="index.html">Home</a></li>
+                  <li class="current"><span>Shop Pages</span></li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Breadcrumb area End -->
+
+
+{% paginate collection.products by 9 %} 
+ <div id="content" class="main-content-wrapper">
+  <div class="shop-page-wrapper">
+    <div class="container">
+      <div class="row pt--45 pt-md--35 pt-sm--20 pb--60 pb-md--50 pb-sm--40">
+        <div class="col-12">
+          {%- if show_sorting or show_item_per_page -%}
+          <div class="shop-toolbar">
+            <div class="shop-toolbar__inner">
+              <div class="row align-items-center">
+                <div class="col-md-6 text-md-start text-center mb-sm--20">
+                    {%- if show_item_per_page -%}
+                  <div class="shop-toolbar__left">
+                    <p class="product-pages">Showing 1–{{ collection.products_count }} of {{ collection.products_count }} results</p>
+                  </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                  {%- if show_sorting -%}
+                  <div class="shop-toolbar__right">
+                    <a href="#" class="product-filter-btn shop-toolbar__btn">
+                      <span>Filters</span>
+                      <i></i>
+                    </a>
+                    <div class="product-ordering">
+                      <a href="" class="product-ordering__btn shop-toolbar__btn">
+                        <span>Short By</span>
+                        <i></i>
+                      </a>
+                      <ul class="product-ordering__list">
+                          {%- for option in sort_options -%}
+                           <li {% if option.value == sort_by %}class="active"{% endif %} data-sort-by-item>
+                              {% assign value = option.value | handleize %}
+                               <a class="text" href="javascript:void(0)" data-href="{{ value }}" data-value="{{ value }}">
+                               {{ option.name | escape }}
+                                </a>
+                           </li>
+                         {% endfor%}
+                      </ul>
+                    </div>
+                  </div>
+                  {% endif%}
+                </div>
+              </div>
+            </div>
+             <div class="advanced-product-filters">
+  <div class="product-filter">
+    <div class="row">
+       
+      <div class="col-md-3">
+        <div class="product-widget product-widget--price">
+          <h3 class="widget-title">Price</h3>
+          <ul class="product-widget__list">
+            {% for price_range in shop.price_ranges %}
+              <li>
+                <a href="{{ shop.url }}/collections/all/{{ price_range.handle }}">
+                  <span class="ammount">{{ price_range.min_price | money }}</span>
+                  <span> - </span>
+                  <span class="ammount">{{ price_range.max_price | money }}</span>
+                </a>
+              </li>
+            {% endfor %}
+            <li>
+              <a href="{{ shop.url }}/collections/all">
+                <span class="ammount">$100.00</span>
+                <span> + </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="product-widget product-widget--brand">
+          <h3 class="widget-title">Brands</h3>
+          <ul class="product-widget__list">
+            {% for vendor in shop.vendors %}
+              <li>
+                <a href="{{ shop.url }}/collections/all/{{ vendor | handleize }}">
+                  <span>{{ vendor }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="product-widget product-widget--color">
+          <h3 class="widget-title">Color</h3>
+          <ul class="product-widget__list product-color-swatch">
+           
+            {% for color in shop.colors %}
+              <li>
+                <a href="{{ shop.url }}/collections/all/{{ color | handleize }}"
+                   class="product-color-swatch-btn {{ color | handleize }}">
+                  <span class="product-color-swatch-label">{{ color }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="product-widget product-widget--size">
+          <h3 class="widget-title">Size</h3>
+          <ul class="product-widget__list">
+              {% if collection.all_tags.size > 0 %}
+                 <ul class="tag-filters">
+                 {% for tag in collection.all_tags %}
+                    {% if current_tags contains tag %}
+                   <li class="tag-filters__item active">{{ tag | link_to_remove_tag: tag }}</li>
+                   {% else %}
+                  <li class="tag-filters__item">{{ tag | link_to_add_tag: tag }}</li>
+                {% endif %}
+                  {% endfor %}
+                  </ul>
+               {% endif %}
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+    <a href="#" class="btn-close"><i class="dl-icon-close"></i></a>
+  </div>
+</div>
+
+
+          <!--<div class="advanced-product-filters">
+                         <div class="product-filter">
+                              <div class="row">
+                              
+                                   <div class="col-md-3">
+                                      <div class="product-widget product-widget--price">
+                                          <h3 class="widget-title">Price</h3>
+                                        
+                                          <ul class="product-widget__list">
+                                                 
+                                              <li>
+                                                  <a href="shop-sidebar.html">
+                                                      <span class="ammount">$20.00</span>
+                                                      <span> - </span>
+                                                      <span class="ammount">$40.00</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html">
+                                                      <span class="ammount">$40.00</span>
+                                                      <span> - </span>
+                                                      <span class="ammount">$50.00</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html">
+                                                      <span class="ammount">$50.00</span>
+                                                      <span> - </span>
+                                                      <span class="ammount">$60.00</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html">
+                                                      <span class="ammount">$60.00</span>
+                                                      <span> - </span>
+                                                      <span class="ammount">$80.00</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html">
+                                                      <span class="ammount">$80.00</span>
+                                                      <span> - </span>
+                                                      <span class="ammount">$100.00</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html">
+                                                      <span class="ammount">$100.00</span>
+                                                      <span> + </span>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  
+                                    <div class="col-md-3">
+                                    <div class="product-widget product-widget--brand">
+                                     <h3 class="widget-title">Brands</h3>
+                                       <ul class="product-widget__list">
+                                         {% assign brands = ['Airi', 'Mango', 'Valention', 'Zara'] %}
+
+                                           {% for brand in brands %}
+                                                 <li>
+                                          <a href="{{ 'shop-sidebar.html' | asset_url }}">
+                                            <span>{{ vendor }}</span>
+                                                  </a>
+                                                  </li>
+                                                {% endfor %}
+                                                 </ul>
+                                       </div>
+                                     </div>
+                                  <div class="col-md-3">
+                                      <div class="product-widget product-widget--color">
+                                          <h3 class="widget-title">Color</h3>
+                                          <ul class="product-widget__list product-color-swatch">
+                                              <li>
+                                                  <a href="shop-sidebar.html"
+                                                      class="product-color-swatch-btn blue">
+                                                      <span class="product-color-swatch-label">Blue</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html"
+                                                      class="product-color-swatch-btn green">
+                                                      <span class="product-color-swatch-label">Green</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html"
+                                                      class="product-color-swatch-btn pink">
+                                                      <span class="product-color-swatch-label">Pink</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html"
+                                                      class="product-color-swatch-btn red">
+                                                      <span class="product-color-swatch-label">Red</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html"
+                                                      class="product-color-swatch-btn grey">
+                                                      <span class="product-color-swatch-label">Grey</span>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="product-widget product-widget--size">
+                                          <h3 class="widget-title">Size</h3>
+                                          <ul class="product-widget__list">
+                                              <li>
+                                                  <a href="shop-sidebar.html">
+                                                      <span>L</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html">
+                                                      <span>M</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html">
+                                                      <span>S</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html">
+                                                      <span>XL</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="shop-sidebar.html">
+                                                      <span>XXL</span>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                              <a href="#" class="btn-close"><i class="dl-icon-close"></i></a>
+                       </div>
+                 </div>
+          </div>-->
+        {% endif %}
+            {%- if collection.products.size == 0 -%}
+            {% else %}
+          <div class="shop-products">
+            <div class="row grid-space-30">
+               {%- for product in collection.products -%}
+                 {% render 'product-grid-layout',
+                  product_card_product: product,
+                  serial: forloop.index,
+                   sectionId: section.id,
+                 show_list: true,
+                  loading: true
+                 %}
+                 {% endfor %}
+            </div>
+          </div>
+          <!-- Pagination code -->
+          {%- if paginate.pages > 1 -%}
+                                {% render 'pagination-listing',
+                                        paginate: paginate,
+                                        show_infinite_scrolling: show_infinite_scrolling,
+                                        anchor: '',
+                                        class: 'pagination-wrapper text-center'
+                                %}
+                            {%- endif -%}
+                        {% endif %}
+                    {%- endpaginate -%}
+        </div>
+           {%- if has_sidebar -%}
+        <div class="col-lg-3 order-lg-1 mt--30 mt-md--40" id="primary-sidebar">
+                            <div class="sidebar-widget">
+                                <!-- Category Widget Start -->
+                                <div class="product-widget categroy-widget mb--35 mb-md--30">
+                                    <h3 class="widget-title">Categories</h3>
+                                    <ul class="prouduct-categories product-widget__list">
+                                        <li><a href="">Accessories</a><span class="count">(0)</span></li>
+                                        <li><a href="">Brands</a><span class="count">(0)</span></li>
+                                        <li><a href="">Clothing</a><span class="count">(1)</span></li>
+                                        <li><a href="">Fashions</a><span class="count">(21)</span></li>
+                                        <li><a href="">Furniture</a><span class="count">(20)</span></li>
+                                        <li><a href="">Gifts</a><span class="count">(0)</span></li>
+                                        <li><a href="">Kids</a><span class="count">(0)</span></li>
+                                        <li><a href="">Men</a><span class="count">(0)</span></li>
+                                        <li><a href="">New in</a><span class="count">(0)</span></li>
+                                        <li><a href="">Outlet</a><span class="count">(0)</span></li>
+                                        <li><a href="">Shoes</a><span class="count">(0)</span></li>
+                                        <li><a href="">Wallets</a><span class="count">(0)</span></li>
+                                        <li><a href="">Women</a><span class="count">(0)</span></li>
+                                    </ul>
+                                </div>
+                                <!-- Category Widget Start -->
+
+                                <!-- Price Filter Widget Start -->
+                                <div class="product-widget product-price-widget mb--40 mb-md--35">
+                                    <h3 class="widget-title">Price</h3>
+                                    <div class="widget_content">
+                                        <form action="#" method="post">
+                                            <div id="slider-range"
+                                                class="price-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                <div class="ui-slider-range ui-widget-header ui-corner-all"
+                                                    style="left: 16.6667%; width: 79.1667%;">
+
+                                                </div>
+                                                <span class="ui-slider-handle ui-state-default ui-corner-all"
+                                                    tabindex="0" style="left: 16.6667%;">
+
+                                                </span>
+                                                <span class="ui-slider-handle ui-state-default ui-corner-all"
+                                                    tabindex="0" style="left: 95.8333%;">
+
+                                                </span>
+                                            </div>
+                                            <div class="filter-price">
+                                                <div class="filter-price__count">
+                                                    <div class="filter-price__input-group mb--20">
+                                                        <span>Price: </span>
+                                                        <input type="text" id="amount" class="amount-range" readonly="">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-style-1 sidebar-btn">
+                                                        filter
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- Price Filter Widget End -->
+
+                                <!-- Product Size Widget Start -->
+                                <div class="product-widget product-widget--size mb--25 mb-md--20">
+                                    <h3 class="widget-title">Size</h3>
+                                    <ul class="product-widget__list two-column-list">
+                                        <li><a href="shop-sidebar.html">L</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">S</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">XXl</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">M</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">XL</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">L</a><span class="count">(2)</span></li>
+                                    </ul>
+                                </div>
+                                <!-- Product Size Widget End -->
+
+                                <!-- Product Color Widget Start -->
+                                <div class="product-widget product-widget--Color mb--25 mb-md--20">
+                                    <h3 class="widget-title">Color</h3>
+                                    <ul class="product-widget__list two-column-list">
+                                        <li><a href="shop-sidebar.html">Blue</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">Pink</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">White</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">Green</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">Red</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">Black</a><span class="count">(2)</span></li>
+                                    </ul>
+                                </div>
+                                <!-- Product Color Widget End -->
+
+                                <!-- Product Brand Widget Start -->
+                                <div class="product-widget product-widget--brand mb--40 mb-md--30">
+                                    <h3 class="widget-title">Brands</h3>
+                                    <ul class="product-widget__list">
+                                        <li><a href="shop-sidebar.html">Airi</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">Mango</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">Valention</a><span class="count">(2)</span></li>
+                                        <li><a href="shop-sidebar.html">Zara</a><span class="count">(2)</span></li>
+                                    </ul>
+                                </div>
+                                <!-- Product Brand Widget End -->
+
+                                <!-- Category Widget Start -->
+                                <div class="product-widget tag-widget mb--35 mb-md--30">
+                                    <h3 class="widget-title">Categories</h3>
+                                    <div class="tagcloud">
+                                        <a href="shop-sidebar.html">chair</a>
+                                        <a href="shop-sidebar.html">deco</a>
+                                        <a href="shop-sidebar.html">dress</a>
+                                        <a href="shop-sidebar.html">fashion</a>
+                                        <a href="shop-sidebar.html">furniture</a>
+                                        <a href="shop-sidebar.html">light</a>
+                                        <a href="shop-sidebar.html">living</a>
+                                        <a href="shop-sidebar.html">sofa</a>
+                                        <a href="shop-sidebar.html">table</a>
+                                        <a href="shop-sidebar.html">women</a>
+                                    </div>
+                                </div>
+                                <!-- Category Widget Start -->
+
+                                <!-- Promo Widget Start -->
+                                <div class="product-widget promo-widget">
+                                    <div class="banner-box banner-type-3 banner-type-3-2 banner-hover-1">
+                                        <div class="banner-inner">
+                                            <div class="banner-image">
+                                                <img src="assets/img/banner/ad-banner.jpg" alt="Banner">
+                                            </div>
+                                            <div class="banner-info">
+                                                <h2 class="banner-title-11">New <br> <strong>Season</strong></h2>
+                                            </div>
+                                            <a class="banner-link banner-overlay" href="shop-sidebar.html">Shop Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Promo Widget End -->
+                          </div>
+                    {% endif %}
+       
+    </div>
+   </div>
+ </div>
+
+    
+
+
+<!--pagination-->
+
+<script src="{{ 'toolbar.js' | asset_url }}" defer="defer"></script>
+<script>
+    $(document).ready(function(){
+      $(".pagination-page-total").appendTo(".toolbar-limitView");
+    });
+  </script>
+<script>
+	$(document).on('click', '.toolbar-main .toolbar-filters-btn', (event) => {
+		event.preventDefault();
+		event.stopPropagation();
+		$('.toolbar-main .collection-sidebar').toggleClass('open');
+	});
+</script>
+
+<!--sidebat-->
+<script>
+	$(document).on('click', '.toolbar-main .toolbar-filters-btn', (event) => {
+		event.preventDefault();
+		event.stopPropagation();
+		$('.toolbar-main .collection-sidebar').toggleClass('open');
+	});
+</script>

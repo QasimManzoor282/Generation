@@ -1,0 +1,245 @@
+<style>
+.discount-info h2 {
+      color: {{ section.settings.color_text }};
+      font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+      font-weight: {{ section.settings.font_weight_text }};  
+    
+}
+.discount-info h3 {
+     color: {{ section.settings.color_text }};
+      font-size: {{ section.settings.font_size_text_heading_2 | append: 'px !important' }};
+      font-weight: {{ section.settings.font_weight_text_heading_2 }};
+    
+}
+.discount-info p {
+     color: {{ section.settings.color_text }};
+      font-size: {{ section.settings.font_size_text_heading_3 | append: 'px !important' }};
+      font-weight: {{ section.settings.font_weight_text_heading_3 }};
+}
+</style>
+<section>
+    <div class="discount-wrapper" style="background-image:url({{ section.settings.image1 | img_url: '' }});">
+        <div class="discount-box">
+            <div  class="discount-items">
+                {% assign collection = section.settings.collection %}
+                {% for product in collection.products limit: 6 %}
+                <div class="discount-item">
+                    <a href="#"> {% assign images = product.media | where: 'media_type', 'image' %}
+
+                    {% for image in images limit: 2  %}
+                    {%- if forloop.first -%}
+                   {{- image | image_url: height:575, width:500, crop:'center' | image_tag: class:'primary-image'}}
+                   {% else %}
+                    {{- image | image_url: height:575, width:500, crop:'center' | image_tag: class:'secondary-image'}}
+                    {%- endif -%}
+                    {% endfor %}
+                    </a>
+                    <div class="discount-percent">
+                        -30%
+                    </div>
+                </div>
+                {% endfor %}   
+            </div>
+        </div>
+        <div class="discount-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="discount-info">
+                            <h2>{{ section.settings.heading1 }}<span>%</span></h2>
+                            <div class="color-bg">
+                                <h3>{{ section.settings.heading2 }}</h3>
+                            </div>
+                            <p>{{ section.settings.heading3 }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>  
+{% schema %}
+    {
+        "name": "t:sections.discount-sec.name",
+        "settings": [
+            {
+           "type":"collection",
+           "id":"collection",
+           "label":"Collection"
+         },
+            {
+            "type": "image_picker",
+            "id": "image1",
+            "label": "Background Image"
+             },
+             {
+                "type": "header",
+               "content": "t:sections.discount-sec.Heading-1"
+             },
+            {
+                "type": "text",
+                "id": "heading1",
+                "label": "Heading-1-Text",
+                "default": "Enter Text"
+            },
+            {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+    
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+
+            {
+                "type": "text",
+                "id": "heading2",
+                "label": "Heading 2",
+                "default": "Enter Text"
+            },
+       
+        {
+            "type": "range",
+            "id": "font_size_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        }, 
+      
+        {
+            "type": "select",
+            "id": "font_weight_text_heading_2",
+            "label": "Font Weight",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+            {
+                "type": "header",
+               "content": "t:sections.discount-sec.Heading-3"
+             },
+            {
+                "type": "text",
+                "id": "heading3",
+                "label": "Heading 3",
+                "default": "Enter Text"
+            },
+        
+        {
+            "type": "range",
+            "id": "font_size_text_heading_3",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+       
+        {
+            "type": "select",
+            "id": "font_weight_text_heading_3",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        }
+        ],
+        "presets": [
+            {
+                "name": "Discount Section"
+            }
+        ]
+    }
+    {% endschema %}
+    
+    

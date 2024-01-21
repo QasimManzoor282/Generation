@@ -1,0 +1,159 @@
+<div class="container">
+    <section id="product_recommendation" class="row content-justify-center my-5">
+     
+      <div id="product_recommendation_body" class="row">
+  
+      
+        <div class="similar-wrapper">
+          <div class="container">
+              <div class="sec-tl">
+                  <h2>{{ section.settings.heading1 }}</h2>
+              </div>
+              <ul class="product-slider products product-style-one">
+                  {% assign collection = section.settings.collection %}
+                  {% for product in collection.products limit: 4 %}
+                  <li class="product-box has-post-thumbnail">
+                      <div class="product-image">
+                          <a href="#">
+                              {% assign images = product.media | where: 'media_type', 'image' %}
+                              {% for image in images limit: 2 %}
+                                  {%- if forloop.first -%}
+                                      {{- image | image_url: height:575, width:500, crop:'center' | image_tag: class:'primary-image'}}
+                                  {% else %}
+                                      {{- image | image_url: height:575, width:500, crop:'center' | image_tag: class:'secondary-image'}}
+                                  {%- endif -%}
+                              {% endfor %}
+                          </a>
+                          <div class="sale-wrapper">
+                              <span class="onsale discount-label">+<span>30</span>%</span>
+                          </div>
+                          <div class="wishlist">
+                              <a href="#" class="product-wishlist add-to-wishlist wishlist-icon single_add_to_wishlist" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="product-actions-tooltip" data-bs-title="Add to wishlist">
+                                  <span>
+                                      <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 67.949 67.949" style="enable-background:new 0 0 67.949 67.949;" xml:space="preserve">
+                                      <g>
+                                          <path d="M62.49,11.239c-7.39-7.388-19.412-7.388-26.8,0l-1.716,1.715l-1.715-1.715c-7.388-7.389-19.411-7.389-26.799,0   c-7.238,7.238-7.285,18.711-0.109,26.688c6.545,7.273,25.848,22.986,26.667,23.651c0.556,0.452,1.225,0.672,1.89,0.672   c0.022,0,0.044,0,0.065-0.001c0.688,0.032,1.381-0.204,1.955-0.671c0.819-0.665,20.124-16.378,26.671-23.652   C69.774,29.95,69.727,18.477,62.49,11.239z M58.139,33.913c-5.103,5.669-19.13,17.361-24.166,21.51   c-5.036-4.148-19.06-15.839-24.162-21.509C4.805,28.35,4.758,20.426,9.702,15.482c2.525-2.524,5.841-3.787,9.157-3.787   s6.632,1.262,9.157,3.787l3.772,3.772c0.449,0.449,1.015,0.717,1.609,0.811c0.964,0.207,2.01-0.062,2.76-0.81l3.774-3.773   c5.051-5.049,13.267-5.048,18.315,0C63.19,20.426,63.143,28.35,58.139,33.913z" />
+                                      </g>
+                                      </svg>
+                                  </span>
+                              </a>
+                          </div>
+                          <!-- Dynamic content for variations and buttons -->
+                          <div class="variation variable-product-sizes">
+                              <div class="wpcvs-terms swatches">
+                                  {% for variant in product.variants %}
+                                      <span class="wpcvs-term swatch swatch-label term-l" title="{{ variant.title }}" data-term="{{ variant.title }}">
+                                          <span>{{ variant.title }}</span>
+                                      </span>
+                                  {% endfor %}
+                              </div>
+                          </div>
+                          <!-- Additional dynamic content for variations -->
+                          <a href="#" class="product-cart add_to_cart_button">
+                              <svg xmlns="http://www.w3.org/2000/svg" clip-rule="evenodd" fill-rule="evenodd" height="25" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" width="25">
+                                  <!-- SVG content here -->
+                              </svg>
+                          </a>
+                      </div>
+                      <div class="product-content">
+                          <p class="brand-name">BRAND: <a href="#">{{ product.vendor }}</a></p>
+                          <h2 class="product-title"><a href="{{ product.url }}">{{ product.title }}</a></h2>
+                          <div class="variation variable-product-color">
+                              <div class="wpcvs-terms wpcvs-type-color">
+                                  {% for option in product.options %}
+                                      <span class="wpcvs-term swatch-color wpcvs-enabled">
+                                          <span style="background-color: {{ option | handle }};">{{ option }}</span>
+                                      </span>
+                                  {% endfor %}
+                              </div>
+                          </div>
+                          <!-- Dynamic content for product price -->
+                          <div class="product-bottom">
+                              <div class="product-price">
+                                  <span class="price">
+                                      <ins>
+                                          <span class="amount">
+                                              <bdi><span>$</span>{{ product.price | money }}</bdi>
+                                          </span>
+                                      </ins>
+                                      <del>
+                                          <span class="amount">
+                                              <bdi><span>$</span>{{ product.compare_at_price | money }}</bdi>
+                                          </span>
+                                      </del>
+                                  </span>
+                              </div>
+                              <!-- Dynamic content for star rating -->
+                              <div class="star-rating">
+                                  {% assign rating_percentage = product.rating | times: 20 %}
+                                  <span style="width:{{ rating_percentage }}%">
+                                      {% for i in (1..5) %}
+                                          <svg viewBox="0 0 24 24" width="18" height="18" fill="{% if i <= product.rating %}#FFD700{% else %}#ccc{% endif %}">
+                                              <path d="M12 2l2.4 7h7.6l-6 4.8 2.4 7-6-4.8-6 4.8 2.4-7-6-4.8h7.6z"/>
+                                          </svg>
+                                      {% endfor %}
+                                      <strong class="rating">{{ product.rating }}</strong> out of 5
+                                  </span>
+                                  <span class="count">{{ product.reviews }}</span>
+                              </div>
+                          </div>
+                      </div>
+                  </li>
+                  {% endfor %}
+              </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+ 
+  <script>
+    $('.product-slider').slick({
+        infinite: true,
+        speed: 800,
+        autoplaySpeed: 4500,
+        autoplay: true,
+        arrows: false,
+        dots: true,
+        slidesToShow: 4,
+        slidesToScroll: 3,
+        onhover: true,
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 2,
+                    infinite: true,
+                }
+            },
+            // Additional responsive settings...
+        ]
+    });
+</script>
+  {% schema %}
+    {
+        "name": "Similar Styles",
+        "settings": [
+            {
+                "type": "collection",
+                "id": "collection",
+                "label": "Collection"
+            },
+            {
+                "type": "text",
+                "id": "heading1",
+                "label": "Heading",
+                "default": "Enter Text"
+            }
+        
+        ],
+        "presets": [
+            {
+                "name": "Similar Styles"
+            }
+        ]
+    }
+    {% endschema %}
+    

@@ -1,0 +1,13 @@
+
+
+<div class="variation variable-product-sizes">
+    <label class="variants-label">{{ 'Sizes' }} </label>
+    <div class="wpcvs-terms swatches">
+        {% assign available_sizes = product.variants | map: 'option1' | compact | uniq %}
+        {% for size in available_sizes %}
+            <span class="wpcvs-term swatch swatch-label term-{{ size | downcase }}" title="{{ size }}" data-term="{{ size }}">
+                <span>{{ size }}</span>
+            </span>
+        {% endfor %}
+    </div>
+</div>

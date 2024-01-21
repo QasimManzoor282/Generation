@@ -1,0 +1,293 @@
+{%style%}
+
+.caption_title-{{section.id}} {
+           font-size:{{ section.settings.font_size_title}}px !important;
+            font-weight:{{ section.settings.font_weight_title }} !important ;
+            font-style:{{ section.settings.font_style_title }} !important ;
+        }
+        .custom-text-{{section.id}}{
+          font-size:{{ section.settings.font_size_text}}px !important;
+            font-weight:{{ section.settings.font_weight_text }} !important ;
+            font-style:{{ section.settings.font_style_text }} !important ;
+           }
+   {%endstyle%}
+<section class="banner-area banner-bg">
+  <div class="banner-wrapper">
+    {% for block in section.blocks %}
+   
+      <div class="banner-item"
+        style="background-image:url({{ block.settings.image1 | img_url: '' }}); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100%; width:100% display: flex; flex-direction: column; justify-content: center;"
+      >
+      <style>
+        .caption_title-{{block.id}} {
+           color:{{ block.settings.color_text }} !important;
+        }
+        .custom-text-{{block.id}}{
+          color:{{ block.settings.color_text }} !important;
+        }
+        .custom_btn-{{block.id}}{
+          color:{{block.settings.btn_clr}} !important;
+          background:{{block.settings.bg_clr}} !important;
+        }
+        .custom_btn-{{block.id}}:hover{
+          color:{{block.settings.btn_clr_hover}} !important;
+          background:{{block.settings.bg_clr_hover}} !important;
+        }
+        </style >
+        <div class="banner-caption">
+          <div class="container">
+            <div class="caption-inner">
+              <div class="caption-content">
+                <h2 class="caption-heading caption_title-{{block.id}} caption_title-{{section.id}}"  >
+                  {{ block.settings.title }}
+                </h2>
+                <p class="custom-text-{{block.id}} custom-text-{{section.id}}">{{ block.settings.text }}</p>
+                <a href="{{block.settings.url}}" class="theme-btn custom_btn-{{block.id}} ">{{ block.settings.btn_title }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="banner-heading">
+          <h1>GenZ</h1>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="banner-dots-wrapper">
+    <div class="container">
+      <div class="banner-dots"></div>
+    </div>
+  </div>
+</section>
+
+
+<script> 
+$('.banner-wrapper').slick({
+    autoplay: true,
+    autoplaySpeed: 5000,
+    speed: 1000,
+    arrows: false,
+    dots: true,
+    onhover: true,
+    appendDots: $('.banner-dots')
+});
+</script>
+
+{% schema %}
+{
+ "name": "t:sections.banner-sec.name",
+ "max_blocks": 3,
+  "settings":[
+    {
+            "type": "range",
+            "id": "font_size_title",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_title",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_title",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        },
+        
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+    
+  ],
+ "blocks": [
+
+          
+   {
+     "type": "banner-area",
+     "name": "t:sections.banner-sec.name",
+     "settings": [
+   {
+        "type": "image_picker",
+        "id": "image1",
+        "label": "Background Image"   
+    },  
+   
+    {
+        "type": "text",
+        "id": "title",
+        "label": "Heading-1",
+        "default": "Enter Text"
+    },
+   
+    {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+         },  
+       
+       
+    {
+        "type": "text",
+        "id": "text",
+        "label": "Heading-2",
+        "default": "Enter Text"
+    },
+    {
+        "type": "color",
+        "id": "bg_clr",
+        "label": "Button Background",
+        "default": "#446084"
+    },
+    {
+        "type": "color",
+        "id": "btn_clr",
+        "label": "Button Title",
+        "default": "#fff"
+    },
+    { 
+        "type": "color",
+        "id": "bg_clr_hover",
+        "label": "Hover Button Background",
+        "default": "#364c69"
+    },
+    {
+        "type": "color",
+        "id": "btn_clr_hover",
+        "label": "Hover Button Title",
+        "default": "#fff"
+    },
+    {
+        "type": "text",
+        "id": "btn_title",
+        "label": "Shop Link text",
+        "default": "textlink"
+    },
+    {
+        "type": "url",
+        "id": "url",
+        "label": "Shop Link"  
+    }
+    
+  ]
+        }  
+    ],
+    "presets":[
+      {
+       "name":"t:sections.banner-sec.blocks.banner-area.name",
+        "blocks": [
+            {
+                "type": "banner-area"
+            }
+        ]
+}
+    ]
+
+   
+}
+{% endschema %}
+

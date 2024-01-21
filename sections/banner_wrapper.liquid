@@ -1,0 +1,134 @@
+<style>
+.page-cover .banner-info h2 {
+   color: {{ section.settings.color_text }};
+   font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+   font-style:{{ section.settings.font_style_text }};
+   font-weight: {{ section.settings.font_weight_text }};
+}
+</style>
+<section>
+        <div class="banner-wrapper page-cover bg-overlay" style="background-image:url('{{ section.settings.image1 | img_url: '' }}')">
+            <div class="container">
+                <div class="banner-info">
+                    <h2>{{ page.title }}</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ul class="breadcrumb">
+                            <li><a href="{{ section.settings.link1 }}">{{ section.settings.linktext1 }}</a></li>
+                            <li class="active">{{ section.settings.linktext2 }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% schema %}
+        {
+            "name": "t:sections.banner_wrapper.name",
+            "settings": [
+                
+                 
+               {
+                   "type": "image_picker",
+                    "id": "image1",
+                    "label": "Image 1"
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.testimonials.Heading-1"
+               },
+               
+                {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 60,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+        {
+                    "type": "text",
+                    "id": "linktext1",
+                    "label": "Link Text 1",
+                    "default": "Enter Text"
+                },
+
+                {
+                    "type": "url",
+                    "id": "link1",
+                    "label": "Link 1"
+                    
+                },
+                {
+                    "type": "text",
+                    "id": "linktext2",
+                    "label": "Link Text 2",
+                    "default": "Enter Text "
+                }
+               
+            ],
+            "presets": [
+                {
+                    "name": "banner_wrapper"
+                }
+            ]
+        }
+        {% endschema %}

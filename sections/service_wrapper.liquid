@@ -1,0 +1,327 @@
+<style>
+.caption_text1-{{section.id}} {
+      font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+      font-style: {{ section.settings.font_style_text }};
+      font-weight: {{ section.settings.font_weight_text }};
+}
+
+.caption_text2-{{section.id}} {
+    font-size: {{ section.settings.font_size_text_heading_2 | append: 'px !important' }};
+    font-style: {{ section.settings.font_style_text_heading_2 }};
+      font-weight: {{ section.settings.font_weight_text_heading_2 }};
+}
+
+.caption_text3-{{section.id}} {
+    color: {{ section.settings.color_text_heading_3 }} !important;
+    font-size: {{ section.settings.font_size_text_heading_3 | append: 'px !important' }};
+    font-style: {{ section.settings.font_style_text_heading_3 }};
+      font-weight: {{ section.settings.font_weight_text_heading_3 }};
+}
+</style>
+<section>
+        <div class="service-wrapper style-three">
+            <div class="container">
+                <div class="service-inner-wrapper">
+                    <div class="row gx-0">
+                        {% for block in section.blocks %}
+                        <div class="col-lg-4">
+                            <style>
+                                .caption_text1-{{block.id}} {
+                                   color:{{ block.settings.color_text }} !important;
+                                }
+                                .caption_text2-{{block.id}}{
+                                  color:{{ block.settings.color_text }} !important;
+                                }
+                               
+                                </style >
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    {% if block.settings.image1 != blank %}
+                                        <img src="{{ block.settings.image1 | img_url: 'large' }}" alt="Your Alt Text">
+                                         {% endif %}
+                                </div>
+                                <h4  class="caption-text1 caption_text1-{{block.id}} caption_text1-{{section.id}}">{{ block.settings.text1 }}</h4>
+                                <h4  class="caption-text2 caption_text2-{{block.id}} caption_text2-{{section.id}}">{{ block.settings.text2 }}</h4>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="col-lg-4">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <img src="{{ section.settings.image2 | img_url: '' }}" alt="Service">
+                                </div>
+                                <h4 class="caption-text3  caption_text3-{{section.id}}">{{ section.settings.text3 }}</h4>
+                                
+                                <div class="service-method">
+                                    <img src="{{ section.settings.image3 | img_url: '' }}" alt="Service">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% schema %}
+        {
+            "name": "t:sections.service_wrapper.name",
+            "max_blocks": 2,
+            "settings":[
+                {
+              "type": "header",
+              "content": "t:sections.service_wrapper.Text-1"
+          },
+    {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        },
+        {
+              "type": "header",
+              "content": "t:sections.service_wrapper.Text-2"
+          },
+        {
+            "type": "range",
+            "id": "font_size_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        },
+        {
+                            "type": "image_picker",
+                            "id": "image2",
+                            "label": "Image 2"
+                        },
+                        {
+                           "type": "header",
+                            "content": "t:sections.service_wrapper.Text-3"
+                       },
+                        {
+                            "type": "text",
+                            "id": "text3",
+                            "label": "Text 3",
+                            "default": "Enter Text"
+                        },
+                        {
+                            "type": "color",
+                            "id": "color_text_heading_3",
+                            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+                            "default": "#b05d5d"
+                       },
+                        {
+            "type": "range",
+            "id": "font_size_text_heading_3",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_heading_3",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_heading_3",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        },
+                        {
+                            "type": "image_picker",
+                            "id": "image3",
+                            "label": "Image 3"
+                        }
+            ],
+            "blocks": [
+
+                {
+                    "type": "service_wrapper",
+                    "name": "service_wrapper",
+                    "settings": [
+                        {
+                            "type": "image_picker",
+                            "id": "image1",
+                            "label": "Image 1"
+                        },
+                        {
+                            "type": "color",
+                            "id": "color_text",
+                            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+                            "default": "#b05d5d"
+                       },
+                        {
+                            "type": "text",
+                            "id": "text1",
+                            "label": "Text 1",
+                            "default": "Enter Text"
+                        },
+                       
+                        {
+                            "type": "text",
+                            "id": "text2",
+                            "label": "Text 2",
+                            "default": "Enter Text"
+                        }
+                       
+                    ]
+                }
+            ],
+            "presets": [
+                {
+                    "name": "t:sections.service_wrapper.name"
+                }
+            ]
+        }
+        {% endschema %}

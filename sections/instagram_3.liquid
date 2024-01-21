@@ -1,0 +1,153 @@
+<style>
+   .instagram-wrapper.style-two .sec-tl h2  {
+    font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+    font-weight: {{ section.settings.font_weight_text }};
+    font-style: {{ section.settings.font_style_text }};
+    color: {{ section.settings.color_text }};
+     }
+ </style>
+
+<section>
+    <div class="instagram-wrapper style-two">
+        <div class="container">
+            <div class="sec-tl">
+                <h2>{{ section.settings.heading1 }}</h2>
+                <h2></h2>
+            </div>
+            <div class="instagram-inner-wrapper">
+                <div class="row">
+                    {%- for block in section.blocks -%} 
+                        <div class="col-lg-2">
+                            <div class="instagram-box">
+                                <div class="instagram-image">
+                                    <img src="{{ block.settings.image1 | img_url: '' }}" alt="instagram-image">
+                                    <div class="instagram-icon">
+                                        <a href="#">
+                                            <i class="fa-brands fa-instagram"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <a href="#" class="product-link"></a>
+                            </div>
+                        </div>
+                    {%- endfor -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+    {
+        "name": "t:sections.instagram_3.name",
+        "max_blocks": 6,
+        "settings": [
+            
+            {
+             "type": "header",
+             "content": "t:sections.instagram_3.Heading-1"
+            },
+            {
+                "type": "text",
+                "id": "heading1",
+                "label": "t:sections.instagram_3.instagram_3_image.settings.content.label__1",
+                "default": "Follow @GenerationZ"
+            },
+            {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:sections.announcement-bar.blocks.announcement.settings.text.font_size",
+            "min": 0,
+            "max": 80,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+        {
+                "type": "text",
+                "id": "usename1",
+                "label": "Username",
+                "default": "Enter Name"
+        }
+        ],
+        "blocks": [
+            {
+                "type": "instagram_3",
+                "name": "instagram_3",
+                "settings": [
+                  
+
+                {
+                    "type": "image_picker",
+                    "id": "image1",
+                     "label": "t:sections.instagram_3.instagram_3_image.settings.content.label__4"
+                }
+                    
+
+                ]
+                
+            }
+        ],
+      
+        "presets": [
+            {
+                "name": "Instagram"
+            }
+        ]
+    }
+{% endschema %}

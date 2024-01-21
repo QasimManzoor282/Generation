@@ -1,0 +1,274 @@
+<style>
+.fashion-content h3 {
+    
+   color: {{ section.settings.color_text }};
+   font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+   font-style:{{ section.settings.font_style_text }};
+   font-weight: {{ section.settings.font_weight_text }};
+
+}
+
+.fashion-content p {
+    color: {{ section.settings.color_text }};
+    font-size: {{ section.settings.font_size_text_description | append: 'px !important' }};
+    font-style: {{ section.settings.font_style_text_description }};
+    font-weight: {{ section.settings.font_weight_text_description }};
+}
+
+.fashion-btn {
+    color:{{ section.settings.btn_clr }} !important;
+     background:{{ section.settings.bg_clr }} !important;
+}
+
+
+</style>
+<section>
+    <div class="fashion-wrapper" style="background-image: url({{ section.settings.image1 | img_url: '' }});">
+        <div class="fashion-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="fashion-info">
+                            <h3>{{ section.settings.heading }}</h3>
+                            <p>{{ section.settings.description }}</p>
+                            <div class="fashion-btn">
+                                <a href="#" class="theme-btn">{{ section.settings.linktext1 }}</a>
+                                <a href="#">{{ section.settings.linktext2 }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fashion-image">
+            <img src="{{ section.settings.image2 | img_url: '' }}" alt="fashion-image">
+            <img src="{{ section.settings.image3 | img_url: '' }}" alt="fashion-image">
+        </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "t:sections.fashion-wrapper2.name",
+        "settings": [
+    
+            {
+               "type": "image_picker",
+               "id": "image1",
+               "label": "Background Image"
+            },
+            {
+               "type": "header",
+               "content": "t:sections.fashion-wrapper2.Heading-1"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Enter Text"
+            },
+
+            {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 60,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },  
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+      
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+           
+         {
+                "type": "header",
+                "content": "t:sections.fashion-wrapper2.Heading-2"
+         },
+            {
+                "type": "text",
+                "id": "description",
+                "label": "Description",
+                "default": "Enter Text"   
+            },
+       
+        {
+            "type": "range",
+            "id": "font_size_text_description",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 18,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },  
+        {
+            "type": "select",
+            "id": "font_style_text_description",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+      
+        {
+            "type": "select",
+            "id": "font_weight_text_description",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+
+        
+        {
+               "type": "color",
+               "id": "bg_clr",
+                 "label": "Button Background",
+                "default": "#446084"
+    },
+    {
+        "type": "color",
+        "id": "btn_clr",
+        "label": "Button Title", 
+        "default": "#fff"
+    },
+       
+            {
+                "type": "text",
+                "id": "linktext1",
+                "label": "Shop Button",
+                "default": "Enter Text"
+            },
+            {
+                "type": "url",
+                "id": "shoplink1",
+                "label": "Shop Link 1"
+                
+            },
+
+   
+            {
+                "type": "text",
+                "id": "linktext2",
+                "label": "Shop Button",
+                "default": "Enter Text"
+            },
+          
+            {
+                "type": "url",
+                "id": "shoplink2",
+                "label": "Shop Link 2"
+            },
+
+            {
+                    "type": "image_picker",
+                    "id": "image2",
+                    "label": "Image 2"
+            },
+            {
+                    "type": "image_picker",
+                    "id": "image3",
+                    "label": "Image 3"
+            }
+           
+            
+           
+        ],
+        "presets": [
+            {
+                "name": "t:sections.fashion-wrapper2.name"
+            }
+        ]
+    }
+    {% endschema %}
+    

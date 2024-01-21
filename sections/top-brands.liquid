@@ -1,0 +1,144 @@
+<style>
+    .sec-tl.style-two h3 {
+    font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+    font-weight: {{ section.settings.font_weight_text }};
+    font-style: {{ section.settings.font_style_text }};
+    color: {{ section.settings.color_text }};
+     }
+</style>
+
+<section>
+    <div class="brand-wrapper">
+        <div class="container">
+            <div class="sec-tl style-two">
+                <div class="section-heading">
+                    <h3>{{ section.settings.heading1 }}</h3>  
+                </div>
+            </div>
+            <div class="brand-inner-wrapper">
+                <div class="row">
+                    <div class="col">   
+                        <div class="brand-item">
+                            {% for block in section.blocks %}
+                                <a href="#">
+                                   {% if block.settings.image1 != blank %}
+                                    <img src="{{ block.settings.image1 | img_url: 'large' }}" alt="Your Alt Text">
+                                     {% endif %}
+                                </a>
+                             {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>  
+
+{% schema %}
+    {
+        "name": "t:sections.top-brands.name",
+        "max_blocks": 5,
+        "settings": [
+         
+         {
+             "type": "text",
+             "id": "heading1",
+             "label": "Heading-1-Text",
+             "default": "Enter Text"
+         },
+         {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+         {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        }
+     ],
+        "blocks": [
+            {
+                "type": "Top-Brands",
+                "name": "Top Brands",
+                "settings": [
+
+                    {
+                        "type": "image_picker",
+                        "id": "image1",
+                        "label": "Brand Image"
+                    },
+                  
+                    {
+                        "type": "url",
+                        "id": "brandlink",
+                        "label": "Brand Link"
+                        
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Top Brands" 
+            }
+        ]
+    }
+    {% endschema %}
+    

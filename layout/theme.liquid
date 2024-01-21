@@ -1,0 +1,51 @@
+<html>
+<head>
+ 
+  {{ content_for_header }}
+  <link href="https://fonts.googleapis.com/css2?family=Anybody:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  {% render 'global-style' %}
+  {% render 'global-script' %}
+</head>
+<body>
+  
+  {% render 'wrapper-header' %}
+  
+  {{ content_for_layout }} 
+
+  
+  {% comment %}
+  
+    home page 2 sections
+  {% section 'banner-area2' %}
+  {% section 'presenting2' %}
+  {% section 'dis-wrapper2' %} 
+  {% section 'featured-product2' %}
+  {% section 'shoes-wrapper2' %}
+  {% section 'week-trend2' %} 
+  {% section 'fashion-wrapper2' %}
+  {% section 'latest-news2' %}
+  {% section 'upload-photo2' %}
+  {% section 'text-trend2' %} 
+  {% section 'testimonials2' %}
+   
+    home page 1 section
+  {% section 'banner-area' %}
+  {% section 'season-area' %}
+  {% section 'trends-section' %}
+  {% section 'sale-wrapper' %}   
+  {% section 'category-sec' %}
+  {% section 'featured-products' %}
+  {% section 'text-trend' %}
+  {% section 'discount-banner' %}
+  {% section 'designer-section' %}
+  {% section 'testimonials' %}
+  {% section 'top-brands' %}
+  {% section 'discover-section' %}
+  {% section 'latest-news' %}
+  {% section 'facts' %} 
+{% endcomment %}
+  
+  {% render 'wrapper-footer' %}   
+
+</body>
+</html>

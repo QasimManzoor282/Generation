@@ -1,0 +1,1960 @@
+<style>
+    .productDetail-wrapper.style-two .ship-return-wrapper .free-shipping, .productDetail-wrapper.style-three .ship-return-wrapper .free-shipping {
+    color: {{ section.settings.color_text_heading }};
+   font-size: {{ section.settings.font_size_text_heading | append: 'px !important' }};
+   font-style:{{ section.settings.font_style_text_heading }};
+   font-weight: {{ section.settings.font_weight_text_heading }};
+}
+    .shipping_title-{{section.id}} {
+        font-size:{{ section.settings.font_size_text_heading_1}}px !important;
+        font-weight:{{ section.settings.font_weight_text_heading_1 }} !important ;
+        font-style:{{ section.settings.font_style_heading_1 }} !important ;
+}
+   .shipping_desc-{{section.id}}{
+        font-size:{{ section.settings.font_size_text_desc_1}}px !important;
+        font-weight:{{ section.settings.font_weight_text_desc_1 }} !important ;
+        font-style:{{ section.settings.font_style_text_esc_1 }} !important ;
+}
+    </style>
+
+
+{%- liquid
+    assign container = section.settings.container
+    assign padding_full_width = section.settings.padding_full_width
+    assign show_sticky_info = section.settings.show_sticky_info
+    assign mg_top_desktop = section.settings.mg_top_desktop
+    assign mg_top_tablet = section.settings.mg_top_tablet
+    assign mg_top_mobile = section.settings.mg_top_mobile
+    assign mg_bottom_desktop = section.settings.mg_bottom_desktop
+    assign mg_bottom_tablet = section.settings.mg_bottom_tablet
+    assign mg_bottom_mobile = section.settings.mg_bottom_mobile
+    assign main_image_position = section.settings.main_image_position
+    assign main_image_show_custom_cursor = section.settings.main_image_show_custom_cursor
+    assign count_color = section.settings.count_color
+    assign icon_color = section.settings.icon_color
+    assign thumnail_layout = section.settings.thumnail_layout
+    assign main_image_arrows_desktop = section.settings.main_image_arrows_desktop
+    assign main_image_arrows_mobile = section.settings.main_image_arrows_mobile
+    assign main_image_counter_mobile = section.settings.main_image_counter_mobile
+    assign main_image_enable_parallax_mb = section.settings.main_image_enable_parallax_mb
+    assign main_image_show_zoom_icon_mb = section.settings.main_image_show_zoom_icon_mb
+    assign main_image_layout = section.settings.main_image_layout
+    assign show_thumbnail_mobile = section.settings.show_thumbnail_mobile
+    assign max_thumbnail_to_show = section.settings.thumbnail_to_show
+    assign current_variant = product.selected_or_first_available_variant
+    assign variantCount = product.variants | size
+    assign featured_media_aspect_ratio = product.featured_media.aspect_ratio
+    if product.featured_media.aspect_ratio == nil
+        assign featured_media_aspect_ratio = 1
+    endif
+    assign media_size = section.settings.product_image_ratio
+    assign portrait_aspect_ratio = section.settings.portrait_aspect_ratio | append: '%'
+    assign zoomed_image = section.settings.zoomed_image
+    assign media_fit = section.settings.media_fit
+    assign product_image_popup = section.settings.product_image_popup
+    assign video_layout = section.settings.video_layout
+    assign show_badge = section.settings.show_badge
+    assign show_hot_stock = settings.show_hot_stock
+    if show_hot_stock
+        assign productMaxStock = settings.hot_stock_limit | plus: 0
+    endif
+    assign show_qty = section.settings.show_qty
+    assign show_subtotal = section.settings.show_subtotal
+    assign subtotal_style = section.settings.subtotal_style
+    assign show_subtotal_text = false
+    assign subtotal = 0
+    if show_subtotal
+        assign show_subtotal_text = true
+        assign subtotal = current_variant.price | money
+    endif
+    assign show_sticky_add_to_cart = section.settings.show_sticky_add_to_cart
+    assign sticky_atc_layout = section.settings.sticky_atc_layout
+    assign show_sticky_vendor = section.settings.show_sticky_vendor
+    assign show_tab = section.settings.show_tab
+    if show_tab
+        assign tab_layout = section.settings.tab_layout
+        assign tab_layout_mobile = section.settings.tab_layout_mobile
+        assign icon_style_layout = section.settings.icon_style_layout
+        assign title_font_size = section.settings.title_font_size
+        assign title_font_size_mb = section.settings.title_font_size_mb
+        assign font_weight_title = section.settings.font_weight_title
+        assign title_text_transform = section.settings.title_text_transform
+        assign title_padding_top_bottom = section.settings.title_padding_top_bottom
+        assign tab_border_color = section.settings.tab_border_color
+        if section.blocks.size > 0
+            assign show_tab = true
+        else
+            assign show_tab = false
+        endif
+    endif
+    assign first_3d_model = product.media | where: "media_type", "model" | first
+    assign has_product_combo = false
+
+    assign has_sidebar = false
+    assign show_sidebar = section.settings.show_sidebar
+    assign sidebar_type = 'vertical'
+    assign sidebar_position = section.settings.sidebar_position
+    assign show_sidebar_collapse = section.settings.show_sidebar_collapse
+    assign sidebar_collapse_default = section.settings.sidebar_collapse_default
+    if show_sidebar
+        if sidebar_type == 'vertical'
+            if section.blocks.size > 0
+                assign has_sidebar = true
+            endif
+        endif
+    endif
+    if has_sidebar
+        assign sidebar_heading_font = section.settings.sidebar_heading_font
+        assign sidebar_heading_font_size = section.settings.sidebar_heading_font_size
+        assign sidebar_heading_font_weight = section.settings.sidebar_heading_font_weight
+        assign sidebar_heading_text_transform = section.settings.sidebar_heading_text_transform
+        assign enable_sticky = section.settings.enable_sticky
+        assign sidebar_layout = section.settings.sidebar_layout
+    endif
+    assign has_breadcrumb = false 
+    for block in section.blocks
+        case block.type
+            when 'breadcrumb'
+                assign breadcrumb_layout = block.settings.breadcrumb_layout
+                assign breadcrumb_alignment = block.settings.breadcrumb_alignment
+                assign breadcrumb_mg_top_desktop = block.settings.breadcrumb_mg_top_desktop
+                assign breadcrumb_mg_top_mobile = block.settings.breadcrumb_mg_top_mobile
+                assign breadcrumb_mg_bottom_desktop = block.settings.breadcrumb_mg_bottom_desktop
+                assign breadcrumb_mg_bottom_mobile = block.settings.breadcrumb_mg_bottom_mobile
+                assign breadcrumb_bg = block.settings.breadcrumb_bg
+                assign breadcrumb_gradient = block.settings.breadcrumb_gradient
+                assign breadcrumb_bg_mb = block.settings.breadcrumb_bg_mb
+                assign breadcrumb_gradient_mb = block.settings.breadcrumb_gradient_mb
+
+                if breadcrumb_layout == 'full'
+                    assign check_breadcrumb_full = true
+                else
+                    assign check_breadcrumb_full = false
+                endif
+                assign has_breadcrumb = true 
+            when 'title'
+                assign check_block_title = true
+
+            when 'quantity_selector'
+                assign check_block_qty = true
+                assign qty_style = block.settings.qty_style
+                assign qty_layout = block.settings.qty_layout
+
+            when 'perks'
+                assign has_perks = true
+                assign show_compare_color = block.settings.show_compare_color
+                if show_compare_color
+                    assign show_compare_color_drop_drap = block.settings.show_compare_color_drop_drap
+                    assign product_swatch_option = settings.swatch | downcase
+                    assign compare_layout = block.settings.compare_layout
+                    assign isColor = false
+                    for option in product.options_with_values
+                        assign option_name = option.name | downcase
+                        if product_swatch_option contains option_name
+                            assign isColor = true
+                            assign index = forloop.index0
+                            if option.values.size > 1
+                                assign show_compare_color = true
+                            endif
+                        endif
+                    endfor
+                endif
+                assign show_size_chart = block.settings.show_size_chart
+                if show_size_chart
+                    assign has_size_chart = false
+                    assign size_chart_type = block.settings.size_chart_type
+                    if size_chart_type == 'product_type' or size_chart_type == 'product_vendor'
+                        assign size_chart_image_type = block.settings.size_chart_image_type
+                    elsif size_chart_type == 'custom_image'
+                        assign size_chart_image = block.settings.size_chart_image
+                    endif
+                    if size_chart_type == 'product_type'
+                        if size_chart_image_type == 'jpg'
+                            assign size_chart_image = product.type | handle | append: '-sizechart.jpg'
+                        else
+                            assign size_chart_image = product.type | handle | append: '-sizechart.png'
+                        endif
+                        if images[size_chart_image] != blank
+                            assign has_size_chart = true
+                        endif
+                    elsif size_chart_type == 'product_vendor'
+                        if size_chart_image_type == 'jpg'
+                            assign size_chart_image = product.vendor | handle | append: '-sizechart.jpg'
+                        else
+                            assign size_chart_image = product.vendor | handle | append: '-sizechart.jpg'
+                        endif
+                        if images[size_chart_image] != blank
+                            assign has_size_chart = true
+                        endif
+                    elsif size_chart_type == 'metafield'
+                        if product.metafields.c_f.size_chart
+                            assign has_size_chart = true
+                        endif
+                    elsif size_chart_type == 'custom_image'
+                        if size_chart_image != blank
+                            assign has_size_chart = true
+                        endif
+                    endif
+                endif
+            when 'buy_buttons'
+                assign check_block_buttons = true
+            when 'share'
+                assign show_share = block.settings.show_share
+                assign share_layout = block.settings.share_layout
+            when 'variant_picker'
+                assign picker_type = block.settings.picker_type
+                assign show_variant_image_group = block.settings.show_variant_image_group
+            when 'grouped_product'
+                assign product_combo = product.metafields.c_f.product_combo
+                assign combo_discount_rate = product.metafields.c_f.combo_discount_rate | plus: 0 | divided_by: 100.00
+
+                if product_combo
+                    assign has_product_combo = true
+                else
+                    assign has_product_combo = false
+                endif
+            when 'complementary_products'
+                assign complementary_product_title = block.settings.complementary_product_title
+                assign complementary_product_arrows = block.settings.complementary_product_arrows
+                assign complementary_product_dots = block.settings.complementary_product_dots
+                assign complementary_product_layout = block.settings.complementary_product_layout
+                if complementary_product_layout == "1"
+                    assign complementary_product_limit_1 = block.settings.complementary_product_limit_1
+                endif
+                if complementary_product_layout == "2"
+                    assign complementary_product_limit_2 = block.settings.complementary_product_limit_2
+                    assign complementary_product_object = block.settings.complementary_product_object
+                endif
+        endcase
+    endfor
+
+    if show_qty
+        if check_block_qty
+            if check_block_buttons
+                if qty_layout == '1'
+                    assign check_show_qty = 'show_qty_1'
+                elsif qty_layout == '2'
+                    assign check_show_qty = 'show_qty_2'
+                endif
+            else
+                assign check_show_qty = 'show_qty_1'
+            endif
+        else
+            assign check_show_qty = 'show_qty_0'
+        endif
+    else
+        assign check_show_qty = 'show_qty_0'
+    endif
+
+    if show_share
+        assign share_product_type = settings.share_product_type
+        if share_product_type == 'addthis'
+            assign share_product_script = settings.share_product_script
+        endif
+
+        if check_block_title and check_block_buttons
+            assign check_show_share = share_layout
+        elsif check_block_title and check_block_buttons != true
+            if share_layout == '2'
+                assign check_show_share = '1'
+            else
+                assign check_show_share = share_layout
+            endif
+        elsif check_block_title != true and check_block_buttons
+            if share_layout == '3'
+                assign check_show_share = '1'
+            else
+                assign check_show_share = share_layout
+            endif
+        endif
+    endif
+
+    assign show_customization_option = settings.show_customization_option
+    if show_customization_option
+        assign has_customization_option = false
+        assign customization_option_type = settings.customization_option_type
+        assign customization_option_hidden = settings.customization_option_hidden
+        if customization_option_type == 'all'
+            assign has_customization_option = true
+        elsif customization_option_type == 'tag'
+            assign customization_option_tags = settings.customization_option_tags | downcase | strip | split: ","
+            for tag in customization_option_tags
+                assign tagtitle = tag | strip
+                assign productTag = product.tags | downcase
+                if productTag contains tagtitle
+                    assign has_customization_option = true
+                endif
+            endfor
+        elsif customization_option_type == 'collection'
+            assign customization_option_collection = settings.customization_option_collection | downcase | handle
+            if customization_option_collection != blank
+                for collection in product.collections
+                    assign collection_title = collection.title | downcase | handle
+                    if collection_title == customization_option_collection
+                        assign has_customization_option = true
+                    endif
+                endfor
+            endif
+        endif
+        assign customization_option_1 = settings.customization_option_1
+        assign customization_option_2 = settings.customization_option_2
+    endif
+-%}
+
+<style type="text/css">
+    #ProductSection-{{ section.id }} .productView-thumbnail .productView-thumbnail-link:after{
+        padding-bottom: {{ portrait_aspect_ratio }};
+    }
+    #ProductSection-{{ section.id }} .custom-cursor__inner .arrow:before,
+    #ProductSection-{{ section.id }} .custom-cursor__inner .arrow:after {
+        background-color: {{ icon_color }};
+    }
+
+    .productView-tabbing {
+        border-top: 1px solid {{ tab_border_color }};
+        border-bottom: 1px solid {{ tab_border_color }};
+    }
+    #ProductSection-{{ section.id }} .tabs .tab .tab-title {
+        font-size: {{ title_font_size | append: 'px' }};
+        font-weight: {{ font_weight_title }};
+        text-transform: {{ title_text_transform }};
+        padding-bottom: {{ title_padding_top_bottom | append: 'px' }};
+    }
+    {%- if section.settings.border != blank -%}
+      .productView-image-wrapper {
+          border: {{ section.settings.border_width | append: 'px' }} solid {{ section.settings.border_color }}
+      }
+    {%- endif -%}
+
+    .product-details {
+        padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+        padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+    }
+
+    @media (max-width: 1199px) {
+        .product-details {
+            padding-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+            padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+        }
+    }
+
+    @media (max-width: 767px) {
+        .product-details {
+            padding-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+            padding-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+        }
+    }
+
+    @media (max-width: 550px) {
+      .productView-tab .tabs-contents-horizontal .tab-content {
+          border-bottom: 1px solid {{ tab_border_color }};
+      }
+    }
+  
+</style>
+
+
+<div class="breadcrumb-wrapper style-two">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="{{ 'index.html' | url }}">Home</a></li>
+                <li class="active">{{ product.title }}</li>
+            </ul>
+        </div>
+    </div>
+    <section>
+        <div class="productDetail-wrapper style-two">
+            <div class="container">
+                <div class="productDetail-inner-wrapper product-single product type-product has-post-thumbnail thumbnails">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="product-gallery-wrapper product-gallery-with-thumbnails images">
+                                <div class="product-gallery-nav product-single__main-thumbnail">
+                                    <div class=" product-single__thumbnail-wrapper">
+                                        <a href="#">
+                                            {% for image in product.images  limit:3 %}
+                                                <figure class="product-gallery__image mb--10">
+                                                  <img src="{{ image.src | img_url: 'master' }}" alt="{{ product.title }}">  
+                                                </figure>
+                                                {% endfor %}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="product-gallery-for">
+                                    <div class="single-product-gallery">
+                                        <div class="single-product-image">
+                                            <a href="#">  {% for image in product.images limit:1 %}
+                                                <figure class="product-gallery__image mb--10">
+                                                  <img src="{{ image.src | img_url: 'master' }}" alt="{{ product.title }}">  
+                                                </figure>
+                                                {% endfor %}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="summary entry-summary ">
+                                <p class="brand-name">BRAND: <a href="#" tabindex="-1">{{ product.vendor | link_to_vendor }}</a></p>
+                                <h2 class="product-title entry-title">{{ product.title | escape }}</h2>
+                                <div class="product-rating">
+                                    <div class="star-rating">
+                                        <span>
+                                            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                <g>
+                                                    <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                </g>
+                                            </svg>
+                                            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                <g>
+                                                    <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                </g>
+                                            </svg>
+                                            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                <g>
+                                                    <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                </g>
+                                            </svg>
+                                            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                <g>
+                                                    <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                </g>
+                                            </svg>
+                                            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                <g>
+                                                    <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                </g>
+                                            </svg>
+                                            <strong class="rating">5.00</strong> out of 5</span>
+                                    </div>
+                                    <a href="#reviews" class="review-count" rel="nofollow"><span class="count">24</span> Reviews</a>
+                                    <a href="#" class="create-review">Write Review</a>
+                                </div>
+                                
+                                <div class="productDetail-body">
+                                    
+                                       {% form 'product', product, id: 'product-form', novalidate: 'novalidate'  %}  
+                                     <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id  }}">
+                                     {% for block in section.blocks %}
+                                        {% case block.type %} 
+                                        <style>
+
+                                            .custom_vendor-{{block.id}} {
+                                           font-size:{{ block.settings.font_size_text_vendor}}px !important;
+                                           font-weight:{{ block.settings.font_weight_text_vendor }} !important ;
+                                           font-style:{{ block.settings.font_style_text_vendor }} !important ;
+                                           }
+
+                                          .custom_title-{{block.id}} {
+                                          font-size:{{ block.settings.font_size_text_title}}px !important;
+                                          font-weight:{{ block.settings.font_weight_text_title }} !important ;
+                                         font-style:{{ block.settings.font_style_text_title }} !important ;
+                                          }
+
+                                          .custom_description-{{block.id}} {
+                                          font-size:{{ block.settings.font_size_text_description}}px !important;
+                                          font-weight:{{ block.settings.font_weight_text_description }} !important ;
+                                          font-style:{{ block.settings.font_style_text_description }} !important ;
+                                          }
+
+                                          .custom_price-{{block.id}} {
+                                          font-size:{{ block.settings.font_size_text_price}}px !important;
+                                          font-weight:{{ block.settings.font_weight_text_price }} !important ;
+                                          font-style:{{ block.settings.font_style_text_price }} !important ;
+                                          }
+                         
+                                          .custom_sku-{{block.id}} {
+                                          font-size:{{ block.settings.font_size_text_sku }}px !important;
+                                          font-weight:{{ block.settings.font_weight_text_sku }} !important ;
+                                          font-style:{{ block.settings.font_style_text_sku }} !important ;
+                                          }
+
+                                          .custom_variant-{{block.id}} {
+                                          font-size:{{ block.settings.font_size_text_variant_selector }}px !important;
+                                          font-weight:{{ block.settings.font_weight_text_variant_selector }} !important ;
+                                           font-style:{{ block.settings.font_style_text_variant_selector }} !important ;
+                                          }
+
+                                         .custom_checkout_buttons-{{block.id}} {
+                                           font-size:{{ block.settings.font_size_text_checkout_buttons}}px !important;
+                                           font-weight:{{ block.settings.font_weight_text_checkout_buttons }} !important ;
+                                           font-style:{{ block.settings.font_style_text_price }} !important ;
+                                          }
+
+                                         .custom_quantity-{{block.id}} {
+                                          font-size:{{ block.settings.font_size_text_quantity }}px !important;
+                                           font-weight:{{ block.settings.font_weight_text_quantity }} !important ;
+                                          font-style:{{ block.settings.font_style_text_quantity }} !important ;
+                                          }
+
+                                         .custom_availability-{{block.id}} {
+                                         font-size:{{ block.settings.font_size_text_availability}}px !important;
+                                         font-weight:{{ block.settings.font_weight_text_availability }} !important ;
+                                          font-style:{{ block.settings.font_style_text_availability }} !important ;
+                                         }
+
+                                         .custom_rating-{{block.id}} {
+                                         font-size:{{ block.settings.font_size_text_rating}}px !important;
+                                         font-weight:{{ block.settings.font_weight_text_rating }} !important ;
+                                          font-style:{{ block.settings.font_style_text_rating }} !important ;
+                                          }
+                                      </style>
+                                      
+                                      {% when 'variant_selector' %}
+                                     <div class="my-3">
+                                        
+                                              {% unless product.has_only_default_variant %}  
+                                            <variant-selector data-url="{{ product.url }}" data-section="{{ section-id }}">
+                                                {% for option in product.options_with_values %}
+                                                <label for="option-{{ section-id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+                                                <div class="my-2">
+                                                    <select
+                                                     name="options[{{ option.name | escape }}]"
+                                                     id="option-{{ section.id }}-{{ forloop.index0 }}"
+                                                     class="w-full border py-3 px-3"
+                                                    >
+                                                   {% for value in option.values %}
+                                                    <option 
+                                                    value="{{ value | escape }}"
+                                                     {% if option.selected_value == value %}
+                                                        selected="selected"
+                                                     {% endif %}
+                                                    >
+                                                    {{ value }}
+                                                    </option>
+                                                   {% endfor %}
+                                                   </select>
+                                                </div>
+                                                <script type="application/json">
+                                                {{ product.variants | json }}
+                                                </script>
+                                             {% endfor %}
+                                            </variant-selector>
+                                            {% endunless %}
+                                      
+                                      </div>   
+                                               <!--<div class="variation variable-product-sizes">
+                                          <label class="variants-label">SIZE: </label> 
+                                            <div class="wpcvs-terms swatches">
+                                                <span class="wpcvs-term swatch swatch-label term-l selected" title="S" data-term="Small">
+                                                    <span>S </span>
+                                                </span>
+                                                <span class="wpcvs-term swatch swatch-label term-l" title="M" data-term="Medium">
+                                                    <span>M</span>
+                                                </span>
+                                                <span class="wpcvs-term swatch swatch-label term-l" title="XL" data-term="Extra Large">
+                                                    <span>XL</span>
+                                                </span>
+                                                <span class="wpcvs-term swatch swatch-label term-l" title="XXL" data-term="Extra Extra Large">
+                                                    <span>XXL</span>
+                                                </span>
+                                            </div>
+                                         
+                                                </div>
+                                  
+                                                <div class="variation variable-product-color">
+                                            <label class="variants-label">COLOR: &nbsp;&nbsp;&nbsp;<span>NAVY</span></label>
+                                            <div class="wpcvs-terms wpcvs-type-color">
+                                                <span class="wpcvs-term swatch-color wpcvs-enabled">
+                                                    <span style="background-image: linear-gradient(100deg, #dd383c 50%, #e46063 50%);">#dd383c</span>
+                                                </span>
+                                                <span class="wpcvs-term swatch-color">
+                                                    <span style="background-image: linear-gradient(100deg, #ff9662 50%, #ffaa81 50%);">#ff9662</span>
+                                                </span>
+                                                <span class="wpcvs-term swatch-color">
+                                                    <span style="background-color: #96ba37">#96ba37</span>
+                                                </span>
+                                                <span class="wpcvs-term swatch-color">
+                                                    <span style="background-color: #c962ff">#c962ff</span>
+                                                </span>
+                                            </div>
+                                                </div>-->
+                                         <div class="product-price price-{{ section-id }}">
+                                            {% assign product.price = product.selected_or_first_available_variant %}
+                                             <span class="price">
+                                                <ins>
+                                                    <span class="amount">
+                                                        <bdi>{{ product.price | money }}</bdi>
+                                                    </span>
+                                                </ins>
+                                                <del>
+                                                    <span class="amount">
+                                                        <bdi><span></span>{{ product.compare_at_price | money }}</bdi>
+                                                    </span>
+                                                </del>
+                                              </span>
+                                          </div>
+                                          <div class="product-single-buttons">   
+                                            
+                                              <div class="product-quantity js-quantity-selector">
+                                                   <div class=" minus btn-quantity" onclick="customQantity()"></div>
+                                                      <input class="quantity-input  form-input quantity__input quantity" type="number" name="quantity" min="1" value="1" inputmode="numeric" pattern="[0-9]*" id="quantity-{{ section.id }}">
+                                                    <div class=" plus btn-quantity" onclick="customQantity()"></div>
+                                               </div>
+                                            
+                                            <div class="cart-wishlist">
+                                                <button type="submit" href="{{ product.url }}" class="product-cart add_to_cart_button"><svg xmlns="http://www.w3.org/2000/svg" clip-rule="evenodd" fill-rule="evenodd" height="25" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" width="25">
+                                                        <g id="Icon">
+                                                            <path d="m21.74 9.121c.036-.217-.026-.439-.168-.607-.143-.167-.352-.264-.572-.264h-18c-.22 0-.429.097-.572.264-.142.168-.204.39-.168.607 0 0 1.022 6.244 1.525 9.323.218 1.33 1.367 2.306 2.714 2.306h11.002c1.347 0 2.496-.976 2.714-2.306zm-1.623.629-1.383 8.452c-.099.604-.621 1.048-1.233 1.048-2.771 0-8.231 0-11.002 0-.612 0-1.134-.444-1.233-1.048 0 0-1.383-8.452-1.383-8.452z"></path>
+                                                            <path d="m18.643 8.614-3-5c-.213-.355-.674-.47-1.029-.257s-.47.674-.257 1.029l3 5c.213.355.674.47 1.029.257s.47-.674.257-1.029z"></path>
+                                                            <path d="m6.643 9.386 3-5c.213-.355.098-.816-.257-1.029s-.816-.098-1.029.257l-3 5c-.213.355-.098.816.257 1.029s.816.098 1.029-.257z"></path>
+                                                            <path d="m11.25 12.5v4c0 .414.336.75.75.75s.75-.336.75-.75v-4c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"></path>
+                                                            <path d="m7.25 12.5v4c0 .414.336.75.75.75s.75-.336.75-.75v-4c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"></path>
+                                                            <path d="m15.25 12.5v4c0 .414.336.75.75.75s.75-.336.75-.75v-4c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"></path>
+                                                            <path d="m22 8.25h-20c-.414 0-.75.336-.75.75s.336.75.75.75h20c.414 0 .75-.336.75-.75s-.336-.75-.75-.75z"></path>
+                                                        </g>
+                                                    </svg>
+                                                    {% if product.selected_or_first_available_variant == false %}
+                                                        Disabled
+                                                    {% endif %}
+                                                    {% if product.selected_or_first_available_variant_available == false %}
+                                                        Sold Out
+                                                        {% else %}   
+                                                        Add to Cart
+                                                    {% endif %}
+                                                </button>
+                                                
+                                                <a href="{{ product.wishlist_url }}" class="add-to-wishlist wishlist-icon single_add_to_wishlist" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="product-actions-tooltip" data-bs-title="Add to wishlist">
+                                                    <span><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 67.949 67.949" style="enable-background:new 0 0 67.949 67.949;" xml:space="preserve">
+                                                            <g>
+                                                                <path d="M62.49,11.239c-7.39-7.388-19.412-7.388-26.8,0l-1.716,1.715l-1.715-1.715c-7.388-7.389-19.411-7.389-26.799,0   c-7.238,7.238-7.285,18.711-0.109,26.688c6.545,7.273,25.848,22.986,26.667,23.651c0.556,0.452,1.225,0.672,1.89,0.672   c0.022,0,0.044,0,0.065-0.001c0.688,0.032,1.381-0.204,1.955-0.671c0.819-0.665,20.124-16.378,26.671-23.652   C69.774,29.95,69.727,18.477,62.49,11.239z M58.139,33.913c-5.103,5.669-19.13,17.361-24.166,21.51   c-5.036-4.148-19.06-15.839-24.162-21.509C4.805,28.35,4.758,20.426,9.702,15.482c2.525-2.524,5.841-3.787,9.157-3.787   s6.632,1.262,9.157,3.787l3.772,3.772c0.449,0.449,1.015,0.717,1.609,0.811c0.964,0.207,2.01-0.062,2.76-0.81l3.774-3.773   c5.051-5.049,13.267-5.048,18.315,0C63.19,20.426,63.143,28.35,58.139,33.913z" />
+                                                            </g>
+                                                        </svg></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                  </div>
+                                  {% endcase %}
+                                   {% endfor %}
+                                    {% endform %}
+                                    <div class="size-guide">
+                                        <h3><img src="{{ section.settings.image1 | img_url: '' }}')" alt="Size">{{ section.settings.heading1 }}</h3>
+                                        <p>{{ section.settings.desc1 }}</p>
+                                    </div>
+                                    <div class="payment-options">
+                                        <img src="{{ section.settings.image2 | img_url: '' }}')" alt="Pay Options">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-more-info tab">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="additional-tab" data-bs-toggle="tab" data-bs-target="#additional" type="button" role="tab" aria-controls="additional" aria-selected="false">Additional Information</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="shipping-tab" data-bs-toggle="tab" data-bs-target="#shipping" type="button" role="tab" aria-controls="shipping" aria-selected="false">Shipping & Return</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">   
+                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                            <div class="product-description">
+                                <p> {{ product.description }}</p>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="additional" role="tabpanel" aria-labelledby="additional-tab">
+                            <div class="product-type">
+                              
+                                <table class="shop_attributes">
+                              
+                                    <tbody>
+                                        <tr>
+                                            <th class="label">Fabric:</th>
+                                            <td>
+                                                <p>{{ product.metafields.custom.fabric }}</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="label">Bottom:</th>
+                                            <td>
+                                                <p>{{ product.metafields.custom.bottom }}</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="label">Size:</th>
+                                            <td>
+                                                <p>{{ product.metafields.custom.size }}</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                            
+                                </table>
+                             
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                            <div class="ship-return-wrapper">
+                                <div class="free-shipping">{{ section.settings.heading }}</div>
+                                {% for block in section.blocks %}
+                                <div class="shipping-info">
+                                    <style>
+                                       .shipping_title-{{block.id}}{
+                                        color:{{ block.settings.color_text_heading_1 }} !important;
+                                        }
+                                        .shipping_desc-{{block.id}}{
+                                        color:{{ block.settings.color_text_desc_1 }} !important;
+                                        }
+                                    </style>
+                                    <h3  class="shipping-heading shipping_title-{{block.id}} shipping_title-{{section.id}}">{{ block.settings.heading1 }}</h3>
+                                    <p  class="shipping-desc shipping_desc-{{block.id}} shipping_desc-{{section.id}}">{{ block.settings.desc1 }}</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                            <div class="review-rating-wrapper">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="review-block">
+                                           {% if product.reviews_count > 0 %}
+                                            <div class="review-rating-content reviews">
+                                                <div id="comments">
+                                                    <h3><span>{{ reviews.size }}</span> REVIEWS</h3>
+                                                    <ol class="commentlist">
+                                                        {% for review in product.revews %}
+                                                        <li class="review byuser bypostauthor even thread-even depth-1">
+                                                            <div class="comment_container">
+                                                                <img src="{{ review.author.avatar }}" width="60" height="60" alt="Avatar" class="avatar alignnone photo avatar-default">
+                                                                <div class="comment-text">
+                                                                    <p class="meta"><strong>{{ review.author }}</strong>
+                                                                        <time datetime="2023-03-02T10:35:47+00:00">{{ review.created_at |  date: "%B %d, %Y"  }}</time>
+                                                                    </p>
+                                                                    <div class="star-rating">
+                                                                        <span>
+                                                                            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                <g>
+                                                                                    <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                </g>
+                                                                            </svg>
+                                                                            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                <g>
+                                                                                    <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                </g>
+                                                                            </svg>
+                                                                            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                <g>
+                                                                                    <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                </g>
+                                                                            </svg>
+                                                                            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                <g>
+                                                                                    <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                </g>
+                                                                            </svg>
+                                                                            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                <g>
+                                                                                    <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                </g>
+                                                                            </svg>
+                                                                            <strong class="rating">5.00</strong> out of 5</span>
+                                                                    </div>
+                                                                    <div class="description">
+                                                                        <p>{{ review.body }}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        {% endfor %}
+                                                    </ol>
+                                                </div>
+                                                <div class="review-more">
+                                                    <a href="#" class="load-more">Load More Reviews</a>
+                                                </div>
+                                            </div>
+                                                        {% endif %}
+                                            <div class="review-form-wrapper">
+                                                <h3>WRITE A REVIEW</h3>
+                                                <form action="#" method="post" class="review-form">
+                                                    <div class="review-form-rating">
+                                                        <label>Rating:</label>
+                                                        <span> <a class="star-1" href="#"><svg viewBox="0 0 24 24" width="24" height="24">
+                                                                    <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                                                                </svg></a> <a class="star-2" href="#"><svg viewBox="0 0 24 24" width="24" height="24">
+                                                                    <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                                                                </svg></a> <a class="star-3" href="#"><svg viewBox="0 0 24 24" width="24" height="24">
+                                                                    <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                                                                </svg></a> <a class="star-4" href="#"><svg viewBox="0 0 24 24" width="24" height="24">
+                                                                    <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                                                                </svg></a> <a class="star-5" href="#"><svg viewBox="0 0 24 24" width="24" height="24">
+                                                                    <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                                                                </svg></a> </span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="input-field">
+                                                                <input type="text" placeholder="Name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="input-field">
+                                                                <input type="email" placeholder="Email"></div>
+                                                        </div>
+                                                    </div>
+                                                    <textarea cols="30" rows="10" placeholder="Review"></textarea>
+                                                    <button type="submit">Submit Now</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="review-rating-box">
+                                            <div class="review-rating-head">
+                                                <div class="star-rating">
+                                                    <span class="actions-togglereviews"><strong class="rating">5.0</strong> of 5 Stars</span>
+                                                    <span>
+                                                        <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                            <g>
+                                                                <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                            </g>
+                                                        </svg>
+                                                        <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                            <g>
+                                                                <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                            </g>
+                                                        </svg>
+                                                        <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                            <g>
+                                                                <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                            </g>
+                                                        </svg>
+                                                        <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                            <g>
+                                                                <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                            </g>
+                                                        </svg>
+                                                        <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                            <g>
+                                                                <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                            </g>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="border-product" style="margin: 30px 0 30px ;border-top: 2px solid #828282 "></div>
+                                            <div class="rating-count">
+                                                <div class="star-rating">
+                                                    <span>
+                                                        <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                            <g>
+                                                                <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                            </g>
+                                                        </svg>
+                                                        <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                            <g>
+                                                                <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                            </g>
+                                                        </svg>
+                                                        <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                            <g>
+                                                                <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                            </g>
+                                                        </svg>
+                                                        <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                            <g>
+                                                                <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                            </g>
+                                                        </svg>
+                                                        <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                            <g>
+                                                                <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                            </g>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                                <div class="rating-bar-wrapper">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:80%;"></div>
+                                                    </div>
+                                                    <div class="count">
+                                                        10
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <script>
+        $('.product-gallery-for').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+       arrows: false,
+      fade: true,
+       asNavFor: '.product-gallery-nav'
+     });
+   </script>
+
+<script>
+
+    class VariantSelector extends HTMLElement{
+     Constructor() {
+         super();
+         this.addEventListener("change", this.onVariantChange);
+     }
+
+     OnVariantChange() {
+          this.getSelectedOptions();
+          this.getSelectedVariant();
+          
+          if(this.currentVariant) {
+             this.updateURL();
+             this.updateFormID();
+          }
+     }
+
+     getSelectedOptions() {
+         this.options = Array.from(this.querySelectedorAll('select'),(select)=> select.value);
+         console.log(this.options);
+     }
+
+       getVariantJSON() {
+         this.variantData = this.variantData || JSON.parse(this.querySelector('[type= "application/json"]').textContent);
+         return this.variantData;
+     }
+     
+     getSelectedVariant(){
+         this.currentVariant = this.getVariantJSON().find(
+            (variant)=> {
+               const findings = !variants.options.map(
+                 (option,index) => {
+                     return this.options[index] === option;
+                 }
+               ).includes(false);
+               if(findings) return variant;
+            }
+         );
+
+         console.log(this.currentVariant);
+     }
+
+     updateURL() {  
+         if(!this.currentVariant) return;
+         window.history.replaceState({},'', '${this.dataset.url}?variant=${this.currentVariant.id}');
+     }
+
+     updateFormID() {
+         const form_input = document.querySelector("#product-form").querySelector('input[name="id"]');
+         form_input.value = this.currentVariant.id;
+     }
+
+     updatePrice() {
+         fetch( ${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section});
+         .then((response)=> response.text())
+         .then((responseText)=>{
+         const id = 'price-${this.dataset.section}';
+         const html = new DOMParser().parserFromString(responseText, 'text/html');
+
+         const oldPrice = document.getElementById(id);
+         const newPrice = html.getElementById(id);
+          });
+       }
+     }
+
+  customElements.define("variant-selector", VariantSelector);
+
+</script>
+
+
+
+{% schema %}
+    {
+        "name": "product2-template",
+        "settings": [
+            
+        {
+        "type": "image_picker",
+        "id": "image1",
+        "label": "Image"   
+       },  
+            
+            {
+                "type": "text",
+                "id": "heading1",
+                "label": "Heading 1",
+                "default": "Enter Text"
+            },
+            {
+                "type": "text",
+                "id": "desc1",
+                "label": "desc 2",
+                "default": "Enter Text"
+            },
+
+            {
+               "type": "image_picker",
+              "id": "image2",
+              "label": "Background Image"   
+            },
+            {
+             "type": "header",
+             "content": "t:sections.Detail-2.Heading"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",   
+                "default": "Enter Text"
+            },
+            {
+            "type": "color",
+            "id": "color_text_heading",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+           
+            {
+            "type": "range",
+            "id": "font_size_text_heading",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_heading",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_heading",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        },
+            
+            {
+             "type": "header",
+             "content": "t:sections.Detail-2.Heading-1"
+            },
+           
+            {
+            "type": "range",
+            "id": "font_size_text_heading_1",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_heading_1",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_heading_1",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        },
+        {
+          "type": "header",
+          "content": "t:sections.Detail-2.Desc-1"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text_desc_1",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_desc_1",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_desc_1",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+           
+          
+            
+        ],
+        "blocks": [
+
+        {
+          "type": "vendor",
+          "name": "Vendor",
+          "limit": 1,
+          "settings":
+            [
+                {
+            "type": "range",
+            "id": "font_size_text_vendor",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_vendor",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_vendor",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+            ]
+        },
+        {
+          "type": "title",
+          "name": "Title",
+          "limit": 1,
+          "settings":
+            [
+                {
+            "type": "range",
+            "id": "font_size_text_title",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_title",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_title",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+            ]
+        },
+        {
+          "type": "rating",
+          "name": "Rating",
+          "limit": 1,
+          "settings":
+            [
+                {
+            "type": "range",
+            "id": "font_size_text_rating",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_rating",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_rating",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+            ]
+        },
+        {
+          "type": "availability",
+          "name": "Availability",
+          "limit": 1,
+          "settings":
+            [
+                {
+            "type": "range",
+            "id": "font_size_text_availability",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_availability",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_availability",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+            ]
+        },
+        {
+          "type": "sku",
+          "name": "Sku",
+          "limit": 1,
+          "settings":
+            [
+                {
+            "type": "range",
+            "id": "font_size_text_sku",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_sku",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_sku",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+            ]
+        },
+        {
+          "type": "price",
+          "name": "Price",
+          "limit": 1,
+          "settings":
+            [
+                {
+            "type": "range",
+            "id": "font_size_text_price",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_price",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_price",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+            ]
+        
+        },
+        
+           
+            
+        {
+          "type": "variant_selector",
+          "name": "Variant Selector",  
+          "limit": 1,
+          "settings":
+            [
+                {
+            "type": "range",
+            "id": "font_size_text_variant_selector",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_variant_selector",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_variant_selector",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+            ]
+        },
+        {
+          "type": "quantity",
+          "name": "Quantity",
+          "limit": 1,
+          "settings":
+            [
+                {
+            "type": "range",
+            "id": "font_size_text_quantity",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_quantity",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_quantity",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+            ]
+        },
+        {
+          "type": "checkout_buttons",
+          "name": "Checkout Buttons",
+          "limit": 1,
+          "settings":
+            [
+                {
+            "type": "range",
+            "id": "font_size_text_checkout_buttons",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_checkout_buttons",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_checkout_buttons",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+            ]
+        },
+        {
+          "type": "description",
+          "name": "Description",
+          "limit": 1,
+          "settings":
+            [
+                {
+            "type": "range",
+            "id": "font_size_text_description",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_text_description",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_description",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+        ]
+},
+        {
+            "type": "shipping",
+            "name": "shipping",
+            "settings": [
+
+           
+               
+             {
+               "type": "text",
+                "id": "heading1",
+               "label": "Heading 1",
+                "default": "Enter Text" 
+             },
+             {
+              "type": "color",
+              "id": "color_text_heading_1",
+              "label": "t:settings_schema.colors.settings.colors_text.label__1",  
+              "default": "#b05d5d"
+            },
+            
+             {
+               "type": "text",
+                "id": "desc1",
+               "label": "Desc 1",  
+                "default": "Enter Text" 
+             },
+             {
+              "type": "color",
+              "id": "color_text_desc_1",
+              "label": "t:settings_schema.colors.settings.colors_text.label__1",
+              "default": "#b05d5d"
+           }
+
+              
+            ]
+        }
+    ],
+        "presets": [
+            {
+                "name": "product2-template"
+            }
+        ]
+    }
+    {% endschema %}
+    

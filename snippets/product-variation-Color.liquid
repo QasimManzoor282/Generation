@@ -1,0 +1,23 @@
+
+{% comment %} <div class="variation variable-product-color">
+    <label class="variants-label">{{ 'Colors' }}</label>
+    <div class="wpcvs-terms wpcvs-type-color">
+        {% assign available_colors = product.variants | map: 'option2' | compact | uniq %}   
+            {% for color in available_colors %}
+                <span class="wpcvs-term swatch-color wpcvs-enabled">
+                    <span style="background-image: linear-gradient(100deg, {{ color_gradient }});">{{ color_gradient }}</span>
+                </span>
+            {% endfor %}    
+    </div>
+</div> {% endcomment %}
+<div class="variation variable-product-color">
+    <label class="variants-label">{{ 'Colors' }}</label>
+    <div class="wpcvs-terms wpcvs-type-color">
+        {% assign available_colors = product.variants | map: 'option2' | compact | uniq %}   
+        {% for color in available_colors %}
+            <span class="wpcvs-term swatch-color wpcvs-enabled">
+                <span style="background-image: linear-gradient(100deg, {{ color }} 100%, #ffffff 100%);">{{ color }}</span>
+            </span>
+        {% endfor %}    
+    </div>
+</div>

@@ -1,0 +1,242 @@
+{%- if section.settings.enable_announcement -%}
+
+{% render 'announcement-style-03' %} 
+
+<div class="topbar-wrapper home3">
+    <div class="container--{{ section.settings.layout }}">
+        <div class="topbar-inner-wrapper">
+            <div class="topbar-item home3">
+                <div class="item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 512 512" width="40" height="40">
+                        <path d="M507.219,275.177,466.234,185.01A42.749,42.749,0,0,0,427.4,160H352V128a32.035,32.035,0,0,0-32-32H53.333a32.035,32.035,0,0,0-32,32V256a10.667,10.667,0,1,0,21.333,0V128a10.679,10.679,0,0,1,10.667-10.667H320A10.679,10.679,0,0,1,330.667,128V298.667A10.681,10.681,0,0,1,320,309.333H192a10.667,10.667,0,0,0,0,21.333H320a32.035,32.035,0,0,0,32-32V181.333h75.4a21.381,21.381,0,0,1,19.422,12.505l4.013,8.828h-45.5A21.356,21.356,0,0,0,384,224v42.667A21.354,21.354,0,0,0,405.333,288h83.8a31.657,31.657,0,0,1,1.538,9.24v44.094A10.681,10.681,0,0,1,480,352H446.922a53.333,53.333,0,0,0-104.51,0H169.589a53.333,53.333,0,0,0-104.51,0H53.333a10.681,10.681,0,0,1-10.667-10.667V330.667a10.667,10.667,0,0,0,0-21.333h-32a10.667,10.667,0,0,0,0,21.333H21.333v10.667a32.035,32.035,0,0,0,32,32H65.078a53.333,53.333,0,0,0,104.51,0H342.411a53.333,53.333,0,0,0,104.51,0H480a32.035,32.035,0,0,0,32-32V297.24A52.9,52.9,0,0,0,507.219,275.177ZM117.333,394.667a32,32,0,1,1,32-32A32.035,32.035,0,0,1,117.333,394.667Zm277.333,0a32,32,0,1,1,32-32A32.035,32.035,0,0,1,394.667,394.667ZM405.333,224h55.194l19.394,42.667H405.333Z" />
+                        <path d="M184.224,197.333a26.7,26.7,0,0,0-26.667-26.667H136.224a10.667,10.667,0,0,0-10.667,10.667v64a10.667,10.667,0,1,0,21.333,0V232.578L164.2,252.357A10.665,10.665,0,1,0,180.25,238.31l-13.839-15.82A26.715,26.715,0,0,0,184.224,197.333Zm-26.667,5.333H146.891V192h10.667a5.333,5.333,0,0,1,0,10.667Z" />
+                        <path d="M106.667,192a10.667,10.667,0,0,0,0-21.333h-32A10.667,10.667,0,0,0,64,181.333v64a10.667,10.667,0,1,0,21.333,0V224h16a10.667,10.667,0,1,0,0-21.333h-16V192Z" />
+                        <path d="M298.667,192a10.667,10.667,0,0,0,0-21.333h-32A10.667,10.667,0,0,0,256,181.333v64A10.667,10.667,0,0,0,266.667,256h32a10.667,10.667,0,0,0,0-21.333H277.333V224h15.76a10.667,10.667,0,1,0,0-21.333h-15.76V192Z" />
+                        <path d="M237.333,192a10.667,10.667,0,1,0,0-21.333h-32a10.667,10.667,0,0,0-10.667,10.667v64A10.667,10.667,0,0,0,205.333,256h32a10.667,10.667,0,1,0,0-21.333H216V224h15.766a10.667,10.667,0,1,0,0-21.333H216V192Z" />
+                        <path d="M10.667,298.667H64a10.667,10.667,0,0,0,0-21.333H10.667a10.667,10.667,0,0,0,0,21.333Z" /></svg>
+                </div>
+                {%- for block in section.blocks -%}
+                    {%- case block.type -%}
+                        {%- when 'announcement' -%}
+                            {%- if block.settings.text != blank -%}
+                                <p>
+                                        {{ block.settings.text }}
+                                </p>
+                            {%- endif -%}
+                    {%- endcase -%}
+                {%- endfor -%}
+            </div>
+            <div class="topbar-item">
+                <div class="social-icons">
+                    <ul>
+                        <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="topbar-item">
+                <div class="currency-dropdown">
+                    <select class="currency-selection" name="state">
+                        <option value="USD">SUSD</option>
+                        <option value="PKR">PKR</option>
+                    </select>
+                </div>
+                <div class="review-menu">
+                    <a href="#"><svg viewBox="0 0 24 24" width="25" height="25">
+                            <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                        </svg>
+                        Reviews</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ {% endif %}
+
+{% schema %}
+    {
+        "name": "t:sections.announcement-bar-03.name",
+        "max_blocks": 12,
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enable_announcement",
+                "label": "t:sections.header.settings.header_layout.enable_announcement",
+                "default": true
+            },
+            {
+                "type": "color",
+                "id": "color_text",
+                "label": "t:settings_schema.colors.settings.colors_text.label__1",
+                "default": "#b05d5d"
+            },
+            {
+                "type": "color",
+                "id": "color_text2",
+                "label": "t:settings_schema.colors.settings.colors_text.label__2",
+                "default": "#b05d5d"
+            },
+            {
+                "type": "select",
+                "id": "font_weight_text2",
+                "label": "t:settings_schema.typography.settings.font_weight.label_2",
+                "default": "500",
+                "options": [
+                {
+                    "value": "400",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__1"
+                },
+                {
+                    "value": "500",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__2"
+                },
+                {
+                    "value": "600",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__3"
+                },
+                {
+                    "value": "700",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__4"
+                },
+                {
+                    "value": "800",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__5"
+                },
+                {
+                    "value": "900",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__6"
+                }]
+            },
+            {
+                "type": "color",
+                "id": "bg_color_text",
+                "label": "t:settings_schema.colors.settings.colors_name.background_color",
+                "default": "#ffe8e8"
+            },
+            {
+                "type": "color_background",
+                "id": "bg_color_text_gradient",
+                "label": "t:settings_schema.colors.settings.colors_name.background_color_gradient"
+            },
+            {
+                "type": "range",
+                "id": "font_size_text",
+                "label": "t:sections.announcement-bar.blocks.announcement.settings.text.font_size",
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 12
+            },
+            {
+              "type": "range",
+              "id": "font_lineheight_text",
+              "min": 1,
+              "max": 100,
+              "step": 1,
+              "unit": "px",
+              "label": "t:settings_schema.typography.settings.typography.label__1",
+              "default": 20
+            },
+            {
+                "type": "select",
+                "id": "font_style_text",
+                "label": "t:settings_schema.typography.settings.font_style.label",
+                "default": "normal",
+                "options": [
+                {
+                    "value": "normal",
+                    "label": "t:settings_schema.typography.settings.font_style.options__1"
+                },
+                {
+                    "value": "italic",
+                    "label": "t:settings_schema.typography.settings.font_style.options__2"
+                },
+                {
+                    "value": "oblique",
+                    "label": "t:settings_schema.typography.settings.font_style.options__3"
+                }]
+            },
+            {
+                "type": "select",
+                "id": "font_weight_text",
+                "label": "t:settings_schema.typography.settings.font_weight.label",
+                "default": "500",
+                "options": [
+                {
+                    "value": "400",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__1"
+                },
+                {
+                    "value": "500",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__2"
+                },
+                {
+                    "value": "600",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__3"
+                },
+                {
+                    "value": "700",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__4"
+                },
+                {
+                    "value": "800",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__5"
+                },
+                {
+                    "value": "900",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__6"
+                }]
+            },
+            {
+                "type": "header",
+                "content": "t:sections.main-product.settings.general.spacing"
+            },
+            {
+                "type": "range",
+                "id": "padding_top",
+                "label": "t:sections.product_block.settings.general.label__3",
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 0
+            },
+            {
+                "type": "range",
+                "id": "padding_bottom",
+                "label": "t:sections.product_block.settings.general.label__4",
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 0
+            }
+            
+        ],
+        "blocks": [
+            {
+                "type": "announcement",
+                "name": "t:sections.announcement-bar-03.blocks.announcement.name",
+                "settings": [
+                    {
+                        "type": "html",
+                        "id": "text",
+                        "label": "t:sections.announcement-bar-03.blocks.announcement.settings.text.label",
+                        "default": " FREE shipping <span>on US$39.00+</span>"
+                    }
+                       
+                ]
+            }
+        ],
+        "default": {
+            "blocks": [
+                {
+                    "type": "announcement"
+                }
+            ]
+        }
+    }
+    {% endschema %}
+    

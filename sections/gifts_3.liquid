@@ -1,0 +1,119 @@
+<section>
+    <div class="gift-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="gift-box">
+                        <div class="gift-image">
+                           
+                            {% if section.settings.image1 != blank -%}
+                                <img src="{{ section.settings.image1 | img_url: 'large' }}" alt="Your Alt Text">
+                            {%- endif %}
+                        </div>
+                        <div class="gift-content">
+                            <h4>{{ section.settings.heading1 }}</h4>
+                        </div>
+                        <a class="gift-link" href="{{ section.settings.link1 }}"></a>
+                    </div>
+                    <div class="gift-box gift-preview">
+                        <div class="gift-image">
+                            {% if section.settings.image2 != blank -%}
+                                <img src="{{ section.settings.image2 | img_url: 'large' }}" alt="Your Alt Text">
+                            {%- endif %}
+                        </div>
+                        <a class="gift-link" href="{{ section.settings.link2 }}"></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="gift-box gift-preview-two">
+                        <div class="gift-image">
+                            {% if section.settings.image3 != blank -%}
+                                <img src="{{ section.settings.image3 | img_url: 'large' }}" alt="Your Alt Text">
+                            {%- endif %}
+                        </div>
+                        <a class="gift-link" href="{{ section.settings.link3 }}"></a>
+                    </div>
+                    <div class="gift-box ">
+                        <div class="gift-image">
+                            {% if section.settings.image4 != blank -%}
+                                <img src="{{ section.settings.image4 | img_url: 'large' }}" alt="Your Alt Text">
+                            {%- endif %}
+                        </div>
+                        <div class="gift-content">
+                            <h4>{{ section.settings.heading2 }}</h4>
+                        </div>
+                        <a class="gift-link" href="{{ section.settings.link4 }}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+{
+    "name": "gifts",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image1",
+            "label": "Image 1"
+        },
+        {
+            "type": "image_picker",
+            "id": "image2",
+            "label": "Image 2"
+        },
+        {
+            "type": "image_picker",
+            "id": "image3",
+            "label": "Image 3"
+        },
+        {
+            "type": "image_picker",
+            "id": "image4",
+            "label": "Image 4"
+        },
+        {
+            "type": "text",
+            "id": "heading1",
+            "label": "Heading 1",
+            "default": "JEWELLERY GIFTS"
+        },
+        {
+            "type": "text",
+            "id": "heading2",
+            "label": "Heading 2",
+            "default": "Gifts Under $1,000"
+        },
+        {
+            "type": "url",
+            "id": "link1",
+            "label": "Link For Image 1 "
+        },
+     
+        {
+            "type": "url",
+            "id": "link2",
+            "label": "Link For Image 2"
+        },
+       
+        {
+            "type": "url",
+            "id": "link3",
+            "label": "Link For Image 3"
+        },
+     
+        {
+            "type": "url",
+            "id": "link4",
+            "label": "Link For Image 4"
+        }
+       
+    ],
+    "presets": [
+        {
+            "name": "gifts"
+        }
+    ]
+}
+{% endschema %}

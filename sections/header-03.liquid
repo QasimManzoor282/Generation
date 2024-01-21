@@ -1,0 +1,848 @@
+{% render 'header-style-03' %}
+{%- liquid
+    if request.page_type == 'index'
+        if section.settings.enable_transparent
+            assign header_transparent = ' header-transparent'
+        endif
+    endif
+-%}
+ 
+<div class="header-middle home3">
+            <div class="container">
+                <div class="header-menu-inner">
+                    <div class="header-menu">
+                        <div class="mobile-menu-triggered mobile-menu-icon">
+                            <a href="#"><svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" /></svg></a>
+                        </div>
+						{% if section.settings.show_search %}
+							<form action="#" class="search-form">
+								<input type="text" placeholder="Search">
+								<button type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+										<path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z"></path>
+									</svg></button>
+							</form>
+					    {%- endif -%}
+                    </div>
+                    <div class="logo-wrapper home3 logo">
+                        <h1>
+								<a href="{{ routes.root_url }}">
+									{%- if section.settings.logo != blank -%}
+										{%- assign logo = section.settings.logo -%}
+										{%- assign logo_width = section.settings.logo_width -%}
+										{%- assign logo_width_img = logo_width | append: 'x' -%}
+										{%- assign logo_width_retina = logo_width | times: 2 | append: 'x' -%}
+										{%- assign logo_height = logo_width | divided_by: logo.aspect_ratio | round -%}
+										{%- assign logo_transparent = section.settings.logo_transparent -%}
+										<figure class="logo-wrapper logo">
+											<img srcset="{{ logo | img_url: logo_width_img }} 1x, {{ logo | img_url: logo_width_retina }} 2x"
+												src="{{ logo | img_url: logo_width_img }}"
+												loading="lazy"
+												class="logo-wrapper logo"
+												alt="{{ logo.alt | default: shop.name | escape }}"
+												width="{{ logo_width }}" height="{{ logo_height }}">
+										</figure>
+										{%- if request.page_type == 'index' and section.settings.enable_transparent and logo_transparent != blank -%}
+											<figure class="logo-wrapper logo">
+												<img srcset="{{ logo_transparent | img_url: logo_width_img }} 1x, {{ logo | img_url: logo_width_retina }} 2x"
+													src="{{ logo_transparent | img_url: logo_width_img }}"
+													loading="lazy"
+													class="logo-wrapper logo"
+													alt="{{ logo.alt | default: shop.name | escape }}"
+													width="{{ logo_width }}"
+													height="{{ logo_height }}">
+											</figure>
+										{%- endif -%}
+									{%- else -%}
+										<span class="logo-wrapper logo {{ section.settings.logo_text_transform }}">{{ shop.name }}</span>
+									{%- endif -%}
+								</a>
+									<!-- Logo End Here -->
+						</h1>
+                    </div>
+                    <div class="header-action-items">
+                        <ul>
+                            <li>
+                                {% if section.settings.show_phone_no%}	
+                                <a href="#" class="phone-item">
+                                    <svg width="28" height="28" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" version="1.1" id="svg3810" xml:space="preserve" width="682.66669" height="682.66669" viewBox="0 0 682.66669 682.66669">
+                                        <defs id="defs3814">
+                                            <clipPath clipPathUnits="userSpaceOnUse" id="clipPath3824">
+                                                <path d="M 0,512 H 512 V 0 H 0 Z" id="path3822" />
+                                            </clipPath>
+                                        </defs>
+                                        <g id="g3816" transform="matrix(1.3333333,0,0,-1.3333333,0,682.66667)">
+                                            <g id="g3818">
+                                                <g id="g3820" clip-path="url(#clipPath3824)">
+                                                    <g id="g3826" transform="translate(409.9102,69.6396)">
+                                                        <path d="m 0,0 c 0,-32.939 -26.7,-59.64 -59.641,-59.64 h -64.599 c -22.59,0 -43.24,12.76 -53.34,32.97 L -190.92,0 -220.74,-59.64 -250.561,0 -280.38,-59.64 -310.2,0 -340.021,-59.64 -369.84,0 -399.66,-59.64" style="fill:none;stroke:inherit;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" id="path3828" />
+                                                    </g>
+                                                    <g id="g3830" transform="translate(266.25,246)">
+                                                        <path d="m 0,0 c 0,-5.522 -4.478,-10 -10,-10 -5.522,0 -10,4.478 -10,10 0,5.522 4.478,10 10,10 C -4.478,10 0,5.522 0,0" style="fill:inherit;fill-opacity:1;fill-rule:nonzero;stroke:none" id="path3832" />
+                                                    </g>
+                                                    <g id="g3834" transform="translate(224.9414,278.2939)">
+                                                        <path d="m 0,0 c -12.175,14.184 -23.106,28.649 -32.062,42.666 -7.379,11.54 -5.149,26.83 4.541,36.521 l 33.66,33.659 c 7.24,7.24 7.24,18.98 0,26.22 l -79.21,79.21 c -7.241,7.24 -18.981,7.24 -26.231,0 l -20.04,-20.05 c -32.529,-32.53 -41.33,-82.16 -20.909,-123.39 36.34,-73.35 123.1,-197.78 267.149,-268.41 41.34,-20.27 91.92,-11.67 124.481,20.88 l 20.5,20.5 c 7.239,7.25 7.239,18.99 0,26.23 l -79.91,79.2 c -7.25,7.25 -18.99,7.25 -26.231,0 l -33.66,-33.65 c -9.68,-9.69 -24.97,-11.92 -36.519,-4.54 -10.185,6.506 -20.61,14.058 -30.994,22.375" style="fill:none;stroke:inherit;stroke-width:25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" id="path3836" />
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                
+										{{ section.settings.top_bar_no }}
+							     
+                                </a>
+                                {% endif %}
+                            </li>
+                            <li>
+                                {% if section.settings.show_customer %}	
+									<a href="#">
+										<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+											<g>
+												<g>
+													<path d="M437.02,330.98c-27.883-27.882-61.071-48.523-97.281-61.018C378.521,243.251,404,198.548,404,148    C404,66.393,337.607,0,256,0S108,66.393,108,148c0,50.548,25.479,95.251,64.262,121.962    c-36.21,12.495-69.398,33.136-97.281,61.018C26.629,379.333,0,443.62,0,512h40c0-119.103,96.897-216,216-216s216,96.897,216,216    h40C512,443.62,485.371,379.333,437.02,330.98z M256,256c-59.551,0-108-48.448-108-108S196.449,40,256,40    c59.551,0,108,48.448,108,108S315.551,256,256,256z" />
+												</g>
+											</g>
+										</svg>
+									</a>
+                                {% endif %}
+                            </li>
+                            <li>
+                                {% if section.settings.show_wishlist %}	
+									<a href="#">
+										<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 67.949 67.949" style="enable-background:new 0 0 67.949 67.949;" xml:space="preserve">
+											<g>
+												<path d="M62.49,11.239c-7.39-7.388-19.412-7.388-26.8,0l-1.716,1.715l-1.715-1.715c-7.388-7.389-19.411-7.389-26.799,0   c-7.238,7.238-7.285,18.711-0.109,26.688c6.545,7.273,25.848,22.986,26.667,23.651c0.556,0.452,1.225,0.672,1.89,0.672   c0.022,0,0.044,0,0.065-0.001c0.688,0.032,1.381-0.204,1.955-0.671c0.819-0.665,20.124-16.378,26.671-23.652   C69.774,29.95,69.727,18.477,62.49,11.239z M58.139,33.913c-5.103,5.669-19.13,17.361-24.166,21.51   c-5.036-4.148-19.06-15.839-24.162-21.509C4.805,28.35,4.758,20.426,9.702,15.482c2.525-2.524,5.841-3.787,9.157-3.787   s6.632,1.262,9.157,3.787l3.772,3.772c0.449,0.449,1.015,0.717,1.609,0.811c0.964,0.207,2.01-0.062,2.76-0.81l3.774-3.773   c5.051-5.049,13.267-5.048,18.315,0C63.19,20.426,63.143,28.35,58.139,33.913z" />
+											</g>
+										</svg>
+									</a>
+                                {% endif %}
+                            </li>
+                            <li>
+								{% if section.settings.show_cart %}	
+									<a href="#">
+										<svg xmlns="http://www.w3.org/2000/svg" clip-rule="evenodd" fill-rule="evenodd" height="25" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" width="25">
+											<g id="Icon">
+												<path d="m21.74 9.121c.036-.217-.026-.439-.168-.607-.143-.167-.352-.264-.572-.264h-18c-.22 0-.429.097-.572.264-.142.168-.204.39-.168.607 0 0 1.022 6.244 1.525 9.323.218 1.33 1.367 2.306 2.714 2.306h11.002c1.347 0 2.496-.976 2.714-2.306zm-1.623.629-1.383 8.452c-.099.604-.621 1.048-1.233 1.048-2.771 0-8.231 0-11.002 0-.612 0-1.134-.444-1.233-1.048 0 0-1.383-8.452-1.383-8.452z" />
+												<path d="m18.643 8.614-3-5c-.213-.355-.674-.47-1.029-.257s-.47.674-.257 1.029l3 5c.213.355.674.47 1.029.257s.47-.674.257-1.029z" />
+												<path d="m6.643 9.386 3-5c.213-.355.098-.816-.257-1.029s-.816-.098-1.029.257l-3 5c-.213.355-.098.816.257 1.029s.816.098 1.029-.257z" />
+												<path d="m11.25 12.5v4c0 .414.336.75.75.75s.75-.336.75-.75v-4c0-.414-.336-.75-.75-.75s-.75.336-.75.75z" />
+												<path d="m7.25 12.5v4c0 .414.336.75.75.75s.75-.336.75-.75v-4c0-.414-.336-.75-.75-.75s-.75.336-.75.75z" />
+												<path d="m15.25 12.5v4c0 .414.336.75.75.75s.75-.336.75-.75v-4c0-.414-.336-.75-.75-.75s-.75.336-.75.75z" />
+												<path d="m22 8.25h-20c-.414 0-.75.336-.75.75s.336.75.75.75h20c.414 0 .75-.336.75-.75s-.336-.75-.75-.75z" />
+											</g>
+										</svg>
+									</a>
+								{% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-wrapper home3">
+            <div class="container">
+                <div class="navigation-inner-wrapper">
+                    <div class="side-navigation wpe-display-no">
+                        <a href="#" class="cross-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M18 6l-12 12" />
+                                <path d="M6 6l12 12" />
+                            </svg>
+                        </a>
+                        <div class="logo">
+                            <a href="{{ routes.root_url }}">
+									{%- if section.settings.logo != blank -%}
+										{%- assign logo = section.settings.logo -%}
+										{%- assign logo_width = section.settings.logo_width -%}
+										{%- assign logo_width_img = logo_width | append: 'x' -%}
+										{%- assign logo_width_retina = logo_width | times: 2 | append: 'x' -%}
+										{%- assign logo_height = logo_width | divided_by: logo.aspect_ratio | round -%}
+										{%- assign logo_transparent = section.settings.logo_transparent -%}
+										<figure class="logo-wrapper logo">
+											<img srcset="{{ logo | img_url: logo_width_img }} 1x, {{ logo | img_url: logo_width_retina }} 2x"
+												src="{{ logo | img_url: logo_width_img }}"
+												loading="lazy"
+												class="logo-wrapper logo"
+												alt="{{ logo.alt | default: shop.name | escape }}"
+												width="{{ logo_width }}" height="{{ logo_height }}">
+										</figure>
+										{%- if request.page_type == 'index' and section.settings.enable_transparent and logo_transparent != blank -%}
+											<figure class="logo-wrapper logo">
+												<img srcset="{{ logo_transparent | img_url: logo_width_img }} 1x, {{ logo | img_url: logo_width_retina }} 2x"
+													src="{{ logo_transparent | img_url: logo_width_img }}"
+													loading="lazy"
+													class="logo-wrapper logo"
+													alt="{{ logo.alt | default: shop.name | escape }}"
+													width="{{ logo_width }}"
+													height="{{ logo_height }}">
+											</figure>
+										{%- endif -%}
+									{%- else -%}
+										<span class="logo-wrapper logo {{ section.settings.logo_text_transform }}">{{ shop.name }}</span>
+									{%- endif -%}
+								</a>
+                        </div>
+                        <!--end-logo-->
+                    </div>
+                    <nav class="menu" id="nav-menu">
+
+                    {%- if section.settings.menu != blank -%}
+						{% render 'scoder-navigation-list',
+						listClass: 'menu-listing list-menu'
+					    %}
+                      
+					 {% endif %}
+                        
+                    </nav>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        
+        <script>
+            function formatState(state) {
+            if (!state.id) {
+                return state.text;
+            }
+         
+            var baseUrl = "assets/images/resources/flags"; 
+            var $state = $(
+                '<span><img class="img-flag" /> <span></span></span>'
+            );
+        
+            // Use .text() instead of HTML string concatenation to avoid script injection issues
+            $state.find("span").text(state.text);
+            $state.find("img").attr("src", baseUrl + "/" + state.element.value.toLowerCase() + ".png");
+        
+            return $state;
+            };
+        
+                $(".currency-selection").select2({
+                    templateSelection: formatState,
+                    width: '110px'
+                });
+        </script>
+
+{% render 'responsive-header' %}
+
+{% schema %}
+{
+	"name": "t:sections.header.name",
+	"class": "section-header-navigation",
+	"settings": [
+		{
+			"type": "header",
+			"content": "t:settings_schema.multiple_layouts.settings.general.general"
+		},
+		{
+            "type": "color",
+            "id": "bg_color_header",
+            "label": "t:settings_schema.colors.settings.colors_name.background_color",
+            "default": "#ffffff"
+        },
+		{
+			"type": "checkbox",
+			"id": "show_search",
+			"label": "t:sections.header.settings.header_icons.label__2",
+			"default": true
+		},
+	
+		{
+			"type": "header",
+			"content": "t:sections.header.settings.header__4.content"
+		},
+		{
+			"type": "image_picker",
+			"id": "logo",
+			"label": "t:sections.header.settings.logo.label__1"
+		},
+		{
+			"type": "image_picker",
+			"id": "logo_transparent",
+			"label": "t:sections.header.settings.parallax.logo_transparent"
+		},
+		{
+			"type": "range",
+			"id": "logo_width",
+			"min": 50,
+			"max": 400,
+			"step": 5,
+			"unit": "t:sections.header.settings.logo_width.unit",
+			"label": "t:sections.header.settings.logo_width.label__1",
+			"default": 90
+		},
+		{
+			"type": "range",
+			"id": "logo_width_table",
+			"min": 50,
+			"max": 400,
+			"step": 5,
+			"unit": "t:sections.header.settings.logo_width.unit",
+			"label": "t:sections.header.settings.logo_width.label__3",
+			"default": 90
+		},
+		{
+			"type": "range",
+			"id": "logo_width_mobile",
+			"min": 50,
+			"max": 400,
+			"step": 5,
+			"unit": "t:sections.header.settings.logo_width.unit",
+			"label": "t:sections.header.settings.logo_width.label__2",
+			"default": 50
+		},
+		{
+                "type": "header",
+                "content": "t:sections.header.settings.header_icons.label__8"
+         },
+		{
+			"type": "checkbox",
+			"id": "show_phone_no",
+			"label": "t:sections.header.settings.header_icons.label__7",
+			"default": true
+		},	
+		{
+                    "type": "color",
+                    "id": "color_text",
+                    "label": "t:settings_schema.colors.settings.colors_text.label__1",
+                    "default": "#b05d5d"
+        },
+		{
+            "type": "html",
+            "id": "top_bar_no",
+            "label": "t:sections.announcement-bar.top_bar_no",
+            "default": "+34640225587<span>39</span>"
+        },
+		{
+			"type": "link_list",
+			"id": "menu",
+			"label": "t:sections.header.settings.menu.label__1",
+			"default": "main-menu"
+		},
+		{
+			"type": "range",
+			"id": "menu_top_spacing",
+			"label": "t:sections.header.settings.header_bottom.mg_top",
+			"min": 0,
+			"max": 100,
+			"step": 1,
+			"unit": "t:sections.header.settings.logo.unit",
+			"default": 27
+		},
+		{
+			"type": "range",
+			"id": "menu_bottom_spacing",
+			"label": "t:sections.header.settings.header_bottom.mg_bottom",
+			"min": 0,
+			"max": 100,
+			"step": 1,
+			"unit": "t:sections.header.settings.logo.unit",
+			"default": 27
+		},
+		{
+			"type": "range",
+			"id": "grid_gap_menu",
+			"label": "t:sections.header.settings.header_bottom.spacing_left_right",
+			"min": 0,
+			"max": 50,
+			"step": 1,
+			"unit": "t:sections.header.settings.logo.unit",
+			"default": 20
+		},
+		{
+			"type": "range",
+			"id": "nav_font_size",
+			"label": "t:settings_schema.typography.settings.font_size.label",
+			"min": 10,
+			"max": 100,
+			"step": 1,
+			"unit": "t:settings_schema.typography.settings.font_size.unit",
+			"default": 16
+		},
+		{
+			"type": "range",
+			"id": "nav_line_height",
+			"min": 1,
+			"max": 100,
+			"step": 1,
+			"unit": "px",
+			"label": "t:settings_schema.typography.settings.typography.label__1",
+			"default": 20
+		},
+		{
+			"type": "select",
+			"id": "nav_font_weight",
+			"label": "t:settings_schema.typography.settings.font_weight.label",
+			"default": "400",
+			"options": [
+				{
+					"value": "400",
+					"label": "t:settings_schema.typography.settings.font_weight.options__1"
+				},
+				{
+					"value": "500",
+					"label": "t:settings_schema.typography.settings.font_weight.options__2"
+				},
+				{
+					"value": "600",
+					"label": "t:settings_schema.typography.settings.font_weight.options__3"
+				},
+				{
+					"value": "700",
+					"label": "t:settings_schema.typography.settings.font_weight.options__4"
+				},
+				{
+					"value": "800",
+					"label": "t:settings_schema.typography.settings.font_weight.options__5"
+				},
+				{
+					"value": "900",
+					"label": "t:settings_schema.typography.settings.font_weight.options__6"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "type_nav_text_transform",
+			"label": "t:settings_schema.typography.settings.text_transform.label",
+			"default": "uppercase",
+			"options": [
+				{
+					"value": "none",
+					"label": "t:settings_schema.typography.settings.text_transform.options__1"
+				},
+				{
+					"value": "capitalize",
+					"label": "t:settings_schema.typography.settings.text_transform.options__2"
+				},
+				{
+					"value": "uppercase",
+					"label": "t:settings_schema.typography.settings.text_transform.options__3"
+				},
+				{
+					"value": "lowercase",
+					"label": "t:settings_schema.typography.settings.text_transform.options__4"
+				}
+			]
+		},
+		{
+			"type": "text",
+			"id": "type_nav_letter_spacing",
+			"label": "t:settings_schema.typography.settings.typography.label__2",
+			"default": ".02em"
+		},
+		{
+			"id": "menu_color",
+			"type": "color",
+			"default": "#222222",
+			"label": "t:settings_schema.colors.settings.button_colors.text_color"
+		},
+		{
+			"id": "menu_hover_color",
+			"type": "color",
+			"default": "#a66953",
+			"label": "t:settings_schema.colors.settings.button_colors.texthover_color"
+		},
+		{
+			"id": "menu_color_mobile",
+			"type": "color",
+			"default": "#222222",
+			"label": "t:settings_schema.colors.settings.button_colors.text_color_mobile"
+		},
+		{
+			"id": "menu_hover_color_mobile",
+			"type": "color",
+			"default": "#a66953",
+			"label": "t:settings_schema.colors.settings.button_colors.texthover_color_mobile"
+		},
+		{
+			"type": "checkbox",
+			"id": "show_megamenu",
+			"label": "t:sections.header.settings.menu.label__3",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "show_customer",
+			"label": "t:sections.header.settings.header_icons.label__3",
+			"default": true
+		},	
+		{
+			"type": "checkbox",
+			"id": "show_wishlist",
+			"label": "t:sections.header.settings.header_icons.label__4",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "show_cart",
+			"label": "t:sections.header.settings.header_icons.label__5",
+			"default": true
+		},
+		
+		{
+			"type": "header",
+			"content": "t:sections.header.settings.parallax.parallax"
+		},
+		{
+			"type": "checkbox",
+			"id": "enable_transparent",
+			"label": "t:sections.header.settings.parallax.ennable_parallax",
+			"default": false
+		},
+		{
+			"type": "color",
+			"id": "transparent_color",
+			"label": "t:settings_schema.typography.settings.typography.text_color",
+			"default": "#fff"
+		},
+		{
+			"type": "color",
+			"id": "transparent_color_hover",
+			"label": "t:settings_schema.typography.settings.typography.text_color_hover",
+			"default": "#fff"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.header.settings.enable_sticky_header.name"
+		},
+		{
+			"type": "select",
+			"id": "sticky_header_type",
+			"label": "t:settings_schema.general.settings.swatch.label__2",
+			"default": "always",
+			"options": [
+				{
+					"value": "none",
+					"label": "t:settings_schema.typography.settings.text_transform.options__1"
+				},
+				{
+					"value": "always",
+					"label": "t:sections.header.settings.enable_sticky_header.label_1"
+				}
+			]
+		}
+		
+		
+	],
+	"blocks": [
+		{
+			"type": "megamenu_style_1",
+			"name": "t:sections.header.blocks.header__4.menu_menu_1",
+			"settings": [
+				{
+					"type": "header",
+					"content": "t:settings_schema.multiple_layouts.settings.general.layout_block"
+				},
+				{
+					"type": "radio",
+					"id": "layout_block",
+					"label": "t:settings_schema.multiple_layouts.settings.general.layout_select",
+					"options": [
+						{
+							"value": "full",
+							"label": "t:settings_schema.multiple_layouts.settings.general.full_width"
+						},
+						{
+							"value": "custom_width",
+							"label": "t:settings_schema.multiple_layouts.settings.general.custom_width"
+						}
+					],
+					"default": "custom_width"
+				},
+				{
+					"type": "range",
+					"id": "header_custom_width_size",
+					"label": "t:settings_schema.multiple_layouts.settings.general.custom_width_2",
+					"max": 1920,
+					"min": 1200,
+					"step": 10,
+					"unit": "px",
+					"default": 1200
+				},
+				{
+					"type": "text",
+					"id": "item",
+					"label": "t:sections.header.settings.mega_menu.label__2",
+					"default": "Catalog"
+				},
+				{
+					"type": "header",
+					"content": "t:sections.header.blocks.header__6.content"
+				},
+				{
+					"type": "range",
+					"id": "column",
+					"label": "t:sections.header.settings.mega_menu.label__3",
+					"min": 1,
+					"max": 6,
+					"step": 1,
+					"default": 3
+				},
+				{
+					"type": "header",
+					"content": "t:sections.header.blocks.header__8.content"
+				},
+				{
+					"type": "checkbox",
+					"id": "show_banner_1",
+					"label": "t:sections.header.settings.mega_menu.label__9"
+				},
+				{
+					"type": "header",
+					"content": "t:sections.image-banner.blocks.image.settings.header__2.title"
+				},
+				{
+					"type": "text",
+					"id": "banner_title",
+					"label": "t:sections.image-banner.blocks.image.settings.content.label__1",
+					"default": "New Arrival"
+				},
+				{
+					"id": "banner_title_color",
+					"type": "color",
+					"default": "#ffffff",
+					"label": "t:settings_schema.colors.settings.colors_text.label__1"
+				},
+				{
+					"type": "range",
+					"id": "banner_title_title_size",
+					"label": "t:settings_schema.typography.settings.typography.title_font_size",
+					"min": 0,
+					"max": 50,
+					"step": 1,
+					"unit": "t:sections.layout.mg_desktop.unit",
+					"default": 26
+				},
+				{
+					"type": "image_picker",
+					"id": "banner_1",
+					"label": "t:sections.header.settings.mega_menu.banner__img"
+				},
+				{
+					"type": "url",
+					"id": "banner_url_1",
+					"label": "t:sections.header.settings.mega_menu.label__8"
+				},
+				{
+					"type": "checkbox",
+					"id": "show_banner_2",
+					"label": "t:sections.header.settings.mega_menu.label__32"
+				},
+				{
+					"type": "image_picker",
+					"id": "banner_2",
+					"label": "t:sections.header.settings.mega_menu.label__14"
+				},
+				{
+					"type": "url",
+					"id": "banner_url_2",
+					"label": "t:sections.header.settings.mega_menu.label__17"
+				},
+				{
+					"type": "checkbox",
+					"id": "show_banner_3",
+					"label": "t:sections.header.settings.mega_menu.label__33"
+				},
+				{
+					"type": "image_picker",
+					"id": "banner_3",
+					"label": "t:sections.header.settings.mega_menu.label__18"
+				},
+				{
+					"type": "url",
+					"id": "banner_url_3",
+					"label": "t:sections.header.settings.mega_menu.label__21"
+				}
+			]
+		},
+		{
+			"type": "megamenu_style_2",
+			"name": "t:sections.header.blocks.header__4.menu_menu_2",
+			"settings": [
+				{
+					"type": "header",
+					"content": "t:settings_schema.multiple_layouts.settings.general.layout_block"
+				},
+				{
+					"type": "radio",
+					"id": "layout_block",
+					"label": "t:settings_schema.multiple_layouts.settings.general.layout_select",
+					"options": [
+						{
+							"value": "full",
+							"label": "t:settings_schema.multiple_layouts.settings.general.full_width"
+						},
+						{
+							"value": "custom_width",
+							"label": "t:settings_schema.multiple_layouts.settings.general.custom_width"
+						}
+					],
+					"default": "custom_width"
+				},
+				{
+					"type": "range",
+					"id": "header_custom_width_size",
+					"label": "t:settings_schema.multiple_layouts.settings.general.custom_width_2",
+					"max": 1200,
+					"min": 775,
+					"step": 5,
+					"unit": "px",
+					"default": 775
+				},
+				{
+					"type": "text",
+					"id": "item",
+					"label": "t:sections.header.settings.mega_menu.label__2",
+					"default": "Catalog"
+				},
+				{
+					"type": "header",
+					"content": "t:sections.header.blocks.header__6.content"
+				},
+				{
+					"type": "range",
+					"id": "column",
+					"label": "t:sections.header.settings.mega_menu.label__3",
+					"min": 1,
+					"max": 6,
+					"step": 1,
+					"default": 1
+				},
+				{
+					"type": "header",
+					"content": "t:sections.header.blocks.header__8.content"
+				},
+				{
+					"type": "checkbox",
+					"id": "show_banner_1",
+					"label": "t:sections.header.settings.mega_menu.label__31"
+				},
+				{
+					"type": "header",
+					"content": "t:sections.image-banner.blocks.image.settings.header__2.title"
+				},
+				{
+					"type": "text",
+					"id": "banner_title",
+					"label": "t:sections.image-banner.blocks.image.settings.content.label__1",
+					"default": "New Arrival"
+				},
+				{
+					"id": "banner_title_color",
+					"type": "color",
+					"default": "#ffffff",
+					"label": "t:settings_schema.colors.settings.colors_text.label__1"
+				},
+				{
+					"type": "range",
+					"id": "banner_title_title_size",
+					"label": "t:settings_schema.typography.settings.typography.title_font_size",
+					"min": 0,
+					"max": 50,
+					"step": 1,
+					"unit": "t:sections.layout.mg_desktop.unit",
+					"default": 26
+				},
+				{
+					"type": "image_picker",
+					"id": "banner_1",
+					"label": "t:sections.header.settings.mega_menu.label__10"
+				},
+				{
+					"type": "url",
+					"id": "banner_url_1",
+					"label": "t:sections.header.settings.mega_menu.label__13"
+				}
+			]
+		},
+		{
+			"type": "megamenu_style_3",
+			"name": "t:sections.header.blocks.header__4.menu_menu_3",
+			"settings": [
+				{
+					"type": "header",
+					"content": "t:settings_schema.multiple_layouts.settings.general.layout_block"
+				},
+				{
+					"type": "radio",
+					"id": "layout_block",
+					"label": "t:settings_schema.multiple_layouts.settings.general.layout_select",
+					"options": [
+						{
+							"value": "full",
+							"label": "t:settings_schema.multiple_layouts.settings.general.full_width"
+						},
+						{
+							"value": "custom_width",
+							"label": "t:settings_schema.multiple_layouts.settings.general.custom_width"
+						}
+					],
+					"default": "custom_width"
+				},
+				{
+					"type": "range",
+					"id": "header_custom_width_size",
+					"label": "t:settings_schema.multiple_layouts.settings.general.custom_width_2",
+					"max": 1920,
+					"min": 1200,
+					"step": 10,
+					"unit": "px",
+					"default": 1200
+				},
+				{
+					"type": "text",
+					"id": "item",
+					"label": "t:sections.header.settings.mega_menu.label__2",
+					"default": "Catalog"
+				},
+				{
+					"type": "header",
+					"content": "t:sections.header.blocks.header__6.content"
+				},
+				{
+					"type": "range",
+					"id": "column",
+					"label": "t:sections.header.settings.mega_menu.label__3",
+					"min": 2,
+					"max": 6,
+					"step": 1,
+					"default": 3
+				},
+				{
+					"type": "header",
+					"content": "t:sections.header.blocks.header__10.content"
+				},
+				{
+					"type": "range",  
+					"id": "product_limit",
+					"label": "t:sections.header.settings.mega_menu.product_limit",
+					"min": 1,
+					"max": 4,
+					"step": 1,
+					"default": 4
+				},
+				{
+					"type": "checkbox",
+					"id": "show_product",
+					"label": "t:sections.header.settings.mega_menu.label__27",
+					"default": false
+				},
+				{
+					"type": "text",
+					"id": "product_title",
+					"label": "t:sections.header.settings.mega_menu.label__5",
+					"default": "Featured Products"
+				},
+				{
+					"type": "collection",
+					"id": "product_collection",
+					"label": "t:sections.header.settings.mega_menu.label__28"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

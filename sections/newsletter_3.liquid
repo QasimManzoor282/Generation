@@ -1,0 +1,181 @@
+<style>
+   .newsletter-wrapper h3 {
+       font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+       font-weight: {{ section.settings.font_weight_text }};
+       font-style :{{ section.settings.font_style_text }};
+       color:{{ section.settings.color_text }};
+   
+   }
+   .newsletter-wrapper form button {
+       
+       color:{{section.settings.btn_clr}} !important;
+       background:{{section.settings.bg_clr}} !important;
+   }
+   
+   .newsletter-wrapper form button:hover{
+       color:{{section.settings.btn_clr_hover}} !important;
+        background:{{section.settings.bg_clr_hover}} !important;
+   }
+       
+   
+   
+   </style> 
+  <section>
+        <div class="newsletter-wrapper">
+            <div class="container">
+                <div class="newsletter-inner-wrapper">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="newsletter-area">
+                                <h3>{{ section.settings.heading1 }}</h3>
+                                <form action="#">
+                                    <input type="email" placeholder="Enter your email.">
+                                    <button type="submit">{{ section.settings.link1text }}</button>
+                                </form>
+                                <div class="social-icons">
+                                    <ul>
+                                        <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                                        <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="newsletter-preview">
+                        <div class="preview-one person-img">
+                            <img src="{{ section.settings.image1 | img_url: '' }}" alt="Person">
+                        </div>
+                        <div class="preview-two person-img">
+                            <img src="{{ section.settings.image2 | img_url: '' }}" alt="Person">
+                        </div>
+                        <div class="preview-three person-img">
+                            <img src="{{ section.settings.image3 | img_url: '' }}" alt="Person">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% schema %}
+    {
+        "name": "t:sections.newsletter_3.name",
+        "settings": [
+            {
+                    "type": "image_picker",
+                    "id": "image1",
+                     "label": "t:sections.newsletter_3.newsletter_3_image.settings.content.label__3"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image2",
+                     "label": "t:sections.newsletter_3.newsletter_3_image.settings.content.label__4"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image3",
+                     "label": "t:sections.newsletter_3.newsletter_3_image.settings.content.label__5"
+                },
+        {
+            "type":"header",
+            "content":"t:sections.newsletter_3.Heading-1"
+        },
+            
+        {
+                "type": "text",
+                "id": "heading1",
+                "label": "t:sections.newsletter_3.newsletter_3_image.settings.content.label__1",
+                "default": "be the first to receive exclusive discounts and offers"
+        },
+        {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:sections.announcement-bar.blocks.announcement.settings.text.font_size",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+
+           {
+            "type":"header",
+            "content":"t:sections.newsletter_3.Newletter_Button"
+        },
+        
+            {
+                "type": "text",
+                "id": "link1text",
+                "label": "t:sections.newsletter_3.newsletter_3_image.settings.content.label__2",
+                "default": "Subscribe"
+            },
+            {
+        "type": "color",
+        "id": "bg_clr",
+        "label": "Button Background",
+        "default": "#446084"
+    },
+    {
+        "type": "color",
+        "id": "btn_clr",
+        "label": "Button Title",
+        "default": "#fff"
+    },
+    {
+        "type": "color",
+        "id": "bg_clr_hover",
+        "label": "Hover Button Background",
+        "default": "#364c69"
+    },
+    {
+        "type": "color",
+        "id": "btn_clr_hover",
+        "label": "Hover Button Title",
+        "default": "#fff"
+    }
+        ],
+        "presets": [
+            {
+                "name": "Newsletter_3"
+            }
+        ]
+    }  
+{% endschema %}

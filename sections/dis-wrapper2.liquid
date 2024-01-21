@@ -1,0 +1,346 @@
+<style>
+    .dis-caption h1 {
+     color: {{ section.settings.color_text }};
+      font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+      font-weight: {{ section.settings.font_weight_text }};  
+}
+
+.prcnt-offer h2 {
+    color: {{ section.settings.color_text }};
+      font-size: {{ section.settings.font_size_text_heading_2 | append: 'px !important' }};
+      font-weight: {{ section.settings.font_weight_text_heading_2 }};  
+}
+
+.prcnt-offer span {
+    color: {{ section.settings.color_text }};
+      font-size: {{ section.settings.font_size_text_heading_3 | append: 'px !important' }};
+      font-weight: {{ section.settings.font_weight_text_heading_3 }};  
+}
+.dis-caption h3 {
+    color: {{ section.settings.color_text }};
+      font-size: {{ section.settings.font_size_text_heading_4 | append: 'px !important' }};
+      font-weight: {{ section.settings.font_weight_text_heading_4 }};  
+}
+</style>
+<section>
+    <div class="dis-wrapper" style="background-image:url('{{ section.settings.image1 | img_url: '' }}');">
+        <div class="dis-inner-wrapper">
+            <div class="container">
+                <div class="dis-item">
+                    <div class="dis-caption offer">
+                        <h1>{{ section.settings.heading1 }}</h1>
+                        <div class="prcnt-offer">
+                            <h2>{{ section.settings.heading2 }}</h2>
+                            <span>{{ section.settings.heading3 }}</span>
+                        </div>
+                    </div> 
+                    <div class="dis-caption">
+                        <h3>{{ section.settings.heading4 }}</h3>
+                        <a href="{{ section.settings.link1}}" class="theme-btn">{{ section.settings.linktext1 }}</a>
+                    </div>
+                </div>
+                <div class="dis-box-wrapper">
+                    <div  class="row">
+                        {% for block in section.blocks %}
+                        <div  class ="col-lg-6 col-md-6 col-sm-12">
+                            <div class="dis-box">
+                                <div class="dis-image">
+                                    <figure>
+                                        {% if block.settings.image2 != blank %}
+                                            <img src="{{ block.settings.image2 | img_url: ' ' }}" alt="Discount Image">
+                                             {% endif %}
+                                    </figure>
+                                </div>
+                                   <div class="dis-content">
+                                        <h4>
+                                           <a href="#">{{ block.settings.linktext2 }}
+                                            <svg xmlns="http://www.w3.org/2000/svg" id="Layer_2" height="20" viewBox="0 0 24 24" width="25" data-name="Layer 2">
+                                                <path d="m22.707 11.293-7-7a1 1 0 0 0 -1.414 1.414l5.293 5.293h-17.586a1 1 0 0 0 0 2h17.586l-5.293 5.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414z"></path></svg>
+                                            </a>
+                                        </h4>
+                                   </div>
+                                    <a href="#" class="product-link"></a>
+                         
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{%  schema  %}  
+ {
+    "name": "t:sections.dis-wrapper2.name",
+    "max_blocks": 2,
+    "settings": [
+        {
+                 "type": "image_picker",
+                 "id": "image1",
+                 "label": "Image 1"
+                },
+                {
+                "type": "header",
+               "content": "t:sections.dis-wrapper2.Heading-1"
+             },
+            {
+                "type": "text",
+                "id": "heading1",
+                "label": "Heading-1-Text",
+                "default": "Enter Text"
+            },
+            {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 100,
+            "max": 280,
+            "step": 2,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 100
+        },
+    
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [ 
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+        {
+                "type": "header",
+               "content": "t:sections.dis-wrapper2.Heading-2"
+             },
+            {
+                "type": "text",
+                "id": "heading2",
+                "label": "Heading 2",
+                "default": "Enter Text"
+            },
+       
+        {
+            "type": "range",
+            "id": "font_size_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 50,
+            "max": 200,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 100
+        }, 
+      
+        {
+            "type": "select",
+            "id": "font_weight_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+            {
+                "type": "header",
+               "content": "t:sections.discount-sec.Heading-3"
+             },
+            {
+                "type": "text",
+                "id": "heading3",
+                "label": "Heading 3",
+                "default": "Enter Text"
+            },
+        
+        {
+            "type": "range",
+            "id": "font_size_text_heading_3",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 50,
+            "max": 200,
+            "step": 5,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 100
+        },
+       
+        {
+            "type": "select",
+            "id": "font_weight_text_heading_3",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },   
+
+        {
+                "type": "header",
+               "content": "t:sections.dis-wrapper2.Heading-4"
+             },
+            {
+                "type": "text",
+                "id": "heading4",
+                "label": "Heading 4",
+                "default": "Enter Text"
+            },
+        
+        {
+            "type": "range",
+            "id": "font_size_text_heading_4",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 10,
+            "max": 60,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 30
+        },
+       
+        {
+            "type": "select",
+            "id": "font_weight_text_heading_4",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+          
+                {
+                "type": "url",
+                "id": "link1",
+                "label": "Shop Link 1"
+               },
+               {
+                "type": "text",
+                "id": "linktext1",
+                "label": "Shop Button 1",
+                "default": "Enter Text"
+            }
+           
+],
+    "blocks": [
+        {
+            "type": "dis-wrapper",
+            "name": "t:sections.dis-wrapper2.name",
+            "settings": [
+                {
+                 "type": "image_picker",
+                 "id": "image2",
+                 "label": "Image 2"
+                },
+                {
+                "type": "url",
+                "id": "link2",
+                "label": "Shop Link 2"
+               },
+               {
+                "type": "text",
+                "id": "linktext2",
+                "label": "Shop Button 2",
+                "default": "Enter Text"
+            }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "t:sections.dis-wrapper2.name"
+        }
+    ]
+}
+{% endschema %}

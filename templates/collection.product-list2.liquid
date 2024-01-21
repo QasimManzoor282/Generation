@@ -1,0 +1,755 @@
+{%- liquid
+    assign colors_bg = section.settings.colors_bg
+    assign colors_bg_gradient = section.settings.colors_bg_gradient
+    assign padding_top = section.settings.mg_top_desktop | append: 'px'
+    assign padding_bottom = section.settings.mg_bottom_desktop | append: 'px'
+    assign padding_top_tablet = section.settings.mg_top_tablet | append: 'px'
+    assign padding_bottom_tablet = section.settings.mg_bottom_tablet | append: 'px'
+    assign padding_top_mobile = section.settings.mg_top_mobile | append: 'px'
+    assign padding_bottom_mobile = section.settings.mg_bottom_mobile | append: 'px'
+    assign container = section.settings.container
+    assign has_sidebar = false
+    assign show_sidebar = section.settings.show_sidebar
+    assign show_filter = section.settings.show_filter
+    assign sidebar_type = section.settings.sidebar_type
+    assign sidebar_position = section.settings.sidebar_position
+    assign show_sidebar_collapse = section.settings.show_sidebar_collapse
+    assign sidebar_collapse_default = section.settings.sidebar_collapse_default
+    if show_sidebar
+        if show_filter
+            assign has_sidebar = true
+            assign filter_swatch = section.settings.filter_swatch
+            assign filter_swatch_type = section.settings.filter_swatch_type
+            assign filter_rectangle = section.settings.filter_rectangle
+        elsif section.blocks.size > 0
+            assign has_sidebar = true
+        endif
+        if has_sidebar
+            assign sidebar_heading_font = section.settings.sidebar_heading_font
+            assign sidebar_heading_font_size = section.settings.sidebar_heading_font_size
+            assign sidebar_heading_font_weight = section.settings.sidebar_heading_font_weight
+            assign sidebar_heading_text_transform = section.settings.sidebar_heading_text_transform
+            assign enable_sticky = section.settings.enable_sticky
+            assign sidebar_layout = section.settings.sidebar_layout
+        endif
+    endif
+    assign sort_by = collection.sort_by | default: collection.default_sort_by
+    assign sort_options = collection.sort_options
+    assign layout = section.settings.layout
+    if cart.attributes.pagination != blank and cart.attributes.pagination
+        assign products_per_page = 2
+    else
+        assign products_per_page =  3
+    endif
+    assign show_toolbar = true
+    if show_toolbar
+        assign show_sorting = true
+        assign show_item_per_page = true
+        assign show_view_as = true
+    endif
+    assign show_infinite_scrolling = section.settings.show_infinite_scrolling
+-%}
+<section>
+    <div class="banner-wrapper page-cover bg-overlay" style="background-image:url('{{ section.settings.image1 | img_url: '' }}');">
+        <div class="container">
+            <div class="banner-info">
+                <h2>Footwear</h2>
+                <div class="breadcrumb-wrapper">
+                    <ul class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li class="active">Our Products</li>   
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    {% paginate collection.products by 12 %} 
+    <div class="product-list_wrapper">
+        <div class="container">
+            <div class="product-list-inner">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <aside class="widget-area">
+                            <div class="sidebar-head">
+                                <h3>Filter</h3>
+                                <button class="sidebar-close"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M18 6l-12 12" />
+                                        <path d="M6 6l12 12" />
+                                    </svg></button>
+                            </div>
+                            <div class="widget widget_product_categories">
+                                <div class="attribute-filter" id="attribute-filter1">
+                                    <div class="filter-item">
+                                        <h2 class="widget-title" id="title-one">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Style
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="block-attribute-filter collapse show" aria-labelledby="title-one" data-bs-parent="#attribute-filter">
+                                            <div class="filter-content">
+                                                <ul class="checkbox-list block-attribute-filter-list">
+                                                    <li>
+                                                        <label for="basic">
+                                                            <input id="basic" type="checkbox">
+                                                            <span>Basics</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="high-waisted">
+                                                            <input id="high-waisted" type="checkbox">
+                                                            <span>High Waisted</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="leggings">
+                                                            <input id="leggings" type="checkbox">
+                                                            <span>Leggings</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="sweatpants">
+                                                            <input id="sweatpants" type="checkbox">
+                                                            <span>Sweatpants</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="cropped">
+                                                            <input id="cropped" type="checkbox">
+                                                            <span>Cropped</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="wide-pants">
+                                                            <input id="wide-pants" type="checkbox">
+                                                            <span>Wide Leg Pants</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="asymmetrical-jeans">
+                                                            <input id="asymmetrical-jeans" type="checkbox">
+                                                            <span>Asymmetrical Jeans</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="bike-shorts">
+                                                            <input id="bike-shorts" type="checkbox">
+                                                            <span>Bike Shorts</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="boyfriend-jeans">
+                                                            <input id="boyfriend-jeans" type="checkbox">
+                                                            <span>Boyfriend Jeans</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="cargo">
+                                                            <input id="cargo" type="checkbox">
+                                                            <span>Cargo Pants</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="cropped-jeans">
+                                                            <input id="cropped-jeans" type="checkbox">
+                                                            <span>Cropped Jeans</span>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget">
+                                <div class="attribute-filter" id="attribute-filter2">
+                                    <div class="filter-item">
+                                        <h2 class="widget-title" id="title-two">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsetwo" aria-expanded="true" aria-controls="collapsetwo">
+                                                Colors
+                                            </button>
+                                        </h2>
+                                        <div id="collapsetwo" class="block-attribute-filter collapse show" aria-labelledby="title-two" data-bs-parent="#attribute-filter2">
+                                            <div class="filter-content">
+                                                <div class="variation variable-product-color">
+                                                    <div class="wpcvs-terms wpcvs-type-color">
+                                                        <span class="wpcvs-term swatch-color wpcvs-enabled">
+                                                            <span style="background-color: #dd383c">#dd383c</span>
+                                                        </span>
+                                                        <span class="wpcvs-term swatch-color">
+                                                            <span style="background-color: #000">#000</span>
+                                                        </span>
+                                                        <span class="wpcvs-term swatch-color">
+                                                            <span style="background-color: #4830c0">#4830c0</span>
+                                                        </span>
+                                                        <span class="wpcvs-term swatch-color">
+                                                            <span style="background-color: #ebebeb">#ebebeb</span>
+                                                        </span>
+                                                        <span class="wpcvs-term swatch-color">
+                                                            <span style="background-color: #e74985">#e74985</span>
+                                                        </span>
+                                                        <span class="wpcvs-term swatch-color">
+                                                            <span style="background-color: #96ba37">#96ba37</span>
+                                                        </span>
+                                                        <span class="wpcvs-term swatch-color">
+                                                            <span style="background-color: #e3d31f">#e3d31f</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget">
+                                <div class="attribute-filter" id="attribute-filter3">
+                                    <div class="filter-item">
+                                        <h2 class="widget-title" id="title-three">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsethree" aria-expanded="true" aria-controls="collapsethree">
+                                                Print
+                                            </button>
+                                        </h2>
+                                        <div id="collapsethree" class="block-attribute-filter collapse show" aria-labelledby="title-three" data-bs-parent="#attribute-filter3">
+                                            <div class="filter-content">
+                                                <ul class="checkbox-list block-attribute-filter-list">
+                                                    <li>
+                                                        <label for="floral">
+                                                            <input id="floral" type="checkbox">
+                                                            <span>Floral</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="polkadot">
+                                                            <input id="polkadot" type="checkbox">
+                                                            <span>Polkadot</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="solid">
+                                                            <input id="solid" type="checkbox">
+                                                            <span>Solid</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="stripe">
+                                                            <input id="stripe" type="checkbox">
+                                                            <span>Stripe</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="abstract">
+                                                            <input id="abstract" type="checkbox">
+                                                            <span>Abstract</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="checkered">
+                                                            <input id="checkered" type="checkbox">
+                                                            <span>Checkered</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="camo">
+                                                            <input id="camo" type="checkbox">
+                                                            <span>Camo</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="paisley">
+                                                            <input id="paisley" type="checkbox">
+                                                            <span>Paisley</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="plaid">
+                                                            <input id="plaid" type="checkbox">
+                                                            <span>Plaid</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="gingham">
+                                                            <input id="gingham" type="checkbox">
+                                                            <span>Gingham</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="argyle">
+                                                            <input id="argyle" type="checkbox">
+                                                            <span>Argyle</span>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget">
+                                <div class="attribute-filter" id="attribute-filter4">
+                                    <div class="filter-item">
+                                        <h2 class="widget-title" id="title-four">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefour" aria-expanded="true" aria-controls="collapsefour">
+                                                Size
+                                            </button>
+                                        </h2>
+                                        <div id="collapsefour" class="block-attribute-filter collapse show" aria-labelledby="title-four" data-bs-parent="#attribute-filter4">
+                                            <div class="filter-content">
+                                                <ul class="checkbox-list block-attribute-filter-list">
+                                                    <li>
+                                                        <label for="us-0">
+                                                            <input id="us-0" type="checkbox">
+                                                            <span>US 0</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="us-2">
+                                                            <input id="us-2" type="checkbox">
+                                                            <span>US 2</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="us-4">
+                                                            <input id="us-4" type="checkbox">
+                                                            <span>US 4</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="us-6">
+                                                            <input id="us-6" type="checkbox">
+                                                            <span>US 6</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="us-8">
+                                                            <input id="us-8" type="checkbox">
+                                                            <span>US 8</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="us-10">
+                                                            <input id="us-10" type="checkbox">
+                                                            <span>US 10</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="us-12">
+                                                            <input id="us-12" type="checkbox">
+                                                            <span>US 12</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="us-14">
+                                                            <input id="us-14" type="checkbox">
+                                                            <span>US 14</span>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget widget_price_filter">
+                                <div class="attribute-filter" id="attribute-filter5">
+                                    <div class="filter-item">
+                                        <h2 class="widget-title" id="title-five">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefive" aria-expanded="true" aria-controls="collapsefive">
+                                                Price
+                                            </button>
+                                        </h2>
+                                        <div id="collapsefive" class="block-attribute-filter collapse show" aria-labelledby="title-five" data-bs-parent="#attribute-filter5">
+                                            <div class="filter-content">
+                                                <form method="get" action="#">
+                                                    <div class="price_slider_wrapper">
+                                                        <div class="price_slider ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                                                            <div class="ui-slider-range ui-corner-all ui-widget-header" style="width:40%;"></div>
+                                                            <span class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                                                            <span class="ui-slider-handle ui-corner-all ui-state-default" style="left:40%;"></span>
+                                                        </div>
+                                                        <div class="price_slider_amount" data-step="10">
+                                                            <label class="screen-reader-text" for="min_price">Min price</label>
+                                                            <input type="text" id="min_price" name="min_price" value="1" data-min="1" placeholder="Min price" style="display: none;">
+                                                            <label class="screen-reader-text" for="max_price">Max price</label>
+                                                            <input type="text" id="max_price" name="max_price" value="14" data-max="200" placeholder="Max price" style="display: none;">
+                                                            <div class="price_label">
+                                                                <span class="from">$1</span>
+                                                                <span class="to">$14</span>
+                                                            </div>
+                                                            <input type="hidden" name="shop-page-layout" value="left-sidebar">
+                                                            <div class="clear"></div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget">
+                                <div class="attribute-filter" id="attribute-filter6">
+                                    <div class="filter-item">
+                                        <h2 class="widget-title" id="title-six">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsesix" aria-expanded="true" aria-controls="collapsesix">
+                                                Brand
+                                            </button>
+                                        </h2>
+                                        <div id="collapsesix" class="block-attribute-filter collapse show" aria-labelledby="title-six" data-bs-parent="#attribute-filter6">
+                                            <div class="filter-content">
+                                                <ul class="checkbox-list block-attribute-filter-list">
+                                                    <li>
+                                                        <label for="college-merch">
+                                                            <input id="college-merch" type="checkbox">
+                                                            <span>College Merch</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="jgr-&-stn">
+                                                            <input id="jgr-&-stn" type="checkbox">
+                                                            <span>JGR & STN</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="lioness">
+                                                            <input id="lioness" type="checkbox">
+                                                            <span>Lioness</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="motel">
+                                                            <input id="motel" type="checkbox">
+                                                            <span>Motel</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="pp-dnm">
+                                                            <input id="pp-dnm" type="checkbox">
+                                                            <span>PP DNM</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="princess-polly">
+                                                            <input id="princess-polly" type="checkbox">
+                                                            <span>Princess Polly</span>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="princess-polly-curve">
+                                                            <input id="princess-polly-curve" type="checkbox">
+                                                            <span>Princess Polly Curve</span>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="product-toolbar">
+                            <div class="productCount">Showing <strong>1 - 9</strong> of <strong>11</strong> results</div>
+                            <div class="productAccessBar">
+                                <div class="layout-switch-wrapper">
+                                    <h3>VIEW:</h3>
+                                    <ul class="nav nav-tabs productViewTabnav" id="productViewTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link " id="list-tab" data-bs-toggle="tab" data-bs-target="#list" type="button" role="tab" aria-controls="list" aria-selected="false"><svg width="30" height="30" viewBox="0 0 20 20">
+                                                    <path d="M14.4 9h-5.8c-0.552 0-0.6 0.447-0.6 1s0.048 1 0.6 1h5.8c0.552 0 0.6-0.447 0.6-1s-0.048-1-0.6-1zM16.4 14h-7.8c-0.552 0-0.6 0.447-0.6 1s0.048 1 0.6 1h7.8c0.552 0 0.6-0.447 0.6-1s-0.048-1-0.6-1zM8.6 6h7.8c0.552 0 0.6-0.447 0.6-1s-0.048-1-0.6-1h-7.8c-0.552 0-0.6 0.447-0.6 1s0.048 1 0.6 1zM5.4 9h-1.8c-0.552 0-0.6 0.447-0.6 1s0.048 1 0.6 1h1.8c0.552 0 0.6-0.447 0.6-1s-0.048-1-0.6-1zM5.4 14h-1.8c-0.552 0-0.6 0.447-0.6 1s0.048 1 0.6 1h1.8c0.552 0 0.6-0.447 0.6-1s-0.048-1-0.6-1zM5.4 4h-1.8c-0.552 0-0.6 0.447-0.6 1s0.048 1 0.6 1h1.8c0.552 0 0.6-0.447 0.6-1s-0.048-1-0.6-1z"></path>
+                                                </svg></button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="grid-tab" data-bs-toggle="tab" data-bs-target="#grid" type="button" role="tab" aria-controls="grid" aria-selected="true"><svg width="40" height="40" viewBox="0 0 32 32">
+                                                    <path d="M8 12h4v-4h-4v4zM14 12h4v-4h-4v4zM20 8v4h4v-4h-4zM8 18h4v-4h-4v4zM14 18h4v-4h-4v4zM20 18h4v-4h-4v4zM8 24h4v-4h-4v4zM14 24h4v-4h-4v4zM20 24h4v-4h-4v4z"></path>
+                                                </svg></button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="filter-dropdown">
+                                    <select class="filter-selection orderby" name="orderby">
+                                        <option value="menu_order">Default sorting</option>
+                                        <option value="popularity">Popularity</option>
+                                        <option value="rating">Average rating</option>
+                                        <option value="date">Latest</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="productViewTab">
+                            <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+                                <ul class="products product-style-three columns-3 product-row">
+                                    {%- for product in collection.products -%}
+                                    <li class="product-box type-product has-post-thumbnail product-type-variable">
+                                        <div class="product-image">
+                                            <a href="#">
+                                                {% assign images = product.media | where: 'media_type', 'image' %}
+
+                                                {% for image in images limit: 2  %}
+                                                    {%- if forloop.first -%}
+                                                        {{- image | image_url: height:575, width:500, crop:'center' | image_tag: class:'primary-image'}}
+                                                    {% else %}
+                                                        {{- image | image_url: height:575, width:500, crop:'center' | image_tag: class:'secondary-image'}}
+                                                    {%- endif -%}
+                                            
+                                                {% endfor %}
+                                            </a>
+                                            <div class="star-rating">
+                                                <span style="width:100%"><svg viewBox="0 0 24 24" width="18" height="18">
+                                                        <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                                                    </svg> <strong class="rating">5.00</strong> out of 5</span>
+                                                <span class="count">5</span>
+                                            </div>
+                                            <div class="variation variable-product-sizes">
+                                                <div class="wpcvs-terms swatches">
+                                                    <span class="wpcvs-term swatch swatch-label term-l" title="S" data-term="Small">
+                                                        <span>S</span>
+                                                    </span>
+                                                    <span class="wpcvs-term swatch swatch-label term-l" title="M" data-term="Medium">
+                                                        <span>M</span>
+                                                    </span>
+                                                    <span class="wpcvs-term swatch swatch-label term-l" title="XL" data-term="Extra Large">
+                                                        <span>XL</span>
+                                                    </span>
+                                                    <span class="wpcvs-term swatch swatch-label term-l" title="XXL" data-term="Extra Extra Large">
+                                                        <span>XXL</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="product-btns">
+                                                <a href="#" class="product-cart add_to_cart_button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add to Cart">Add to Cart</a>
+                                                <a href="#" class="product-wishlist add-to-wishlist wishlist-icon single_add_to_wishlist" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add to wishlist"><span>Wishlist</span></a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <h2 class="product-title"><a href="#">Plain Knitted Midi Skirt</a></h2>
+                                            <div class="product-price">
+                                                <span class="price">
+                                                    <ins>
+                                                        <span class="amount">
+                                                            <bdi><span>$</span>140.00</bdi>
+                                                        </span>
+                                                    </ins>
+                                                    <del>
+                                                        <span class="amount">
+                                                            <bdi><span>$</span>160.00</bdi>
+                                                        </span>
+                                                    </del>
+                                                </span>
+                                            </div>
+                                            <div class="variation variable-product-color">
+                                                <div class="wpcvs-terms wpcvs-type-color">
+                                                    <span class="wpcvs-term swatch-color wpcvs-enabled">
+                                                        <span style="background-color: #dd383c">#dd383c</span>
+                                                    </span>
+                                                    <span class="wpcvs-term swatch-color">
+                                                        <span style="background-color: #ff9662">#ff9662</span>
+                                                    </span>
+                                                    <span class="wpcvs-term swatch-color">
+                                                        <span style="background-color: #96ba37">#96ba37</span>
+                                                    </span>
+                                                    <span class="wpcvs-term swatch-color">
+                                                        <span style="background-color: #c962ff">#c962ff</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="product-labels">
+                                                <span class="sale-label">Buy 3 Get 20% Off</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
+                           <ul class="products product-style-list product-row columns-1">
+                                {%- for product in collection.products -%}
+                                    
+                               <li class="product-box type-product has-post-thumbnail product-type-variable">
+                            
+                                   <div class="product-image">
+                                     <a href="#">
+                                          {% assign images = product.media | where: 'media_type', 'image' %}
+
+                                           {% for image in images limit: 2  %}
+                                         {%- if forloop.first -%}
+                                         {{- image | image_url: height:575, width:500, crop:'center' | image_tag: class:'primary-image'}}
+                                          {% else %}
+                                         {{- image | image_url: height:575, width:500, crop:'center' | image_tag: class:'secondary-image'}}
+                                         {%- endif -%}
+
+                                          {% endfor %}
+                                     </a>
+                                   </div>
+                                   <div class="product-content">
+                                   <div class="product-labels">
+                                                <span class="sale-label">Buy 3 Get 20% Off</span>
+                                            </div>
+                                   <h2 class="product-title"><a href="#">Plain Knitted Midi Skirt</a></h2>
+                                  <div class="product-price">
+                                 <span class="price">
+                                    <span class="amount">
+                                        <bdi><span>$</span>140.00</bdi>
+                                    </span>
+                                  </span>
+                                  </div>
+                            
+                                  <div class="variation variable-product-color">
+                                    <div class="wpcvs-terms wpcvs-type-color">
+                                        <span class="wpcvs-term swatch-color wpcvs-enabled">
+                                            <span style="background-color: #dd383c">#dd383c</span>
+                                        </span>
+                                        <span class="wpcvs-term swatch-color">
+                                            <span style="background-color: #ff9662">#ff9662</span>
+                                        </span>
+                                        <span class="wpcvs-term swatch-color">
+                                            <span style="background-color: #96ba37">#96ba37</span>
+                                        </span>
+                                        <span class="wpcvs-term swatch-color">
+                                            <span style="background-color: #c962ff">#c962ff</span>
+                                        </span>
+                                    </div>
+                                  </div>
+                                  <div class="wishlist">
+                                 <a href="#" class="product-wishlist add-to-wishlist wishlist-icon single_add_to_wishlist" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="product-actions-tooltip" data-bs-title="Add to wishlist">
+                                 <span><svg width="15" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 67.949 67.949" style="enable-background:new 0 0 67.949 67.949;" xml:space="preserve">
+                                        <g>
+                                            <path d="M62.49,11.239c-7.39-7.388-19.412-7.388-26.8,0l-1.716,1.715l-1.715-1.715c-7.388-7.389-19.411-7.389-26.799,0   c-7.238,7.238-7.285,18.711-0.109,26.688c6.545,7.273,25.848,22.986,26.667,23.651c0.556,0.452,1.225,0.672,1.89,0.672   c0.022,0,0.044,0,0.065-0.001c0.688,0.032,1.381-0.204,1.955-0.671c0.819-0.665,20.124-16.378,26.671-23.652   C69.774,29.95,69.727,18.477,62.49,11.239z M58.139,33.913c-5.103,5.669-19.13,17.361-24.166,21.51   c-5.036-4.148-19.06-15.839-24.162-21.509C4.805,28.35,4.758,20.426,9.702,15.482c2.525-2.524,5.841-3.787,9.157-3.787   s6.632,1.262,9.157,3.787l3.772,3.772c0.449,0.449,1.015,0.717,1.609,0.811c0.964,0.207,2.01-0.062,2.76-0.81l3.774-3.773   c5.051-5.049,13.267-5.048,18.315,0C63.19,20.426,63.143,28.35,58.139,33.913z" />
+                                        </g>
+                                    </svg></span>
+                                  </a>
+                                 </div>
+                                  <div class="product-bottom">
+                                  <div class="variation variable-product-sizes">
+                                        
+                                        <div class="wpcvs-terms swatches">
+                                            <span class="wpcvs-term swatch swatch-label term-l selected" title="S" data-term="Small">
+                                                <span>S</span>
+                                            </span>
+                                            <span class="wpcvs-term swatch swatch-label term-l" title="M" data-term="Medium">
+                                                <span>M</span>
+                                            </span>
+                                            <span class="wpcvs-term swatch swatch-label term-l" title="XL" data-term="Extra Large">
+                                                <span>XL</span>
+                                            </span>
+                                            <span class="wpcvs-term swatch swatch-label term-l" title="XXL" data-term="Extra Extra Large">
+                                                <span>XXL</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                 <div class="cart-button-area">
+                                 <a href="#" class="product-cart add_to_cart_button"><svg xmlns="http://www.w3.org/2000/svg" clip-rule="evenodd" fill-rule="evenodd" height="25" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" width="25">
+                                        <g id="Icon">
+                                            <path d="m21.74 9.121c.036-.217-.026-.439-.168-.607-.143-.167-.352-.264-.572-.264h-18c-.22 0-.429.097-.572.264-.142.168-.204.39-.168.607 0 0 1.022 6.244 1.525 9.323.218 1.33 1.367 2.306 2.714 2.306h11.002c1.347 0 2.496-.976 2.714-2.306zm-1.623.629-1.383 8.452c-.099.604-.621 1.048-1.233 1.048-2.771 0-8.231 0-11.002 0-.612 0-1.134-.444-1.233-1.048 0 0-1.383-8.452-1.383-8.452z" />
+                                            <path d="m18.643 8.614-3-5c-.213-.355-.674-.47-1.029-.257s-.47.674-.257 1.029l3 5c.213.355.674.47 1.029.257s.47-.674.257-1.029z" />
+                                            <path d="m6.643 9.386 3-5c.213-.355.098-.816-.257-1.029s-.816-.098-1.029.257l-3 5c-.213.355-.098.816.257 1.029s.816.098 1.029-.257z" />
+                                            <path d="m11.25 12.5v4c0 .414.336.75.75.75s.75-.336.75-.75v-4c0-.414-.336-.75-.75-.75s-.75.336-.75.75z" />
+                                            <path d="m7.25 12.5v4c0 .414.336.75.75.75s.75-.336.75-.75v-4c0-.414-.336-.75-.75-.75s-.75.336-.75.75z" />
+                                            <path d="m15.25 12.5v4c0 .414.336.75.75.75s.75-.336.75-.75v-4c0-.414-.336-.75-.75-.75s-.75.336-.75.75z" />
+                                            <path d="m22 8.25h-20c-.414 0-.75.336-.75.75s.336.75.75.75h20c.414 0 .75-.336.75-.75s-.336-.75-.75-.75z" />
+                                         </g>
+                                       </svg> Add to Cart</a>
+                                  </div>
+                                 </div>
+                                
+                                    
+                                    
+                                  </div>
+                               </li>
+                                {% endfor %}
+                              </ul>
+                            </div>
+                        </div>
+                        {%- if paginate.pages > 1 -%}
+                            {% render 'pagination-listing',
+                                    paginate: paginate,
+                                    show_infinite_scrolling: show_infinite_scrolling,
+                                    anchor: '',
+                                    class: 'pagination-wrapper text-center'
+                            %}
+                        {%- endif -%}
+                    
+                {%- endpaginate -%}
+                    </div>
+                </div>
+                <!--row-end-->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--pagination-->
+
+<script src="{{ 'toolbar.js' | asset_url }}" defer="defer"></script>
+<script>
+    $(document).ready(function(){
+      $(".pagination-page-total").appendTo(".toolbar-limitView");
+    });
+  </script>
+<script>
+	$(document).on('click', '.toolbar-main .toolbar-filters-btn', (event) => {
+		event.preventDefault();
+		event.stopPropagation();
+		$('.toolbar-main .collection-sidebar').toggleClass('open');
+	});
+</script>
+
+<!--sidebat-->
+<script>
+	$(document).on('click', '.toolbar-main .toolbar-filters-btn', (event) => {
+		event.preventDefault();
+		event.stopPropagation();
+		$('.toolbar-main .collection-sidebar').toggleClass('open');
+	});
+</script>
+
+<!--product slider-->
+<script>
+    $('.product-slider').slick({
+    infinite: true,
+    speed: 800,
+    autoplaySpeed: 4500,
+    autoplay: true,
+    arrows: false,
+    dots: true,
+    slidesToShow: 4,
+    slidesToScroll: 3,
+    onhover: true,
+    responsive: [{
+        breakpoint: 1200,
+        settings: {
+            slidesToShow: 3,
+            slidesToScroll: 2,
+            infinite: true,
+        }
+    },
+    {
+        breakpoint: 992,
+        settings: {
+            slidesToShow: 3,
+            slidesToScroll: 2,
+            infinite: true,
+        }
+    },
+    {
+        breakpoint: 767,
+        settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            dots: false,
+        }
+    },
+    {
+        breakpoint: 480,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: false
+        }
+    }
+    ]
+});
+
+
+    </script>

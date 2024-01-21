@@ -1,0 +1,271 @@
+<style>
+    
+.fav-product-wrapper .sec-tl span {
+    font-size: {{ section.settings.font_size_text | append: 'px !important'  }};
+    font-weight: {{ section.settings.font_weight_text }};
+    font-style: {{ section.settings.font_style_text }};  
+    color:{{ section.settings.color_text }} ;
+}
+
+.fav-product-wrapper .sec-tl h2 {
+    font-size: {{ section.settings.font_size_text_heading_2 | append: 'px !important' }};
+    font-weight: {{ section.settings.font_weight_text_heading_2 }};
+    font-style: {{ section.settings.font_style_text_heading_2 }};
+    color: {{ section.settings.color_text }}; 
+}
+ </style>
+<section>
+    <div class="fav-product-wrapper">
+        <div class="container">
+            <div class="sec-tl home2">
+                <span>{{ section.settings.heading1 }}</span>
+                <h2>{{ section.settings.heading2 }}</h2>
+            </div>
+            <div class="fav-product-inner-wrapper">
+                <div class="row rw-gap-40">
+                    {% for product in collections.all.products %}
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="fav-product-box">
+                            <div class="fav-product-image">
+                                {% assign images = product.media | where: 'media_type', 'image' %}
+
+                                {% for image in images limit: 2  %}
+                                {%- if forloop.first -%}
+                               {{- image | image_url: height:575, width:500, crop:'center' | image_tag: class:'primary-image'}}
+                               {% else %}
+                                {{- image | image_url: height:575, width:500, crop:'center' | image_tag: class:'secondary-image'}}
+                                {%- endif -%}
+
+                                {% endfor %}
+                                <div class="products-rating">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                                    </svg>
+                                    12
+                                </div>
+                                <div class="product-btn home2">
+                                    <a href="#" class="product-cart">Add to Cart</a>
+                                    <a href="#" class="product-wishlist">Wishlist</a>
+                                </div>
+                            </div>
+                            <div class="fav-product-content">
+                                <p class="brand-name">{{ brand.name }}<a href="#">{{ brand.name }}</a></p>
+                                <h3><a href="{{ product.url }}">{{ product.title }} <br>Skirt</a></h3>
+                                <span class="product-price">{{ product.price | money }} <del>{{ product.compare_at_price | money }}</del></span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="fav-product-button">
+                    <a href="#" class="theme-btn">View All Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+$('.product-slider').slick({
+    infinite: true,
+    speed: 800,
+    autoplaySpeed: 4500,
+    autoplay: true,
+    arrows: false,
+    dots: true,
+    slidesToShow: 4,
+    slidesToScroll: 3,
+    onhover: true,
+    responsive: [{
+        breakpoint: 1200,
+        settings: {
+            slidesToShow: 3,
+            slidesToScroll: 2,
+            infinite: true,
+        }
+    },
+    {
+        breakpoint: 992,
+        settings: {
+            slidesToShow: 3,
+            slidesToScroll: 2,
+            infinite: true,
+        }
+    },
+    {
+        breakpoint: 767,
+        settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            dots: false,
+        }
+    },
+    {
+        breakpoint: 480,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: false
+        }
+    }
+    ]
+});
+
+</script>
+{% schema %}
+    {
+       "name": "t:sections.featured-product2.name",
+       "settings": [
+          
+            {
+                "type": "header",
+                "content": "t:sections.featured-product2.Heading-1"
+            },
+            {
+                 "type": "text",
+                 "id": "heading1",
+                 "label": "Heading-1-Text",
+                 "default": "Enter Text"
+             },
+             {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+         },  
+         {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },   
+
+           {
+                "type": "header",
+                "content": "t:sections.featured-product2.Heading-2"
+            },
+             {
+                 "type": "text",
+                 "id": "heading2",
+                 "label": "Heading-2-Text",
+                 "default": "Enter Text"
+             }, 
+           
+         {
+            "type": "range",
+            "id": "font_size_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        }
+                
+       ]
+    }
+    {% endschema %}

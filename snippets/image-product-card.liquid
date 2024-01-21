@@ -1,0 +1,16 @@
+{%- if product_card_product.featured_media -%}
+
+    <a href="{{product_card_product.url}}">
+        <div class="product-image--holder">
+            {% assign images = product_card_product.media | where: 'media_type', 'image' %}
+
+            {% for image in images limit: 2  %}
+                {%- if forloop.first -%}
+                    {{- image | image_url: height:575, width:500, crop:'center' | image_tag: class:'primary-image'}}
+                {% else %}
+                    {{- image | image_url: height:575, width:500, crop:'center' | image_tag: class:'secondary-image'}}
+                {%- endif -%}
+            {% endfor %}
+        </div>
+    </a>
+{%- endif -%}

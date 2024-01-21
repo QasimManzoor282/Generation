@@ -1,0 +1,14 @@
+<header>
+	  
+	{%- case settings.header_layout -%} 
+		{%- when '01' -%}
+			{% section 'announcement-bar' %}
+			{% section 'header' %}
+		{%- when '02' -%}
+			{% section 'announcement-bar-02' %}
+			{% section 'header-02' %}
+		{%- when '03' -%}
+			{% section 'announcement-bar-03' %}
+				{% section 'header-03' %}
+	{%- endcase -%}  
+</header>

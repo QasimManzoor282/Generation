@@ -1,0 +1,134 @@
+<style>
+    .text_title-{{section.id}} {
+           font-size:{{ section.settings.font_size_title}}px !important;
+            font-weight:{{ section.settings.font_weight_title }} !important ;
+            font-style:{{ section.settings.font_style_title }} !important ;
+        }
+    </style>
+
+<section>
+    <div class="text-trend-wrapper home2">
+        <div class="text-trend-inner-wrapper">
+            <div class="text-trend-box">
+                {% for block in section.blocks %}  
+                <div class="text-trend">
+                    <style>
+                        .text_title-{{block.id}} {
+                           color:{{ block.settings.color_text }} !important;
+                        }
+                        </style>
+                    <h3 class="text-heading text_title-{{block.id}} text_title-{{section.id}}">{{ block.settings.title1 }}</h3>
+                    <div class="text-trend-icon">
+                        <svg width="36" height="36" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                            <g>
+                                <g>
+                                    <polygon points="426.667,213.333 284.444,213.333 284.444,0 85.333,298.667 227.556,298.667 227.556,512   "></polygon>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "t:sections.text-trend2.name",
+        "max_blocks": 5,
+        "settings":[
+    {
+            "type": "range",
+            "id": "font_size_title",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 40,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+    },
+        {
+            "type": "select",
+            "id": "font_style_title",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_title",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+        ],
+        "blocks": [
+            {
+                "type": "text-trend2",
+                "name": "t:sections.text-trend2.name",
+                "settings": [
+                  
+                    {
+                        "type": "text",  
+                        "id": "title1",
+                        "label": "Title"
+                        
+                    },
+                    {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+         }
+                  
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "t:sections.text-trend2.name"
+            }
+        ]
+    }
+    {% endschema %}
+    
+    

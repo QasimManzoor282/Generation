@@ -1,0 +1,183 @@
+<section>
+    <div class="instagram-wrapper">
+        <div class="container shopify_instagram_feed"  id="shopify-instagram-feed">
+            <div class="instagram-inner-wrapper">
+                <div class="row">
+                    {% for block in section.blocks %}     
+                        {% case block.type %}
+                         
+                        {% when 'link1' %}  
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="instagram-box">
+                               
+                                <div class="instagram-image">
+                                    {% if block.settings.image1 != blank -%}
+                                        <img src="{{ block.settings.image1 | img_url: '' }}" alt="instagram-image">
+                                    {%- endif %}
+                                    <div class="instagram-icon">
+                                        <a href="#">
+                                            <i class="fa-brands fa-instagram"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <a href="#" class="product-link"></a>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="instagram-box">
+                                        <div class="instagram-image">
+                                            {% if block.settings.image2 != blank -%}
+                                                <img src="{{ block.settings.image2 | img_url: '' }}" alt="instagram-image">
+                                            {%- endif %}
+                                            <div class="instagram-icon">
+                                                <a href="#">
+                                                    <i class="fa-brands fa-instagram"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="product-link"></a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="instagram-box">
+                                        <div class="instagram-image">
+                                            {% if block.settings.image3 != blank -%}
+                                                <img src="{{ block.settings.image3 | img_url: '' }}" alt="instagram-image">
+                                            {%- endif %}
+                                            <div class="instagram-icon">
+                                                <a href="#">
+                                                    <i class="fa-brands fa-instagram"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="product-link"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% when 'link2' %}
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="instagram-box">
+                                        <div class="instagram-image">
+                                            {% if block.settings.image4 != blank -%}
+                                                <img src="{{ block.settings.image4 | img_url: '' }}" alt="instagram-image">
+                                            {%- endif %}
+                                            <div class="instagram-icon">
+                                                <a href="#">
+                                                    <i class="fa-brands fa-instagram"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="product-link"></a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="instagram-box">
+                                        <div class="instagram-image">
+                                            {% if block.settings.image5 != blank -%}
+                                                <img src="{{ block.settings.image5 | img_url: '' }}" alt="instagram-image">
+                                            {%- endif %}
+                                            <div class="instagram-icon">
+                                                    <a href="#">
+                                                        <i class="fa-brands fa-instagram"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="product-link"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instagram-box">
+                                <div class="instagram-image">
+                                    {% if block.settings.image6 != blank -%}
+                                        <img src="{{ block.settings.image6 | img_url: '' }}" alt="instagram-image">
+                                    {%- endif %}
+                                    <div class="instagram-icon">
+                                                    <a href="#">
+                                                        <i class="fa-brands fa-instagram"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="product-link"></a>
+                            </div>
+                        </div>
+                        {% endcase %} 
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+<script>
+  (function($){
+    $(window).on('load', function(){
+      $.instagramFeed({
+        'username': 'huynhmaianhkiet', //Username of Instagram
+        'container': "#shopify-instagram-feed",
+        'display_profile': false, //Decide whether to display user's profile
+        'display_biography': false, //Decide whether to display user's biography
+        'display_gallery': true, //Decide whether to display Instagram photos as a gallery
+        'get_raw_json': false,
+        'callback': null,
+        'styling': true,
+        'items': 3, //Set the maximum number of photos to display - Maximum is 12
+        'items_per_row': 4, //Set the maximum number of photos per row
+        'margin': 1 //Set the space between photos
+      });
+    });
+  })(jQuery);
+</script>
+{% schema %}
+    {
+    "name": "t:sections.instagram_sec2.name",
+    "max_blocks": 8,
+    "blocks": [
+        {
+            "type": "link1",
+            "name": "Link1",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image1",
+                    "label": "Image 1"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image2",
+                    "label": "Image 2"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image3",
+                    "label": "Image 3"
+                }
+            ]
+        },
+        {
+            "type": "link2",
+            "name": "Link2",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image4",
+                    "label": "Image 4"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image5",
+                    "label": "Image 5"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image6",
+                    "label": "Image 6"
+                }
+            ]
+        }
+    ]
+}
+
+{% endschema %} 

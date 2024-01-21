@@ -1,0 +1,1633 @@
+
+
+<style type="text/css">
+    #ProductSection-{{ section.id }} .productView-thumbnail .productView-thumbnail-link:after{
+        padding-bottom: {{ portrait_aspect_ratio }};
+    }
+    #ProductSection-{{ section.id }} .custom-cursor__inner .arrow:before,
+    #ProductSection-{{ section.id }} .custom-cursor__inner .arrow:after {
+        background-color: {{ icon_color }};
+    }
+
+    .productView-tabbing {
+        border-top: 1px solid {{ tab_border_color }};
+        border-bottom: 1px solid {{ tab_border_color }};
+    }
+    #ProductSection-{{ section.id }} .tabs .tab .tab-title {
+        font-size: {{ title_font_size | append: 'px' }};
+        font-weight: {{ font_weight_title }};
+        text-transform: {{ title_text_transform }};
+        padding-bottom: {{ title_padding_top_bottom | append: 'px' }};
+    }
+    {%- if section.settings.border != blank -%}
+      .productView-image-wrapper {
+          border: {{ section.settings.border_width | append: 'px' }} solid {{ section.settings.border_color }}
+      }
+    {%- endif -%}
+
+    .product-details {
+        padding-top: {{ section.settings.mg_top_desktop | append: 'px' }};
+        padding-bottom: {{ section.settings.mg_bottom_desktop | append: 'px' }};
+    }
+
+    @media (max-width: 1199px) {
+        .product-details {
+            padding-top: {{ section.settings.mg_top_tablet | append: 'px' }};
+            padding-bottom: {{ section.settings.mg_bottom_tablet | append: 'px' }};
+        }
+    }
+
+    @media (max-width: 767px) {
+        .product-details {
+            padding-top: {{ section.settings.mg_top_mobile | append: 'px' }};
+            padding-bottom: {{ section.settings.mg_bottom_mobile | append: 'px' }};
+        }
+    }
+
+    @media (max-width: 550px) {
+      .productView-tab .tabs-contents-horizontal .tab-content {
+          border-bottom: 1px solid {{ tab_border_color }};
+      }
+    }
+    .custom_vendor-{{block.id}} {
+                                font-size:{{ block.settings.font_size_text_vendor}}px !important;
+                                font-weight:{{ block.settings.font_weight_text_vendor }} !important ;
+                                font-style:{{ block.settings.font_style_text_vendor }} !important ;
+                        }
+
+                          .custom_title-{{block.id}} {
+                                font-size:{{ block.settings.font_size_text_title}}px !important;
+                                font-weight:{{ block.settings.font_weight_text_title }} !important ;
+                                font-style:{{ block.settings.font_style_text_title }} !important ;
+                        }
+                        .custom_description-{{block.id}} {
+                                font-size:{{ block.settings.font_size_text_description}}px !important;
+                                font-weight:{{ block.settings.font_weight_text_description }} !important ;
+                                font-style:{{ block.settings.font_style_text_description }} !important ;
+                        }
+                            .custom_price-{{block.id}} {
+                                font-size:{{ block.settings.font_size_text_price}}px !important;
+                                font-weight:{{ block.settings.font_weight_text_price }} !important ;
+                                font-style:{{ block.settings.font_style_text_price }} !important ;
+                        }
+                         
+                        .custom_sku-{{block.id}} {
+                                font-size:{{ block.settings.font_size_text_sku }}px !important;
+                                font-weight:{{ block.settings.font_weight_text_sku }} !important ;
+                                font-style:{{ block.settings.font_style_text_sku }} !important ;
+                        }
+
+                        .custom_variant-{{block.id}} {
+                                font-size:{{ block.settings.font_size_text_variant_selector }}px !important;
+                                font-weight:{{ block.settings.font_weight_text_variant_selector }} !important ;
+                                font-style:{{ block.settings.font_style_text_variant_selector }} !important ;
+                        }
+                        .custom_checkout_buttons-{{block.id}} {
+                                font-size:{{ block.settings.font_size_text_checkout_buttons}}px !important;
+                                font-weight:{{ block.settings.font_weight_text_checkout_buttons }} !important ;
+                                font-style:{{ block.settings.font_style_text_price }} !important ;
+                        }
+                        .custom_quantity-{{block.id}} {
+                                font-size:{{ block.settings.font_size_text_quantity }}px !important;
+                                font-weight:{{ block.settings.font_weight_text_quantity }} !important ;
+                                font-style:{{ block.settings.font_style_text_quantity }} !important ;
+                        }
+                        .custom_availability-{{block.id}} {
+                                font-size:{{ block.settings.font_size_text_availability}}px !important;
+                                font-weight:{{ block.settings.font_weight_text_availability }} !important ;
+                                font-style:{{ block.settings.font_style_text_availability }} !important ;
+                        }
+
+                        .custom_rating-{{block.id}} {
+                                font-size:{{ block.settings.font_size_text_rating}}px !important;
+                                font-weight:{{ block.settings.font_weight_text_rating }} !important ;
+                                font-style:{{ block.settings.font_style_text_rating }} !important ;
+                        }
+  
+</style>
+
+<script>
+    window.product_inven_array_{{ product.id }} = {
+        {% for variant in product.variants %}
+            '{{ variant.id }}': '{{ variant.inventory_quantity }}',
+        {%endfor%}
+    };
+
+    window.selling_array_{{ product.id }} = {
+        {% for variant in product.variants %}
+            '{{ variant.id }}': '{{ variant.inventory_policy }}',
+        {%endfor%}
+    };
+
+    window.subtotal = {
+        show: {{ show_subtotal_text }},
+        style: {{ subtotal_style }},
+        text: `{{ 'products.product.sub_total' | t : value : '[value]' }}`
+    };
+  {% if show_variant_image_group %}
+    window.variant_image_group = {{ show_variant_image_group }};
+  {% else %}
+    window.variant_image_group = 'false';
+  {% endif %}
+</script>
+
+<div class="breadcrumb-wrapper style-two">
+  <div class="container">
+      <ul class="breadcrumb">
+          <li><a href="{{ 'index.html' | url }}">Home</a></li>
+      <li class="active">{{ product.title }}</li>
+      </ul>
+  </div>
+</div>
+<div class="productDetail-wrapper style-one">
+  <div class="container">
+      <div class="productDetail-inner-wrapper product-single product type-product has-post-thumbnail">
+          <div class="row">
+              <div class="col-lg-7">
+                  <div class="product-gallery-wrapper images">
+                      <div class="product-gallery-slider">
+                          {%- for media in product.media -%}
+                              <div class="single-product-gallery">
+                                  <div class="product-gallery-image">
+                                      <a href="#">
+                                          <img id="product-featured-image-{{ media.id }}"
+                                          src="{{ media.preview_image | image_url: width:553, height:718 }}"
+                                              title="{{ media.preview_image.alt | escape }}"
+                                              data-main-image
+                                          >
+                                      </a>
+                                  </div>
+                              </div>
+                          {% endfor %}
+                      </div>
+                      <div class="product-gallery-arrow">
+                          <div class="prv-btn slick-arrow">
+                              <span>
+                                  <svg xmlns="http://www.w3.org/2000/svg" id="Layer_2" height="18" viewBox="0 0 24 24" width="18" data-name="Layer 2">
+                                      <path d="m22.707 11.293-7-7a1 1 0 0 0 -1.414 1.414l5.293 5.293h-17.586a1 1 0 0 0 0 2h17.586l-5.293 5.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414z"></path>
+                                  </svg>
+                              </span>
+                          </div>
+                          <div class="nxt-btn slick-arrow">
+                              <span>
+                                  <svg xmlns="http://www.w3.org/2000/svg" id="Layer_2" height="18" viewBox="0 0 24 24" width="18" data-name="Layer 2">
+                                      <path d="m22.707 11.293-7-7a1 1 0 0 0 -1.414 1.414l5.293 5.293h-17.586a1 1 0 0 0 0 2h17.586l-5.293 5.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414z"></path>
+                                  </svg>
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="col-lg-5">
+                  <div class="summary entry-summary ">
+                  {% form 'product', product, class:"product-form", id:"AddToCartForm" %}
+                    {% for block in section.blocks %}
+                      {% case block.type %} 
+                      {% when 'vendor' %}
+                      <p class="brand-name">BRAND: <a href="#" tabindex="-1"> {{ product.vendor | link_to_vendor }} </a></p>
+                      {% when 'title' %}
+                      <h2 class="product-title entry-title">{{ product.title }}</h2>
+                      {% when 'rating' %}
+                      <div class="product-rating">
+                          <div class="star-rating">
+                              <span>
+                                  <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                      <g>
+                                          <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                      </g>
+                                  </svg>
+                                  <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                      <g>
+                                          <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                      </g>
+                                  </svg>
+                                  <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                      <g>
+                                          <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                      </g>
+                                  </svg>
+                                  <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                      <g>
+                                          <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                      </g>
+                                  </svg>
+                                  <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                      <g>
+                                          <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                      </g>
+                                  </svg>
+                                  <strong class="rating">5.00</strong> out of 5</span>
+                          </div>
+                          <a href="#reviews" class="review-count" rel="nofollow"><span class="count">24</span> Reviews</a>
+                          <a href="#" class="create-review">Write Review</a>
+                      </div>
+                      {% when 'availability' %}
+                      <div class="availability">Availability: 
+                              <span>
+                                  {% if current_variant.inventory_management %}
+                                  {%- assign first_inventory = current_variant.inventory_quantity -%}
+              
+                                  {%- if first_inventory > 0 -%}
+                                      {% if stock_level_display == 'show' %}{{ first_inventory }} {% endif %}
+                                      {{ 'products.product.in_stock' | t }}
+                                  {%- else -%}
+                                      {{ 'products.product.out_of_stock' | t }}
+                                  {%- endif -%}
+                                  {% else %}
+                                  {{ 'products.product.many_in_stock' | t }}
+                                  {% endif %}
+                             </span>
+                      </div>
+                      {% when 'sku' %}   
+                      <div class="unit">SKU: <span>{{ current_variant.sku }}</span>
+                      </div>
+                      {%- when 'price' -%}
+                        {%- liquid 
+                            assign price_font_size = block.settings.price_font_size
+                            assign price_font_size_tb = block.settings.price_font_size_tb
+                            assign price_font_size_mb = block.settings.price_font_size_mb
+                           
+                            assign price_top_spacing = block.settings.price_top_spacing
+                            assign price_top_spacing_tablet = block.settings.price_top_spacing_tablet
+                            assign price_top_spacing_mobile = block.settings.price_top_spacing_mobile
+                        
+                            assign price_bottom_spacing = block.settings.price_bottom_spacing
+                            assign price_bottom_spacing_tablet = block.settings.price_bottom_spacing_tablet
+                            assign price_bottom_spacing_mobile = block.settings.price_bottom_spacing_mobile
+                        -%}
+                        <div class="productView-moreItem">
+                            <style>
+                              :root {
+                                --price-font-size: {{ price_font_size | append: 'px' }};
+                                --price-font-size-tb: {{ price_font_size_tb | append: 'px' }};
+                                --price-font-size-mb: {{ price_font_size_mb | append: 'px' }};
+                                --price-top-spacing: {{ price_top_spacing | append: 'px' }};
+                                --price-top-spacing-tb: {{ price_top_spacing_tablet | append: 'px' }};
+                                --price-top-spacing-mb: {{ price_top_spacing_mobile | append: 'px' }};
+                                --price-bottom-spacing: {{ price_bottom_spacing | append: 'px' }};
+                                --price-bottom-spacing-tb: {{ price_bottom_spacing_tablet | append: 'px' }};
+                                --price-bottom-spacing-mb: {{ price_bottom_spacing_mobile | append: 'px' }};
+                              }
+                            </style>
+                            <div class="productView-price product-price no-js-hidden clearfix product-price-wrapper mb--20" id="product-quick-price-{{ product.id }}"
+                              style="--fontsize-text: {{ fontsize_price | append: 'px' }};"
+                            >
+                                {%- render 'price',
+                                    product: product,
+                                    use_variant: true,
+                                    price_class: 'price--medium'
+                                -%}
+                            </div>
+                        </div>
+                        {%- when 'variant_picker' -%}
+                            {% unless has_product_combo %}
+                                <div class="productView-moreItem">
+                                    {% render 'product-variant',
+                                        block: block,
+                                        product: product,
+                                        variantCount: variantCount,
+                                        current_variant: current_variant,
+                                        picker_type: picker_type,
+                                        show_variant_image_group: show_variant_image_group
+                                    %}
+                                </div>
+                            {% endunless %}
+                        {%- when 'quantity_selector' -%}
+                            {% unless has_product_combo %}
+                                {%- if check_show_qty == 'show_qty_1' -%}
+                                    <div class="productView-moreItem">
+                                        {%- liquid 
+                                            assign qty_bottom_spacing = block.settings.qty_bottom_spacing
+                                            assign qty_bottom_spacing_tablet = block.settings.qty_bottom_spacing_tablet
+                                            assign qty_bottom_spacing_mobile = block.settings.qty_bottom_spacing_mobile
+                                        -%}
+                                        <style>
+                                          :root {
+                                            --qty-bottom-spacing: {{ qty_bottom_spacing | append: 'px' }};
+                                            --qty-bottom-spacing-tb: {{ qty_bottom_spacing_tablet | append: 'px' }};
+                                            --qty-bottom-spacing-mb: {{ qty_bottom_spacing_mobile | append: 'px' }};
+                                          }
+                                        </style>
+                                        <div class="quantity_selector">
+                                            {% render 'product-quantity',
+                                                current_variant: current_variant,
+                                                qty_style: qty_style,
+                                                check_hidden: false,
+                                                quantity_stt: 2
+                                            %}
+                                        </div>
+                                        {%- if show_subtotal and subtotal_style == '1' -%}
+                                            <div class="productView-subtotal">
+                                                <span class="text">{{ 'sections.cart.subtotal' | t | append: ': ' }}</span>
+                                                <span class="money-subtotal">{{ subtotal }}</span>
+                                            </div>
+                                        {%- endif -%}
+                                    </div>
+                                {%- endif -%}
+                            {% endunless %}
+                                      
+                    {%- when 'buy_buttons' -%}
+                        <button type="submit" name="add" id="AddToCard" class="btn btn-secondary btn-lg w-100 rounded-0 product-cart add_to_cart_button">Add To Cart</button>
+          
+                        {% if section.settings.dynamic_buttons_checkbox == true %}
+                            {{ form | payment_button }}
+                        {% endif %}  
+                       
+                          <div class="size-guide">
+                              
+                          <h3><img src="{{ section.settings.image1 | img_url: '' }}')" alt="Size">{{ section.settings.heading1 }}</h3>
+                          <p>{{ section.settings.desc1 }}</p>
+                          </div>
+                          <div class="border-product" style="margin: 40px 0 0px ;border-top: 3px solid #828282 "></div>
+                          <div class="accordion more-info-accordion" id="accordionExample">
+                              <div class="accordion-item">
+                                  <h2 class="accordion-header" id="headingOne">
+                                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                          DESCRIPTION
+                                      </button>
+                                  </h2>
+                                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                      <div class="accordion-body">
+                                        <p class="custom_description-{{block.id}}">{{ product.description }}</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="accordion-item">
+                                  <h2 class="accordion-header" id="headingTwo">
+                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                          Additional Information
+                                      </button>
+                                  </h2>
+                                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                      <div class="accordion-body">
+                                          <div class="product-type">
+                                              <table class="shop_attributes">
+                                                  <tbody>
+                                                    <tr>
+                                                        <th class="label">Fabric:</th>
+                                                        <td>
+                                                            <p>{{ product.metafields.custom.fabric }}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="label">Bottom:</th>
+                                                        <td>
+                                                            <p>{{ product.metafields.custom.bottom }}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="label">Size:</th>
+                                                        <td>
+                                                            <p>{{ product.metafields.custom.size }}</p>
+                                                        </td>
+                                                    </tr>
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="accordion-item">
+                                  <h2 class="accordion-header" id="headingThree">
+                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                          Shipping & Return
+                                      </button>
+                                  </h2>
+                                  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                      <div class="accordion-body">
+                                        <div class="ship-return-wrapper">
+                                            <div class="free-shipping">{{ section.settings.heading }}</div>
+                                            {% for block in section.blocks %}
+                                            <div class="shipping-info">
+                                               <style>
+                                                    .shipping_title-{{block.id}}{
+                                                     color:{{ block.settings.color_text_heading_1 }} !important;
+                                                     }
+                                                    .shipping_desc-{{block.id}}{
+                                                     color:{{ block.settings.color_text_desc_1 }} !important;
+                                                    }
+                                                </style>
+                                                 <h3  class="shipping-heading shipping_title-{{block.id}} shipping_title-{{section.id}}">{{ block.settings.heading1 }}</h3>
+                                                 <p  class="shipping-desc shipping_desc-{{block.id}} shipping_desc-{{section.id}}">{{ block.settings.desc1 }}</p>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="accordion-item">
+                                  <h2 class="accordion-header" id="headingfour">
+                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+                                          Reviews
+                                      </button>
+                                  </h2>
+                                  <div id="collapsefour" class="accordion-collapse collapse" aria-labelledby="headingfour" data-bs-parent="#accordionExample">
+                                      <div class="accordion-body review-rating-accordion">
+                                          <div class="review-rating-wrapper">
+                                              <div class="review-head">
+                                                  <div class="star-rating">
+                                                      <span class="actions-togglereviews"><strong class="rating">5.0</strong> of 5 Stars</span>
+                                                      <span>
+                                                          <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                              <g>
+                                                                  <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                              </g>
+                                                          </svg>
+                                                          <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                              <g>
+                                                                  <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                              </g>
+                                                          </svg>
+                                                          <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                              <g>
+                                                                  <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                              </g>
+                                                          </svg>
+                                                          <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                              <g>
+                                                                  <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                              </g>
+                                                          </svg>
+                                                          <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                              <g>
+                                                                  <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                              </g>
+                                                          </svg>
+                                                      </span>
+                                                  </div>
+                                                  <a href="#" class="create-review">Write Review</a>
+                                              </div>
+                                              <div class="review-rating-content reviews">
+                                                  <div id="comments">
+                                                      <h3><span>24</span> REVIEWS</h3>
+                                                      <ol class="commentlist">
+                                                          <li class="review byuser bypostauthor even thread-even depth-1">
+                                                              <div class="comment_container">
+                                                                  <img src="assets/images/resources/person-3.png" width="60" height="60" alt="Avatar" class="avatar alignnone photo avatar-default">
+                                                                  <div class="comment-text">
+                                                                      <p class="meta"><strong>Ella J. </strong>
+                                                                          <time datetime="2023-03-02T10:35:47+00:00">10/18/23</time>
+                                                                      </p>
+                                                                      <div class="star-rating">
+                                                                          <span>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <strong class="rating">5.00</strong> out of 5</span>
+                                                                      </div>
+                                                                      <div class="description">
+                                                                          <p>I love this top so much, super soft and long which is nice</p>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </li>
+                                                          <li class="review byuser bypostauthor even thread-even depth-1">
+                                                              <div class="comment_container">
+                                                                  <img src="assets/images/resources/person-4.png" width="60" height="60" alt="Avatar" class="avatar alignnone photo avatar-default">
+                                                                  <div class="comment-text">
+                                                                      <p class="meta"><strong>Willimes Domson </strong>
+                                                                          <time datetime="2023-03-02T10:35:47+00:00">10/18/23</time>
+                                                                      </p>
+                                                                      <div class="star-rating">
+                                                                          <span>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <strong class="rating">5.00</strong> out of 5</span>
+                                                                      </div>
+                                                                      <div class="description">
+                                                                          <p>I love this top so much, super soft and long which is nice</p>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </li>
+                                                          <li class="review byuser bypostauthor even thread-even depth-1">
+                                                              <div class="comment_container">
+                                                                  <img src="assets/images/resources/person-5.png" width="60" height="60" alt="Avatar" class="avatar alignnone photo avatar-default">
+                                                                  <div class="comment-text">
+                                                                      <p class="meta"><strong>Jannifer Roman </strong>
+                                                                          <time datetime="2023-03-02T10:35:47+00:00">10/18/23</time>
+                                                                      </p>
+                                                                      <div class="star-rating">
+                                                                          <span>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 406.125 406.125" style="enable-background:new 0 0 406.125 406.125;" xml:space="preserve">
+                                                                                  <g>
+                                                                                      <path style="fill:#e19900;" d="M260.133,155.967c-4.487,0-9.25-3.463-10.64-7.73L205.574,13.075c-1.39-4.268-3.633-4.268-5.023,0   L156.64,148.237c-1.39,4.268-6.153,7.73-10.64,7.73H3.88c-4.487,0-5.186,2.138-1.553,4.78l114.971,83.521   c3.633,2.642,5.454,8.242,4.064,12.51L77.452,391.932c-1.39,4.268,0.431,5.592,4.064,2.951l114.971-83.521   c3.633-2.642,9.519-2.642,13.152,0l114.971,83.529c3.633,2.642,5.454,1.317,4.064-2.951l-43.911-135.154   c-1.39-4.268,0.431-9.868,4.064-12.51l114.971-83.521c3.633-2.642,2.934-4.78-1.553-4.78H260.133V155.967z" />
+                                                                                  </g>
+                                                                              </svg>
+                                                                              <strong class="rating">5.00</strong> out of 5</span>
+                                                                      </div>
+                                                                      <div class="description">
+                                                                          <p>I love this top so much, super soft and long which is nice</p>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </li>
+                                                      </ol>
+                                                  </div>
+                                                  <div class="review-more">
+                                                      <a href="#" class="load-more">Load More</a>
+                                                  </div>
+                                              </div>
+                                              <div class="review-form-wrapper">
+                                                  <h3>WRITE A REVIEW</h3>
+                                                  <form action="#" method="post" class="review-form">
+                                                      <div class="review-form-rating">
+                                                          <label>Rating:</label>
+                                                          <span> <a class="star-1" href="#"><svg viewBox="0 0 24 24" width="24" height="24">
+                                                                      <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                                                                  </svg></a> <a class="star-2" href="#"><svg viewBox="0 0 24 24" width="24" height="24">
+                                                                      <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                                                                  </svg></a> <a class="star-3" href="#"><svg viewBox="0 0 24 24" width="24" height="24">
+                                                                      <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                                                                  </svg></a> <a class="star-4" href="#"><svg viewBox="0 0 24 24" width="24" height="24">
+                                                                      <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                                                                  </svg></a> <a class="star-5" href="#"><svg viewBox="0 0 24 24" width="24" height="24">
+                                                                      <path d="M21.984 9.234l-7.172-0.609-2.813-6.609-2.813 6.609-7.172 0.609 5.438 4.734-1.641 7.031 6.188-3.75 6.188 3.75-1.641-7.031zM12 15.422l-3.75 2.25 0.984-4.266-3.328-2.906 4.406-0.375 1.688-4.031 1.688 4.031 4.406 0.375-3.328 2.906 0.984 4.266z"></path>
+                                                                  </svg></a> </span>
+                                                      </div>
+                                                      <input type="text" placeholder="Name">
+                                                      <input type="email" placeholder="Email">
+                                                      <textarea cols="30" rows="10" placeholder="Review"></textarea>
+                                                      <button type="submit">Submit Now</button>
+                                                  </form>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <!--Product-body^-->
+                      </div>
+                      {% else %}
+                     {% endcase %}
+                    {% endfor %}
+                  {% endform %}
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div> 
+</div>
+
+<script>
+    // Put your applicaiton javascript here
+
+if( document.getElementById('sort_by') != null ) {
+    document.querySelector('#sort_by').addEventListener('change', function(e) {
+        var url = new URL(window.location.href);
+        url.searchParams.set('sort_by', e.currentTarget.value);
+
+        window.location = url.href;
+    }); 
+}
+
+if( document.getElementById('AddressCountryNew') != null ) {
+    document.getElementById('AddressCountryNew').addEventListener('change', function(e) {
+        var provinces = this.options[this.selectedIndex].getAttribute('data-provinces');
+        var provinceSelector = document.getElementById('AddressProvinceNew');
+        var provinceArray = JSON.parse(provinces);
+
+        //console.log(provinceArray);
+        if(provinceArray.length < 1) {
+            provinceSelector.setAttribute('disabled','disabled');
+        } else {
+            provinceSelector.removeAttribute('disabled');
+        }
+
+        provinceSelector.innerHTML = '';
+        var options = '';
+        for(var i = 0; i < provinceArray.length; i++) {
+            options += '<option value="' + provinceArray[i][0] + '">' + provinceArray[i][0] + '</option>';
+        }
+
+        provinceSelector.innerHTML = options;
+    });
+}
+
+if(document.getElementById("forgotPassword") != null) {
+    document.getElementById("forgotPassword").addEventListener("click", function(e) {
+        console.log("I clicked");
+        const element = document.querySelector("#forgot_password_form");
+        if(element.classList.contains("d-none")) {
+            element.classList.remove("d-none");
+            element.classList.add("d-block");
+        }
+    });
+}
+
+var localeItems = document.querySelectorAll("#localeItem");
+if(localeItems.length > 0) {
+    localeItems.forEach(item => {
+        item.addEventListener("click", event => {
+            document.getElementById("localeCode").value = item.getAttribute("lang");
+            document.getElementById("localization_form_tag").submit();
+        });
+    });
+}
+
+var productInfoAnchors = document.querySelectorAll("#productInfoAnchor");
+
+var productModal;
+
+if( document.getElementById('productInfoModal') != null ) {
+    productModal = new bootstrap.Modal(document.getElementById('productInfoModal'), {});
+}
+
+if(productInfoAnchors.length > 0) {
+    productInfoAnchors.forEach(item => {
+        item.addEventListener("click", event => {
+            
+            var url = '/products/' + item.getAttribute('product-handle') + '.js';
+
+            fetch(url)
+            .then((resp) => resp.json())
+            .then(function(data) {
+                console.log(data);
+
+                document.getElementById("productInfoImg").src = data.images[0];
+                document.getElementById("productInfoTitle").innerHTML = data.title;
+                document.getElementById("productInfoPrice").innerHTML = item.getAttribute('product-price');
+                document.getElementById("productInfoDescription").innerHTML = data.description;
+
+                var variants = data.variants;
+                var variantSelect = document.getElementById("modalItemID");
+
+                variantSelect.innerHTML = '';
+
+                variants.forEach(function( variant, index) {
+                    console.log(variant);
+
+                    variantSelect.options[variantSelect.options.length] = new Option(variant.option1, variant.id);
+                });
+
+                productModal.show();
+            });
+
+            
+        });
+    });
+}
+
+var modalAddToCartForm = document.querySelector("#addToCartForm");
+
+if( modalAddToCartForm != null ) {
+    modalAddToCartForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+    
+        let formData = {
+            'items': [
+                {
+                    'id': document.getElementById("modalItemID").value,
+                    'quantity': document.getElementById("modalItemQuantity").value
+                }
+            ]
+        };
+    
+        fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then((resp) => { 
+            return resp.json();
+        })
+        .then((data) => {
+            update_cart();
+        })
+        .catch((err) => {
+            console.error('Error: ' + err);
+        })
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    update_cart();
+});
+
+function update_cart() {
+    fetch('/cart.js')
+    .then((resp) => resp.json())
+    .then((data) => document.getElementById("numberOfCartItems").innerHTML = data.items.length)
+    .catch((err) => console.error(err));
+}
+
+var predictiveSearchInput = document.getElementById('searchInputField');
+var timer;
+
+var offcanvasSearch = document.getElementById('offcanvasSearchResult');
+var bsOffcanvas = new bootstrap.Offcanvas(offcanvasSearch);
+
+if(predictiveSearchInput != null) {
+    predictiveSearchInput.addEventListener('input', function(e) {
+
+        clearTimeout(timer);
+
+        if(predictiveSearchInput.value) {
+            timer = setTimeout(fetchPredictiveSearch, 3000);
+        }
+
+        
+    });
+}
+
+function fetchPredictiveSearch() {
+    fetch(`/search/suggest.json?q=${predictiveSearchInput.value}&resources[type]=product`)
+    .then(resp => resp.json())
+    .then(data => { 
+        console.log(data);
+
+        var products = data.resources.results.products;
+
+        document.getElementById('search_results_body').innerHTML = '';
+
+        products.forEach(function(product, index) {
+            document.getElementById('search_results_body').innerHTML += `
+                <div class="card" style="width: 19rem;">
+                    <img src="${product.image} class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">${product.title}</h5>
+                        <p class="card-text">$${product.price}</p>
+                    </div>
+                </div>
+            `
+        });
+        bsOffcanvas.show();
+    });
+}
+</script>
+<script>
+    $('.product-gallery-slider').slick({
+    infinite: true,
+    speed: 800,
+    autoplay: false,
+    arrows: true,
+    dots: false,
+    prevArrow: '.prv-btn',
+    nextArrow: '.nxt-btn',
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    onhover: true,
+    responsive: [{
+        breakpoint: 992,
+        settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            infinite: true,
+        }
+    },
+    {
+        breakpoint: 767,
+        settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1
+        }
+    },
+    {
+        breakpoint: 320,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+        }
+    }
+    ]
+    });
+</script>
+
+
+{% schema %}
+    {
+        "name": "Product",
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "dynamic_buttons_checkbox",
+                "label": "Enable Dynamic Buttons",
+                "default": false
+            },
+            {
+            "type": "image_picker",
+            "id": "image1",
+            "label": "Image"   
+           },  
+                
+                {
+                    "type": "text",
+                    "id": "heading1",
+                    "label": "Heading 1",
+                    "default": "Enter Text"
+                },
+                {
+                    "type": "text",
+                    "id": "desc1",
+                    "label": "desc 2",
+                    "default": "Enter Text"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Shipping Heading",   
+                    "default": "Enter Text"
+                }
+        ],
+        "blocks": [
+            {
+                "type": "shipping",
+                "name": "shipping",
+                "settings": [
+    
+               
+                   
+                 {
+                   "type": "text",
+                    "id": "heading1",
+                   "label": "Heading 1",
+                    "default": "Enter Text" 
+                 },
+                 {
+                  "type": "color",
+                  "id": "color_text_heading_1",
+                  "label": "t:settings_schema.colors.settings.colors_text.label__1",
+                  "default": "#b05d5d"
+                },
+                
+                 {
+                   "type": "text",
+                    "id": "desc1",
+                   "label": "Desc 1",
+                    "default": "Enter Text" 
+                 },
+                 {
+                  "type": "color",
+                  "id": "color_text_desc_1",
+                  "label": "t:settings_schema.colors.settings.colors_text.label__1",
+                  "default": "#b05d5d"
+               }
+    
+                  
+                ]
+            },
+            {
+              "type": "vendor",
+              "name": "Vendor",
+              "limit": 1,
+              "settings":
+                [
+                    {
+                "type": "range",
+                "id": "font_size_text_vendor",
+                "label": "t:settings_schema.typography.settings.font_size.label",
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 12
+        },
+            {
+                "type": "select",
+                "id": "font_style_text_vendor",
+                "label": "t:settings_schema.typography.settings.font_style.label",
+                "default": "normal",
+                "options": [
+                {
+                    "value": "normal",
+                    "label": "t:settings_schema.typography.settings.font_style.options__1"
+                },
+                {
+                    "value": "italic",
+                    "label": "t:settings_schema.typography.settings.font_style.options__2"
+                },
+                {
+                    "value": "oblique",
+                    "label": "t:settings_schema.typography.settings.font_style.options__3"
+                }]
+            },
+            {
+                "type": "select",
+                "id": "font_weight_text_vendor",
+                "label": "t:settings_schema.typography.settings.font_weight.label",
+                "default": "500",
+                "options": [
+                {
+                    "value": "400",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__1"
+                },
+                {
+                    "value": "500",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__2"
+                },
+                {
+                    "value": "600",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__3"
+                },
+                {
+                    "value": "700",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__4"
+                },
+                {
+                    "value": "800",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__5"
+                },
+                {
+                    "value": "900",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__6"
+                }]
+    
+            }
+                ]
+            },
+            {
+              "type": "title",
+              "name": "Title",
+              "limit": 1,
+              "settings":
+                [
+                    {
+                "type": "range",
+                "id": "font_size_text_title",
+                "label": "t:settings_schema.typography.settings.font_size.label",
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 12
+        },
+            {
+                "type": "select",
+                "id": "font_style_text_title",
+                "label": "t:settings_schema.typography.settings.font_style.label",
+                "default": "normal",
+                "options": [
+                {
+                    "value": "normal",
+                    "label": "t:settings_schema.typography.settings.font_style.options__1"
+                },
+                {
+                    "value": "italic",
+                    "label": "t:settings_schema.typography.settings.font_style.options__2"
+                },
+                {
+                    "value": "oblique",
+                    "label": "t:settings_schema.typography.settings.font_style.options__3"
+                }]
+            },
+            {
+                "type": "select",
+                "id": "font_weight_text_title",
+                "label": "t:settings_schema.typography.settings.font_weight.label",
+                "default": "500",
+                "options": [
+                {
+                    "value": "400",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__1"
+                },
+                {
+                    "value": "500",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__2"
+                },
+                {
+                    "value": "600",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__3"
+                },
+                {
+                    "value": "700",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__4"
+                },
+                {
+                    "value": "800",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__5"
+                },
+                {
+                    "value": "900",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__6"
+                }]
+    
+            }
+                ]
+            },
+        {
+              "type": "rating",
+              "name": "Rating",
+              "limit": 1,
+              "settings":
+         [
+            {
+                "type": "range",
+                "id": "font_size_text_rating",
+                "label": "t:settings_schema.typography.settings.font_size.label",
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 12
+            },
+            {
+                "type": "select",
+                "id": "font_style_text_rating",
+                "label": "t:settings_schema.typography.settings.font_style.label",
+                "default": "normal",
+                "options": [
+                {
+                    "value": "normal",
+                    "label": "t:settings_schema.typography.settings.font_style.options__1"
+                },
+                {
+                    "value": "italic",
+                    "label": "t:settings_schema.typography.settings.font_style.options__2"
+                },
+                {
+                    "value": "oblique",
+                    "label": "t:settings_schema.typography.settings.font_style.options__3"
+                }]
+            },
+            {
+                "type": "select",
+                "id": "font_weight_text_rating",
+                "label": "t:settings_schema.typography.settings.font_weight.label",
+                "default": "500",
+                "options": [
+                {
+                    "value": "400",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__1"
+                },
+                {
+                    "value": "500",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__2"
+                },
+                {
+                    "value": "600",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__3"
+                },
+                {
+                    "value": "700",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__4"
+                },
+                {
+                    "value": "800",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__5"
+                },
+                {
+                    "value": "900",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__6"
+                }]
+    
+            }
+         ]
+        },
+        {
+            "type": "availability",
+            "name": "Availability",
+            "limit": 1,
+            "settings":
+            [
+                {
+                "type": "range",
+                "id": "font_size_text_availability",
+                "label": "t:settings_schema.typography.settings.font_size.label",
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 12
+                },
+                {
+                    "type": "select",
+                    "id": "font_style_text_availability",
+                    "label": "t:settings_schema.typography.settings.font_style.label",
+                    "default": "normal",
+                    "options": [
+                    {
+                        "value": "normal",
+                        "label": "t:settings_schema.typography.settings.font_style.options__1"
+                    },
+                    {
+                        "value": "italic",
+                        "label": "t:settings_schema.typography.settings.font_style.options__2"
+                    },
+                    {
+                        "value": "oblique",
+                        "label": "t:settings_schema.typography.settings.font_style.options__3"
+                    }]
+                },
+                {
+                    "type": "select",
+                    "id": "font_weight_text_availability",
+                    "label": "t:settings_schema.typography.settings.font_weight.label",
+                    "default": "500",
+                    "options": [
+                    {
+                        "value": "400",
+                        "label": "t:settings_schema.typography.settings.font_weight.options__1"
+                    },
+                    {
+                        "value": "500",
+                        "label": "t:settings_schema.typography.settings.font_weight.options__2"
+                    },
+                    {
+                        "value": "600",
+                        "label": "t:settings_schema.typography.settings.font_weight.options__3"
+                    },
+                    {
+                        "value": "700",
+                        "label": "t:settings_schema.typography.settings.font_weight.options__4"
+                    },
+                    {
+                        "value": "800",
+                        "label": "t:settings_schema.typography.settings.font_weight.options__5"
+                    },
+                    {
+                        "value": "900",
+                        "label": "t:settings_schema.typography.settings.font_weight.options__6"
+                    }]
+
+                }
+            ]
+        },
+        {
+            "type": "sku",
+            "name": "Sku",
+            "limit": 1,
+            "settings":
+            [
+                {
+                    "type": "range",
+                    "id": "font_size_text_sku",
+                    "label": "t:settings_schema.typography.settings.font_size.label",
+                    "min": 0,
+                    "max": 50,
+                    "step": 1,
+                    "unit": "t:sections.layout.mg_desktop.unit",
+                    "default": 12
+                },
+                {
+                    "type": "select",
+                    "id": "font_style_text_sku",
+                    "label": "t:settings_schema.typography.settings.font_style.label",
+                    "default": "normal",
+                    "options": [
+                    {
+                        "value": "normal",
+                        "label": "t:settings_schema.typography.settings.font_style.options__1"
+                    },
+                    {
+                        "value": "italic",
+                        "label": "t:settings_schema.typography.settings.font_style.options__2"
+                    },
+                    {
+                        "value": "oblique",
+                        "label": "t:settings_schema.typography.settings.font_style.options__3"
+                    }]
+                },
+                {
+                    "type": "select",
+                    "id": "font_weight_text_sku",
+                    "label": "t:settings_schema.typography.settings.font_weight.label",
+                    "default": "500",
+                    "options": [
+                    {
+                        "value": "400",
+                        "label": "t:settings_schema.typography.settings.font_weight.options__1"
+                    },
+                    {
+                        "value": "500",
+                        "label": "t:settings_schema.typography.settings.font_weight.options__2"
+                    },
+                    {
+                        "value": "600",
+                        "label": "t:settings_schema.typography.settings.font_weight.options__3"
+                    },
+                    {
+                        "value": "700",
+                        "label": "t:settings_schema.typography.settings.font_weight.options__4"
+                    },
+                    {
+                        "value": "800",
+                        "label": "t:settings_schema.typography.settings.font_weight.options__5"
+                    },
+                    {
+                        "value": "900",
+                        "label": "t:settings_schema.typography.settings.font_weight.options__6"
+                    }]
+
+                }
+            ]
+        },
+            {
+              "type": "price",
+              "name": "Price",
+              "limit": 1,
+              "settings":
+                [
+        {
+                "type": "range",
+                "id": "font_size_text_price",
+                "label": "t:settings_schema.typography.settings.font_size.label",
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text_price",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_price",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+                ]
+            
+            },
+            
+               
+                
+            {
+              "type": "variant_picker",
+              "name": "variant_picker",  
+              "limit": 1,
+              "settings":
+                [
+        {
+                "type": "range",
+                "id": "font_size_text_variant_selector",
+                "label": "t:settings_schema.typography.settings.font_size.label",
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text_variant_selector",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_variant_selector",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+                ]
+            },
+            {
+              "type": "quantity_selector",
+              "name": "Quantity_selector",
+              "limit": 1,
+              "settings":
+                [
+        {
+                "type": "range",
+                "id": "font_size_text_quantity",
+                "label": "t:settings_schema.typography.settings.font_size.label",
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text_quantity",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_quantity",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+                ]
+            },
+            {
+              "type": "buy_buttons",
+              "name": "buy_buttons",
+              "limit": 1,
+              "settings":
+                [
+        {
+            "type": "range",
+            "id": "font_size_text_checkout_buttons",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text_checkout_buttons",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_checkout_buttons",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+
+        }
+                ]
+            },
+            {
+              "type": "description",
+              "name": "Description",
+              "limit": 1,
+              "settings":
+                [
+            {
+                "type": "range",
+                "id": "font_size_text_description",
+                "label": "t:settings_schema.typography.settings.font_size.label",
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 12
+            },
+            {
+                "type": "select",
+                "id": "font_style_text_description",
+                "label": "t:settings_schema.typography.settings.font_style.label",
+                "default": "normal",
+                "options": [
+                {
+                    "value": "normal",
+                    "label": "t:settings_schema.typography.settings.font_style.options__1"
+                },
+                {
+                    "value": "italic",
+                    "label": "t:settings_schema.typography.settings.font_style.options__2"
+                },
+                {
+                    "value": "oblique",
+                    "label": "t:settings_schema.typography.settings.font_style.options__3"
+                }]
+            },
+            {
+                "type": "select",
+                "id": "font_weight_text_description",
+                "label": "t:settings_schema.typography.settings.font_weight.label",
+                "default": "500",
+                "options": [
+                {
+                    "value": "400",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__1"
+                },
+                {
+                    "value": "500",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__2"
+                },
+                {
+                    "value": "600",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__3"
+                },
+                {
+                    "value": "700",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__4"
+                },
+                {
+                    "value": "800",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__5"
+                },
+                {
+                    "value": "900",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__6"
+                }]
+    
+            }
+                ]
+            }
+        ]
+    }
+    {% endschema %}

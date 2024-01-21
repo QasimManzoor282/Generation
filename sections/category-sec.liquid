@@ -1,0 +1,209 @@
+<style>
+   .category-wrapper .sec-tl span {
+    color: {{ section.settings.color_text }};
+    font-size: {{ section.settings.font_size_text | append: 'px !important' }};
+    font-style: {{ section.settings.font_style_text }};
+     font-weight: {{ section.settings.font_weight_text }};
+}
+
+   .category-wrapper .sec-tl h2 { 
+    color: {{ section.settings.color_text }};
+    font-size: {{ section.settings.font_size_text_heading_2 | append: 'px !important' }};
+    font-style: {{ section.settings.font_style_text_heading_2 }};
+    font-weight: {{ section.settings.font_weight_text_heading_2 }};  
+}
+</style>
+<section>
+    <div class="category-wrapper">
+        <div class="container">
+            <div class="sec-tl">
+                <span>{{ section.settings.heading1 }}</span>
+                <h2>{{ section.settings.heading2 }}</h2>
+            </div>
+            <div class="category-inner-wrapper"> 
+                <div class="row">
+                    {% for collection in section.settings.selected_collections %}
+                    <div class="col-lg-2 col-md-4 col-sm-4">
+                        <div class="category-box">
+                            <figure>
+                                                {% if collection.image %}
+                                                    <img src="{{ collection | img_url: '450x450' }}" alt="{{ collection.image.alt }}" />
+                                                    {% else %}
+                                                   <img src="{{ collection.products.first | img_url: '450x450' }}" alt="{{ collection.title | escape  }}" />
+                                                {% endif %}
+                                            </figure>
+                            <div class="category-type">
+                                <h4><a href="#">{{ collection.title }}</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                   {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+   "name": "t:sections.category-sec.name",
+   "settings": [
+
+   {
+          "type": "header",
+          "content": "t:sections.category-sec.Heading-1"
+        },
+    {
+             "type": "text",
+             "id": "heading1",
+             "label": "Heading-1-Text",
+             "default": "Enter Text"
+         }, 
+         
+         {
+            "type": "color",
+            "id": "color_text",
+            "label": "t:settings_schema.colors.settings.colors_text.label__1",
+            "default": "#b05d5d"
+        },
+        {
+            "type": "range",
+            "id": "font_size_text",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+        {
+          "type": "header",
+          "content": "t:sections.category-sec.Heading-2"
+        },
+         {
+             "type": "text",
+             "id": "heading2",
+             "label": "Heading-2-Text",
+             "default": "Enter Text"
+         },
+         {
+            "type": "range",
+            "id": "font_size_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_size.label",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "t:sections.layout.mg_desktop.unit",
+            "default": 12
+        },
+        {
+            "type": "select",
+            "id": "font_style_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_style.label",
+            "default": "normal",
+            "options": [
+            {
+                "value": "normal",
+                "label": "t:settings_schema.typography.settings.font_style.options__1"
+            },
+            {
+                "value": "italic",
+                "label": "t:settings_schema.typography.settings.font_style.options__2"
+            },
+            {
+                "value": "oblique",
+                "label": "t:settings_schema.typography.settings.font_style.options__3"
+            }]
+        },
+        {
+            "type": "select",
+            "id": "font_weight_text_heading_2",
+            "label": "t:settings_schema.typography.settings.font_weight.label",
+            "default": "500",
+            "options": [
+            {
+                "value": "400",
+                "label": "t:settings_schema.typography.settings.font_weight.options__1"
+            },
+            {
+                "value": "500",
+                "label": "t:settings_schema.typography.settings.font_weight.options__2"
+            },
+            {
+                "value": "600",
+                "label": "t:settings_schema.typography.settings.font_weight.options__3"
+            },
+            {
+                "value": "700",
+                "label": "t:settings_schema.typography.settings.font_weight.options__4"
+            },
+            {
+                "value": "800",
+                "label": "t:settings_schema.typography.settings.font_weight.options__5"
+            },
+            {
+                "value": "900",
+                "label": "t:settings_schema.typography.settings.font_weight.options__6"
+            }]
+        },
+        {
+                "type": "collection_list",
+                "label": "Select Collections",
+                "id": "selected_collections",  
+                "limit": 6,
+                "info": "Choose collections to display."
+            }
+            
+   ]
+}
+{% endschema %}

@@ -1,0 +1,319 @@
+<style>
+.category-wrapper .sec-tl h2 {
+    color: {{ section.settings.color_text }};
+    font-size: {{ section.settings.font_size_text_1 | append: 'px !important' }};
+    font-style: {{ section.settings.font_style_text }};
+    font-weight: {{ section.settings.font_weight_text }};  
+}
+.category-preview-content h4 {
+    color: {{ section.settings.color_text2 }};
+    font-size: {{ section.settings.font_size_text_2 | append: 'px !important' }};
+    font-style: {{ section.settings.font_style_text2 }};
+     font-weight: {{ section.settings.font_weight_text2 }};
+}
+.category-preview-content span {
+    color: {{ section.settings.color_text3 }};
+    font-size: {{ section.settings.font_size_text_3 | append: 'px !important' }};
+    font-style: {{ section.settings.font_style_text3 }};
+    font-weight: {{ section.settings.font_weight_text3}};  
+}
+</style>
+
+<section>
+    <div class="category-wrapper style-two">
+        <div class="container">
+            <div class="category-inner-wrapper">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="sec-tl">
+                            <h2>{{ section.settings.heading1 }}</h2>
+                        </div>
+                        <div class="row">
+                            {% for collection in section.settings.selected_collections %}
+                                <div class="col-lg-4">
+                                  
+                                        <div class="category-box">
+                                            <figure>
+                                                {% if collection.image %}
+                                                    <img src="{{ collection | img_url: '450x450' }}" alt="{{ collection.image.alt }}" />
+                                                    {% else %}
+                                                   <img src="{{ collection.products.first | img_url: '450x450' }}" alt="{{ collection.title | escape  }}" />
+                                                {% endif %}
+                                            </figure>
+                                            <div class="category-type">
+                                                <h4><a href="#">{{ collection.title }}</a></h4>
+                                            </div>
+                                        </div>
+                                
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!--end-category-row-->
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="category-preview">
+                            {% if section.settings.image1 != blank -%}
+                                <img src="{{ section.settings.image1 | img_url: 'large' }}" alt="Your Alt Text">
+                            {%- endif %}
+                            <div class="category-preview-content">
+                                <h4>{{ section.settings.heading2 }}</h4>
+                                <div class="category-span">
+                                    <span>{{ section.settings.heading3 }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+       "name": "t:sections.category.name",
+       "settings": [
+    
+            {
+              "type": "header",
+              "content": "t:sections.category.Heading-1"
+            },
+        {
+                 "type": "text",
+                 "id": "heading1",
+                 "label": "t:sections.category.category_image.settings.content.label__1",
+                 "default": "SHOP BY SALE"
+             }, 
+             
+             {
+                "type": "color",
+                "id": "color_text",
+                "label": "t:settings_schema.colors.settings.colors_text.label__1",
+                "default": "#b05d5d"
+            },
+            {
+                "type": "range",
+                "id": "font_size_text_1",
+                "label": "t:sections.category.blocks.category.settings.text.font_size_heading_1",
+                "min": 0,
+                "max": 70,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 12
+            },
+            {
+                "type": "select",
+                "id": "font_style_text",
+                "label": "t:settings_schema.typography.settings.font_style.label",
+                "default": "normal",
+                "options": [
+                {
+                    "value": "normal",
+                    "label": "t:settings_schema.typography.settings.font_style.options__1"
+                },
+                {
+                    "value": "italic",
+                    "label": "t:settings_schema.typography.settings.font_style.options__2"
+                },
+                {
+                    "value": "oblique",
+                    "label": "t:settings_schema.typography.settings.font_style.options__3"
+                }]
+            },
+            {
+                "type": "select",
+                "id": "font_weight_text",
+                "label": "t:settings_schema.typography.settings.font_weight.label",
+                "default": "500",
+                "options": [
+                {
+                    "value": "400",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__1"
+                },
+                {
+                    "value": "500",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__2"
+                },
+                {
+                    "value": "600",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__3"
+                },
+                {
+                    "value": "700",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__4"
+                },
+                {
+                    "value": "800",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__5"
+                },
+                {
+                    "value": "900",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__6"
+                }]
+            },
+            {
+              "type": "header",
+              "content": "t:sections.category.Heading-2"
+            },
+             {
+                 "type": "text",
+                 "id": "heading2",
+                 "label": "t:sections.category.blocks.category.settings.text.font_size_heading_2",
+                 "default": "50% Off"
+             },
+             {
+                "type": "color",
+                "id": "color_text2",
+                "label": "t:settings_schema.colors.settings.colors_text.label__8",
+                "default": "#b05d5d"
+            },
+             {
+                "type": "range",
+                "id": "font_size_text_2",
+                "label":"t:sections.category.blocks.category.settings.text.font_size_heading_2",
+                "min": 0,
+                "max": 70,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 12
+            },
+            {
+                "type": "select",
+                "id": "font_style_text2",
+                "label": "t:settings_schema.typography.settings.font_style.label",
+                "default": "normal",
+                "options": [
+                {
+                    "value": "normal",
+                    "label": "t:settings_schema.typography.settings.font_style.options__1"
+                },
+                {
+                    "value": "italic",
+                    "label": "t:settings_schema.typography.settings.font_style.options__2"
+                },
+                {
+                    "value": "oblique",
+                    "label": "t:settings_schema.typography.settings.font_style.options__3"
+                }]
+            },
+            {
+                "type": "select",
+                "id": "font_weight_text2",
+                "label": "t:settings_schema.typography.settings.font_weight.label_2",
+                "default": "500",
+                "options": [
+                {
+                    "value": "400",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__1"
+                },
+                {
+                    "value": "500",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__2"
+                },
+                {
+                    "value": "600",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__3"
+                },
+                {
+                    "value": "700",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__4"
+                },
+                {
+                    "value": "800",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__5"
+                },
+                {
+                    "value": "900",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__6"
+                }]
+            },
+            {
+              "type": "header",
+              "content": "t:sections.category.Heading-3"
+            },
+            {
+                 "type": "text",
+                 "id": "heading3",
+                 "label": "t:sections.category.category_image.settings.content.label__3",
+                 "default": "Use Code: THR23"
+             }, {
+                "type": "color",
+                "id": "color_text3",
+                "label": "t:settings_schema.colors.settings.colors_text.label__8",
+                "default": "#b05d5d"
+            },
+            {
+                "type": "range",
+                "id": "font_size_text_3",
+                "label":"t:sections.category.blocks.category.settings.text.font_size_heading_3",
+                "min": 0,
+                "max": 70,
+                "step": 1,
+                "unit": "t:sections.layout.mg_desktop.unit",
+                "default": 12
+            },
+            {
+                "type": "select",
+                "id": "font_style_text3",
+                "label": "t:settings_schema.typography.settings.font_style.label",
+                "default": "normal",
+                "options": [
+                {
+                    "value": "normal",
+                    "label": "t:settings_schema.typography.settings.font_style.options__1"
+                },
+                {
+                    "value": "italic",
+                    "label": "t:settings_schema.typography.settings.font_style.options__2"
+                },
+                {
+                    "value": "oblique",
+                    "label": "t:settings_schema.typography.settings.font_style.options__3"
+                }]
+            },
+            {
+                "type": "select",
+                "id": "font_weight_text3",
+                "label": "t:settings_schema.typography.settings.font_weight.label_3",
+                "default": "500",
+                "options": [
+                {
+                    "value": "400",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__1"
+                },
+                {
+                    "value": "500",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__2"
+                },
+                {
+                    "value": "600",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__3"
+                },
+                {
+                    "value": "700",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__4"
+                },
+                {
+                    "value": "800",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__5"
+                },
+                {
+                    "value": "900",
+                    "label": "t:settings_schema.typography.settings.font_weight.options__6"
+                }]
+            },
+             {
+                        "type": "image_picker",
+                        "id": "image1",
+                        "label": "t:sections.category.category_image.settings.content.label__4"
+             },
+            {
+                "type": "collection_list",
+                "label": "Select Collections",
+                "id": "selected_collections",
+                "limit": 6,
+                "info": "Choose collections to display."
+            }
+                
+       ]
+    }
+    {% endschema %}
